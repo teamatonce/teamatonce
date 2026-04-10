@@ -1,6 +1,6 @@
 -- =====================================================
 -- Deskive Database Schema - Initial Migration
--- Auto-generated from Fluxez schema.ts
+-- Auto-generated from schema.ts
 -- Generated: 2026-04-09T21:25:58.352Z
 -- Tables: 59
 -- =====================================================

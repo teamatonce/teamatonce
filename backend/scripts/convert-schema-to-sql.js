@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Converts Fluxez schema.ts format to raw PostgreSQL SQL migration.
+ * Converts database schema.ts format to raw PostgreSQL SQL migration.
  * Run: node scripts/convert-schema-to-sql.js
  * Output: migrations/001_initial.sql
  */
@@ -107,7 +107,7 @@ function generateCreateTable(tableName, tableDef) {
 const outputLines = [];
 outputLines.push('-- =====================================================');
 outputLines.push('-- Deskive Database Schema - Initial Migration');
-outputLines.push('-- Auto-generated from Fluxez schema.ts');
+outputLines.push('-- Auto-generated from database schema.ts');
 outputLines.push(`-- Generated: ${new Date().toISOString()}`);
 outputLines.push(`-- Tables: ${Object.keys(schema).length}`);
 outputLines.push('-- =====================================================');
