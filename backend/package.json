@@ -63,7 +63,7 @@
     "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
     "bottleneck": "^2.19.5",
-    "bullmq": "^5.67.2",
+    "bullmq": "^5.73.3",
     "cheerio": "^1.2.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
