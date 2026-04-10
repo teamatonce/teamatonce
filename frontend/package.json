@@ -52,7 +52,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "dompurify": "^3.3.1",
-    "framer-motion": "^12.23.12",
+    "framer-motion": "^12.38.0",
     "i18next": "^25.7.4",
     "i18next-browser-languagedetector": "^8.2.0",
     "jodit-react": "^5.2.25",
