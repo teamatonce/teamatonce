@@ -2,13 +2,43 @@ import { Injectable, OnModuleInit, OnModuleDestroy, Logger } from '@nestjs/commo
 import { ConfigService } from '@nestjs/config';
 import { Pool, QueryResult } from 'pg';
 import { QueryBuilder } from './query-builder';
+import {
+  AuthConfig,
+  getAuthConfig,
+  registerUser,
+  loginUser,
+  refreshSessionFn,
+  requestPasswordResetFn,
+  resetPasswordFn,
+  changePasswordFn,
+  verifyEmailFn,
+  updateUserFn,
+  deleteUserFn,
+  banUserFn,
+  unbanUserFn,
+} from './auth-helpers';
+import {
+  StorageConfig,
+  getStorageConfig,
+  uploadFileFn,
+  downloadFileFn,
+  deleteFileFn,
+  getPublicUrlFn,
+  createSignedUrlFn,
+} from './storage-helpers';
+import { EmailConfig, getEmailConfig, sendEmailFn } from './email-helpers';
 
 @Injectable()
 export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(DatabaseService.name);
   private pool: Pool;
+  private authConfig!: AuthConfig;
+  private storageConfig!: StorageConfig;
+  private emailConfig!: EmailConfig;
 
   constructor(private configService: ConfigService) {}
+
+  private cfg = (key: string, fallback?: any): any => this.configService.get(key, fallback);
 
   async onModuleInit() {
     this.pool = new Pool({
@@ -30,6 +60,11 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
       this.logger.error('Failed to connect to PostgreSQL', error.message);
       throw error;
     }
+
+    // Initialize service configs (auth, storage, email)
+    this.authConfig = getAuthConfig(this.cfg);
+    this.storageConfig = getStorageConfig(this.cfg);
+    this.emailConfig = getEmailConfig(this.cfg);
   }
 
   async onModuleDestroy() {
@@ -258,38 +293,36 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   // can be migrated incrementally without breaking compilation.
   // ============================================
 
+  // ============================================
+  // Storage (S3-compatible: AWS S3, Cloudflare R2, MinIO, etc.)
+  // ============================================
   async uploadFile(bucket: string, fileBuffer: Buffer, path: string, options?: any): Promise<any> {
-    this.logger.warn(`uploadFile called - migrate to StorageService. bucket=${bucket} path=${path}`);
-    return { path, url: `/${bucket}/${path}` };
+    return uploadFileFn(this.storageConfig, bucket, fileBuffer, path, options);
   }
 
   async downloadFile(bucket: string, path: string): Promise<Buffer> {
-    this.logger.warn(`downloadFile called - migrate to StorageService. bucket=${bucket} path=${path}`);
-    return Buffer.from('');
+    return downloadFileFn(this.storageConfig, bucket, path);
   }
 
   async deleteFileFromStorage(bucket: string, path: string): Promise<void> {
-    this.logger.warn(`deleteFileFromStorage called - migrate to StorageService. bucket=${bucket} path=${path}`);
+    return deleteFileFn(this.storageConfig, bucket, path);
   }
 
   getPublicUrl(bucket: string, path: string): any {
-    this.logger.warn(`getPublicUrl called - migrate to StorageService. bucket=${bucket} path=${path}`);
-    const url = `/${bucket}/${path}`;
+    const url = getPublicUrlFn(this.storageConfig, bucket, path);
     return Object.assign(new String(url), { publicUrl: url, url });
   }
 
   async createSignedUrl(bucket: string, path: string, expiresIn?: number): Promise<string> {
-    this.logger.warn(`createSignedUrl called - migrate to StorageService. bucket=${bucket} path=${path}`);
-    return `/${bucket}/${path}`;
+    return createSignedUrlFn(this.storageConfig, bucket, path, expiresIn);
   }
 
   async createSignedUrlByKey(key: string, expiresIn?: number): Promise<string> {
-    this.logger.warn(`createSignedUrlByKey called - migrate to StorageService. key=${key}`);
-    return `/${key}`;
+    return createSignedUrlFn(this.storageConfig, '', key, expiresIn);
   }
 
   async deleteByKey(key: string): Promise<void> {
-    this.logger.warn(`deleteByKey called - migrate to StorageService. key=${key}`);
+    return deleteFileFn(this.storageConfig, '', key);
   }
 
   async generateImage(...args: any[]): Promise<any> {
@@ -302,8 +335,7 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   }
 
   async sendEmail(to: string | string[], subject: string, html: string, text?: string, options?: any): Promise<any> {
-    this.logger.warn(`sendEmail called - migrate to EmailService. to=${to} subject=${subject}`);
-    return { success: false, message: 'Email service not configured - implement EmailService' };
+    return sendEmailFn(this.emailConfig, to, subject, html, text, options);
   }
 
   async sendPushNotification(to: string, title: string, body: string, data?: any): Promise<any> {
@@ -316,19 +348,61 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   }
 
   // ============================================
-  // Auth/AI/Search stubs (TODO: migrate to dedicated services)
+  // Auth (real Postgres + bcryptjs + JWT - see auth-helpers.ts)
   // ============================================
-  async signUp(...args: any[]): Promise<any> { this.logger.warn('signUp called - implement AuthService'); return { user: null, accessToken: null, refreshToken: null }; }
-  async signIn(...args: any[]): Promise<any> { this.logger.warn('signIn called - implement AuthService'); return { user: null, accessToken: null, refreshToken: null }; }
-  async refreshSession(...args: any[]): Promise<any> { this.logger.warn('refreshSession called - implement AuthService'); return { accessToken: null, refreshToken: null }; }
-  async resetPasswordForEmail(...args: any[]): Promise<any> { this.logger.warn('resetPasswordForEmail called'); return { success: false }; }
-  async resetPassword(...args: any[]): Promise<any> { this.logger.warn('resetPassword called'); return { success: false }; }
-  async updateUser(...args: any[]): Promise<any> { this.logger.warn('updateUser called - implement AuthService'); return null; }
-  async updateUserMetadata(...args: any[]): Promise<any> { this.logger.warn('updateUserMetadata called'); return null; }
-  async changeUserPassword(...args: any[]): Promise<any> { this.logger.warn('changeUserPassword called'); return { success: false }; }
-  async banUser(...args: any[]): Promise<any> { this.logger.warn('banUser called'); return { success: false }; }
-  async unbanUser(...args: any[]): Promise<any> { this.logger.warn('unbanUser called'); return { success: false }; }
-  async deleteUser(...args: any[]): Promise<any> { this.logger.warn('deleteUser called'); return { success: false }; }
+  async signUp(emailOrData: any, password?: string, name?: string, metadata?: any, role?: string): Promise<any> {
+    const data = typeof emailOrData === 'object'
+      ? emailOrData
+      : { email: emailOrData, password, name, metadata: { ...(metadata || {}), ...(role ? { role } : {}) } };
+    return registerUser(this.pool, this.authConfig, data);
+  }
+
+  async signIn(emailOrData: any, password?: string): Promise<any> {
+    const email = typeof emailOrData === 'object' ? emailOrData.email : emailOrData;
+    const pwd = typeof emailOrData === 'object' ? emailOrData.password : password;
+    return loginUser(this.pool, this.authConfig, email, pwd!);
+  }
+
+  async refreshSession(refreshToken: string): Promise<any> {
+    return refreshSessionFn(this.pool, this.authConfig, refreshToken);
+  }
+
+  async resetPasswordForEmail(email: string, _frontendUrl?: string): Promise<any> {
+    const result = await requestPasswordResetFn(this.pool, email);
+    return { success: true, ...result };
+  }
+
+  async resetPassword(tokenOrData: string | { token: string; newPassword?: string; password?: string }, newPassword?: string): Promise<any> {
+    // Support both: resetPassword(token, newPassword) and resetPassword({token, newPassword})
+    if (typeof tokenOrData === 'object') {
+      return resetPasswordFn(this.pool, this.authConfig, tokenOrData.token, (tokenOrData.newPassword || tokenOrData.password)!);
+    }
+    return resetPasswordFn(this.pool, this.authConfig, tokenOrData, newPassword!);
+  }
+
+  async updateUser(userId: string, updates: Record<string, any>): Promise<any> {
+    return updateUserFn(this.pool, userId, updates);
+  }
+
+  async updateUserMetadata(userId: string, metadata: Record<string, any>): Promise<any> {
+    return updateUserFn(this.pool, userId, { metadata, user_metadata: metadata });
+  }
+
+  async changeUserPassword(userId: string, currentPassword: string, newPassword: string): Promise<any> {
+    return changePasswordFn(this.pool, this.authConfig, userId, currentPassword, newPassword);
+  }
+
+  async banUser(userId: string, reason?: string): Promise<any> {
+    return banUserFn(this.pool, userId, reason);
+  }
+
+  async unbanUser(userId: string): Promise<any> {
+    return unbanUserFn(this.pool, userId);
+  }
+
+  async deleteUser(userId: string): Promise<any> {
+    return deleteUserFn(this.pool, userId);
+  }
   getAI(...args: any[]): any { this.logger.warn('getAI called - implement AIService'); return { generateText: async () => ({ text: '' }) }; }
   async generateText(...args: any[]): Promise<any> { this.logger.warn('generateText called - implement AIService'); return { text: '' }; }
   async hybridSearch(...args: any[]): Promise<any> { this.logger.warn('hybridSearch called'); return this.wrapResult([]); }
@@ -336,21 +410,30 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   get users(): any { this.logger.warn('db.users called - implement UserService'); return { list: async () => this.wrapResult([]), get: async () => null }; }
   get dbVideoService(): any { this.logger.warn('db.dbVideoService called'); return { createRoom: async () => null, getRoom: async () => null, deleteRoom: async () => null }; }
 
-  // Compatibility stubs for old fluxez SDK methods - all log warnings, none throw
-  // These let the codebase compile while individual services are migrated.
-  // Return type is `any` so legacy call patterns typecheck without enumerating shapes.
+  // Legacy SDK shape: db.auth.{register,signIn,...}. Delegates to the real
+  // Postgres-backed implementations defined above.
   get auth(): any {
-    const log = (method: string) => this.logger.warn(`db.auth.${method} called - implement custom AuthService`);
     return {
-      register: async (data: any) => { log('register'); return { user: null, accessToken: null, refreshToken: null }; },
-      refreshToken: async (token: string) => { log('refreshToken'); return { accessToken: null, refreshToken: null }; },
-      verifyEmail: async (token: string) => { log('verifyEmail'); return { success: false }; },
-      requestPasswordReset: async (email: string, url: string) => { log('requestPasswordReset'); return { success: false }; },
-      resetPassword: async (data: any) => { log('resetPassword'); return { success: false }; },
-      changePassword: async (data: any) => { log('changePassword'); return { success: false }; },
-      resendEmailVerification: async (email: string) => { log('resendEmailVerification'); return { success: false }; },
-      getOAuthUrl: async (provider: string, redirect: string) => { log('getOAuthUrl'); return { url: '' }; },
-      deleteUser: async (userId: string) => { log('deleteUser'); return { success: false }; },
+      register: (data: any) => this.signUp(data),
+      signIn: (data: any) => this.signIn(data),
+      refreshToken: (token: string) => this.refreshSession(token),
+      verifyEmail: (token: string) => verifyEmailFn(this.pool, token),
+      requestPasswordReset: (email: string, _url?: string) => this.resetPasswordForEmail(email),
+      resetPassword: (data: any) => this.resetPassword(data.token, data.password || data.newPassword),
+      changePassword: (data: any) => this.changeUserPassword(data.userId, data.currentPassword, data.newPassword),
+      resendEmailVerification: async (email: string) => {
+        const r = await this.pool.query(
+          `UPDATE "users" SET "email_verification_token" = encode(gen_random_bytes(32), 'hex')
+           WHERE "email" = $1 AND "email_verified" = false RETURNING email_verification_token`,
+          [email.toLowerCase()],
+        );
+        return { success: r.rowCount! > 0, token: r.rows[0]?.email_verification_token };
+      },
+      getOAuthUrl: async (provider: string, _redirect: string) => {
+        this.logger.warn(`db.auth.getOAuthUrl(${provider}) - OAuth providers not configured. See MIGRATION.md.`);
+        return { url: '' };
+      },
+      deleteUser: (userId: string) => this.deleteUser(userId),
     };
   }
 
@@ -371,12 +454,14 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
       query: queryShim,
       auth: this.auth,
       email: {
-        send: async (...args: any[]) => { log('email.send'); return { success: false }; },
+        send: (to: any, subject: string, html: string, text?: string, opts?: any) =>
+          this.sendEmail(to, subject, html, text, opts),
       },
       storage: {
-        upload: async (...args: any[]) => { log('storage.upload'); return { path: '', url: '' }; },
-        download: async (...args: any[]) => { log('storage.download'); return Buffer.from(''); },
-        delete: async (...args: any[]) => { log('storage.delete'); },
+        upload: (bucket: string, buf: Buffer, path: string, opts?: any) =>
+          this.uploadFile(bucket, buf, path, opts),
+        download: (bucket: string, path: string) => this.downloadFile(bucket, path),
+        delete: (bucket: string, path: string) => this.deleteFileFromStorage(bucket, path),
       },
       ai: {
         transcribeAudio: async (...args: any[]) => { log('ai.transcribeAudio'); return { text: '' }; },
