@@ -60,7 +60,7 @@
     "@types/pg": "^8.20.0",
     "@types/puppeteer": "^5.4.7",
     "@types/uuid": "^10.0.0",
-    "axios": "^1.12.2",
+    "axios": "^1.15.0",
     "bcryptjs": "^3.0.2",
     "bottleneck": "^2.19.5",
     "bullmq": "^5.67.2",
