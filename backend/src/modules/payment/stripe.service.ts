@@ -10,7 +10,7 @@ import Stripe from 'stripe';
  */
 @Injectable()
 export class StripeService {
-  private stripe: Stripe;
+  private stripe: any;
 
   constructor(private configService: ConfigService) {
     const secretKey = this.configService.get<string>('STRIPE_SECRET_KEY');
@@ -30,7 +30,7 @@ export class StripeService {
   /**
    * Get Stripe client instance
    */
-  getClient(): Stripe {
+  getClient(): any {
     return this.stripe;
   }
 
@@ -45,7 +45,7 @@ export class StripeService {
     email: string,
     userId: string,
     metadata?: Record<string, string>
-  ): Promise<Stripe.Customer> {
+  ): Promise<any> {
     try {
       // Try to find existing customer by email
       const existingCustomers = await this.stripe.customers.list({
@@ -74,7 +74,7 @@ export class StripeService {
   /**
    * Get customer by ID
    */
-  async getCustomer(customerId: string): Promise<Stripe.Customer> {
+  async getCustomer(customerId: string): Promise<any> {
     try {
       const customer = await this.stripe.customers.retrieve(customerId);
 
@@ -82,7 +82,7 @@ export class StripeService {
         throw new NotFoundException('Customer not found');
       }
 
-      return customer as Stripe.Customer;
+      return customer as any;
     } catch (error) {
       console.error('[StripeService] Error retrieving customer:', error);
       throw new NotFoundException('Customer not found');
@@ -94,8 +94,8 @@ export class StripeService {
    */
   async updateCustomer(
     customerId: string,
-    data: Stripe.CustomerUpdateParams
-  ): Promise<Stripe.Customer> {
+    data: any
+  ): Promise<any> {
     try {
       return await this.stripe.customers.update(customerId, data);
     } catch (error) {
@@ -116,9 +116,9 @@ export class StripeService {
     priceId: string,
     paymentMethodId?: string,
     metadata?: Record<string, string>
-  ): Promise<Stripe.Subscription> {
+  ): Promise<any> {
     try {
-      const subscriptionData: Stripe.SubscriptionCreateParams = {
+      const subscriptionData: any = {
         customer: customerId,
         items: [{ price: priceId }],
         payment_behavior: 'default_incomplete',
@@ -154,7 +154,7 @@ export class StripeService {
   /**
    * Get subscription
    */
-  async getSubscription(subscriptionId: string): Promise<Stripe.Subscription> {
+  async getSubscription(subscriptionId: string): Promise<any> {
     try {
       return await this.stripe.subscriptions.retrieve(subscriptionId, {
         expand: ['default_payment_method', 'latest_invoice'],
@@ -172,7 +172,7 @@ export class StripeService {
     subscriptionId: string,
     newPriceId: string,
     prorate: boolean = true
-  ): Promise<Stripe.Subscription> {
+  ): Promise<any> {
     try {
       const subscription = await this.getSubscription(subscriptionId);
 
@@ -197,7 +197,7 @@ export class StripeService {
   async cancelSubscription(
     subscriptionId: string,
     immediate: boolean = false
-  ): Promise<Stripe.Subscription> {
+  ): Promise<any> {
     try {
       if (immediate) {
         return await this.stripe.subscriptions.cancel(subscriptionId);
@@ -216,7 +216,7 @@ export class StripeService {
   /**
    * Resume subscription (remove cancel_at_period_end)
    */
-  async resumeSubscription(subscriptionId: string): Promise<Stripe.Subscription> {
+  async resumeSubscription(subscriptionId: string): Promise<any> {
     try {
       return await this.stripe.subscriptions.update(subscriptionId, {
         cancel_at_period_end: false,
@@ -230,7 +230,7 @@ export class StripeService {
   /**
    * List customer subscriptions
    */
-  async listCustomerSubscriptions(customerId: string): Promise<Stripe.Subscription[]> {
+  async listCustomerSubscriptions(customerId: string): Promise<any[]> {
     try {
       const subscriptions = await this.stripe.subscriptions.list({
         customer: customerId,
@@ -255,7 +255,7 @@ export class StripeService {
   async attachPaymentMethod(
     paymentMethodId: string,
     customerId: string
-  ): Promise<Stripe.PaymentMethod> {
+  ): Promise<any> {
     try {
       return await this.stripe.paymentMethods.attach(paymentMethodId, {
         customer: customerId,
@@ -269,7 +269,7 @@ export class StripeService {
   /**
    * Detach payment method
    */
-  async detachPaymentMethod(paymentMethodId: string): Promise<Stripe.PaymentMethod> {
+  async detachPaymentMethod(paymentMethodId: string): Promise<any> {
     try {
       return await this.stripe.paymentMethods.detach(paymentMethodId);
     } catch (error) {
@@ -284,7 +284,7 @@ export class StripeService {
   async setDefaultPaymentMethod(
     customerId: string,
     paymentMethodId: string
-  ): Promise<Stripe.Customer> {
+  ): Promise<any> {
     try {
       return await this.stripe.customers.update(customerId, {
         invoice_settings: {
@@ -303,7 +303,7 @@ export class StripeService {
   async listPaymentMethods(
     customerId: string,
     type: 'card' = 'card'
-  ): Promise<Stripe.PaymentMethod[]> {
+  ): Promise<any[]> {
     try {
       const paymentMethods = await this.stripe.paymentMethods.list({
         customer: customerId,
@@ -327,7 +327,7 @@ export class StripeService {
   async listInvoices(
     customerId: string,
     limit: number = 10
-  ): Promise<Stripe.Invoice[]> {
+  ): Promise<any[]> {
     try {
       const invoices = await this.stripe.invoices.list({
         customer: customerId,
@@ -344,7 +344,7 @@ export class StripeService {
   /**
    * Get invoice
    */
-  async getInvoice(invoiceId: string): Promise<Stripe.Invoice> {
+  async getInvoice(invoiceId: string): Promise<any> {
     try {
       return await this.stripe.invoices.retrieve(invoiceId);
     } catch (error) {
@@ -356,7 +356,7 @@ export class StripeService {
   /**
    * Get upcoming invoice
    */
-  async getUpcomingInvoice(customerId: string): Promise<Stripe.Invoice | null> {
+  async getUpcomingInvoice(customerId: string): Promise<any | null> {
     try {
       return await (this.stripe.invoices as any).retrieveUpcoming({
         customer: customerId,
@@ -381,9 +381,9 @@ export class StripeService {
     successUrl?: string,
     cancelUrl?: string,
     metadata?: Record<string, string>
-  ): Promise<Stripe.Checkout.Session> {
+  ): Promise<any> {
     try {
-      const sessionData: Stripe.Checkout.SessionCreateParams = {
+      const sessionData: any = {
         mode: 'subscription',
         line_items: [
           {
@@ -412,7 +412,7 @@ export class StripeService {
   /**
    * Get checkout session
    */
-  async getCheckoutSession(sessionId: string): Promise<Stripe.Checkout.Session> {
+  async getCheckoutSession(sessionId: string): Promise<any> {
     try {
       return await this.stripe.checkout.sessions.retrieve(sessionId, {
         expand: ['subscription', 'customer'],
@@ -433,7 +433,7 @@ export class StripeService {
   constructWebhookEvent(
     payload: Buffer | string,
     signature: string
-  ): Stripe.Event {
+  ): any {
     try {
       const webhookSecret = this.configService.get<string>('STRIPE_WEBHOOK_SECRET');
 
@@ -459,7 +459,7 @@ export class StripeService {
   /**
    * Get price details
    */
-  async getPrice(priceId: string): Promise<Stripe.Price> {
+  async getPrice(priceId: string): Promise<any> {
     try {
       return await this.stripe.prices.retrieve(priceId);
     } catch (error) {
@@ -471,9 +471,9 @@ export class StripeService {
   /**
    * List all prices
    */
-  async listPrices(productId?: string): Promise<Stripe.Price[]> {
+  async listPrices(productId?: string): Promise<any[]> {
     try {
-      const params: Stripe.PriceListParams = {
+      const params: any = {
         active: true,
       };
 

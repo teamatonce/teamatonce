@@ -1529,11 +1529,11 @@ export class ProjectService {
     );
 
     // Collect all unique user IDs from assigned_to and updated_by
-    const userIds = [...new Set(
+    const userIds: string[] = [...new Set(
       tasks
-        .flatMap(t => [t.assigned_to, t.updated_by])
+        .flatMap((t: any) => [t.assigned_to, t.updated_by])
         .filter(Boolean)
-    )];
+    )] as string[];
 
     // Fetch user names from project_members joined with company_team_members
     let userMap: Record<string, string> = {};

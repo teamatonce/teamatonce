@@ -866,7 +866,7 @@ export class AdminService {
       const paginatedProjects = projects.slice((page - 1) * limit, page * limit);
 
       // Fetch client information for each job
-      const clientIds = [...new Set(paginatedProjects.map((p: any) => p.client_id))];
+      const clientIds: string[] = [...new Set(paginatedProjects.map((p: any) => p.client_id))] as string[];
       const clientMap: Record<string, any> = {};
 
       for (const clientId of clientIds) {

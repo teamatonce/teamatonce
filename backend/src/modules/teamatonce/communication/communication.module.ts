@@ -58,7 +58,6 @@ import { NotesService } from './notes.service';
     VideoService,
     CalendarService,
     NotesService,
-    LiveKitVideoService,
   ],
   exports: [
     MeetingService,
@@ -68,7 +67,6 @@ import { NotesService } from './notes.service';
     VideoService,
     CalendarService,
     NotesService,
-    LiveKitVideoService,
   ],
 })
 export class CommunicationModule {}

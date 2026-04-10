@@ -24,6 +24,11 @@ export class RecordingProcessorJob {
     private readonly gateway: TeamAtOnceGateway,
   ) {}
 
+  // Legacy alias used throughout the file - points at the LiveKit service
+  private get dbVideoService(): LiveKitVideoService {
+    return this.LiveKitVideoService;
+  }
+
   /**
    * Process recordings that are in 'processing' status
    * Checks database API for completion and updates database
@@ -103,19 +108,19 @@ export class RecordingProcessorJob {
     try {
       // Query database API for recording status using egress ID
       this.logger.log(`Checking recording ${recordingId} (egress: ${egressId})`);
-      const recording = await this.dbVideoService.getRecordingByEgressId(egressId);
+      const livekitRecording = await this.dbVideoService.getRecordingByEgressId(egressId);
 
-      if (recording) {
+      if (livekitRecording) {
         // Check multiple possible URL field names
-        recordingUrl = recording.fileUrl || recording.url || recording.recordingUrl || null;
-        fileSize = recording.fileSize || recording.size || 0;
+        recordingUrl = livekitRecording.fileUrl || livekitRecording.url || livekitRecording.recordingUrl || null;
+        fileSize = livekitRecording.fileSize || livekitRecording.size || 0;
 
         // Log the status for debugging
-        this.logger.log(`database recording status: ${recording.status}, fileUrl: ${recordingUrl || 'null'}`);
+        this.logger.log(`database recording status: ${livekitRecording.status}, fileUrl: ${recordingUrl || 'null'}`);
 
         // If status is completed but no URL, it might be a storage issue
-        if (recording.status === 'completed' && !recordingUrl) {
-          const createdAt = new Date(recording.created_at);
+        if (livekitRecording.status === 'completed' && !recordingUrl) {
+          const createdAt = new Date(livekitRecording.created_at);
           const minutesPassed = (now.getTime() - createdAt.getTime()) / (1000 * 60);
 
           // If it's been more than 5 minutes with completed status but no URL, mark as failed
@@ -167,41 +172,41 @@ export class RecordingProcessorJob {
   private async completeRecording(
     recording: any,
     session: any,
-    recording: any,
+    recordingFile: any,
   ): Promise<void> {
     const recordingId = recording.id;
 
     // Update recording in database
     await this.db.update('video_session_recordings', recordingId, {
       status: RecordingStatus.COMPLETED,
-      recording_url: recording.url,
-      file_size_bytes: recording.size || null,
+      recording_url: recordingFile.url,
+      file_size_bytes: recordingFile.size || null,
       updated_at: new Date().toISOString(),
     });
 
     // Also update the video session with the recording URL (for backwards compatibility)
     await this.db.update('video_sessions', session.id, {
-      recording_url: recording.url,
+      recording_url: recordingFile.url,
       recording_id: recordingId,
       updated_at: new Date().toISOString(),
     });
 
-    this.logger.log(`Recording ${recordingId} completed with URL: ${recording.url}`);
+    this.logger.log(`Recording ${recordingId} completed with URL: ${recordingFile.url}`);
 
     // Add recording to project_files table
-    await this.createProjectFile(recording, session, recording);
+    await this.createProjectFile(recording, session, recordingFile);
 
     // Send WebSocket notification
     this.gateway.sendToProject(session.project_id, 'recording:completed', {
       sessionId: session.id,
       recordingId,
-      recording_url: recording.url,
+      recording_url: recordingFile.url,
       duration_seconds: recording.duration_seconds,
       timestamp: new Date().toISOString(),
     });
 
     // Send notification to host
-    await this.notifyHost(recording, session, recording.url);
+    await this.notifyHost(recording, session, recordingFile.url);
   }
 
   /**
@@ -210,7 +215,7 @@ export class RecordingProcessorJob {
   private async createProjectFile(
     recording: any,
     session: any,
-    recording: any,
+    recordingFile: any,
   ): Promise<void> {
     try {
       const roomName = session.room_name || 'Video Call';

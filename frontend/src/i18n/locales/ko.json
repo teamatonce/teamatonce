@@ -7,7 +7,7 @@
     "seeHowItWorks": "작동 방식 보기",
     "learnMore": "자세히 알아보기",
     "sendMessage": "메시지 보내기",
-    "contactSupport": "지원 문의"
+    "contactSupport": "지원팀 문의"
   },
   "header": {
     "findTalent": "인재 찾기",
@@ -15,5 +15,430 @@
     "howItWorks": "작동 방식",
     "pricing": "가격",
     "login": "로그인"
+  },
+  "landing": {
+    "hero": {
+      "badge": {
+        "talent": "10,000명 이상의 전문 개발자가 대기 중",
+        "jobs": "최고 기업의 5,000개 이상의 일자리"
+      },
+      "title": {
+        "talent": "전문 개발자를 고용하세요",
+        "talentHighlight": "어떤 프로젝트든",
+        "jobs": "꿈의 직업을 찾으세요",
+        "jobsHighlight": "멋진 프로젝트에서 일하기"
+      },
+      "subtitle": {
+        "talent": "전 세계 최고의 개발자와 연결됩니다. 몇 분 안에 AI 기반 매칭.",
+        "jobs": "선도 기업의 기회를 발견하세요. AI 기반 일자리 매칭."
+      },
+      "searchPlaceholder": {
+        "talent": "\"React 개발자\", \"모바일 앱\", \"AI 엔지니어\" 검색...",
+        "jobs": "\"프론트엔드 일자리\", \"원격 직책\", \"정규직\" 검색..."
+      },
+      "popular": "인기:",
+      "popularTalent": ["React 개발자", "모바일 앱", "AI/ML", "풀스택", "DevOps", "UI/UX"],
+      "popularJobs": ["원격 일자리", "프론트엔드", "백엔드", "정규직", "계약", "파트타임"],
+      "trustBadges": {
+        "secure": "보안 및 검증",
+        "noCard": "신용카드 불필요",
+        "aiPowered": "AI 기반 매칭"
+      }
+    },
+    "categories": {
+      "badge": "인재 탐색",
+      "title": "카테고리별 찾기",
+      "subtitle": "다양한 전문 분야에서 프로젝트에 적합한 개발자를 찾으세요",
+      "viewAll": "모든 카테고리 보기"
+    },
+    "featuredDevelopers": {
+      "badge": "최고의 인재",
+      "title": "최고 평점 판매자",
+      "subtitle": "입증된 실적을 가진 엄선된 판매자, 당신의 아이디어를 실현할 준비가 되어 있습니다",
+      "viewAll": "모든 판매자 보기"
+    },
+    "featuredJobs": {
+      "badge": "인기 일자리",
+      "title": "주요 일자리 기회",
+      "subtitle": "재능 있는 개발자를 찾는 최고 기업의 흥미로운 기회를 발견하세요",
+      "viewAll": "모든 일자리 보기"
+    },
+    "features": {
+      "badge": "우리를 선택해야 하는 이유",
+      "title": "필요한 모든 것",
+      "titleHighlight": "하나의 플랫폼에서",
+      "subtitle": "채용 및 작업을 원활하게 만들기 위해 설계된 강력한 기능",
+      "items": {
+        "escrow": {
+          "title": "14일 에스크로 보호",
+          "description": "납품 시까지 자금이 안전하게 보관됩니다. 14일 후 자동 해제로 양측을 보호합니다."
+        },
+        "aiMatching": {
+          "title": "AI 기반 매칭",
+          "description": "스마트 입찰 시스템은 50개 이상의 요소를 기반으로 클라이언트를 완벽한 팀과 연결합니다."
+        },
+        "templates": {
+          "title": "95개 이상의 프로젝트 템플릿",
+          "description": "14개 카테고리의 마일스톤, 비용 및 요구사항이 포함된 사전 구축된 워크플로우."
+        },
+        "dispute": {
+          "title": "7-2-2 분쟁 해결",
+          "description": "7일 협상, 2일 중재, 2일 실행. 신속하고 공정한 해결."
+        },
+        "communication": {
+          "title": "커뮤니케이션 허브",
+          "description": "통합 채팅, 화상 통화, 화이트보드, 회의 스케줄러가 한곳에."
+        },
+        "teamTypes": {
+          "title": "개인, 팀 및 에이전시",
+          "description": "개인, 소규모 팀 또는 전체 에이전시를 위한 유연한 회사 프로필."
+        },
+        "proofOfDelivery": {
+          "title": "납품 증명",
+          "description": "필수 파일 업로드 및 타임라인 추적으로 책임성을 보장합니다."
+        },
+        "pricing": {
+          "title": "투명한 가격",
+          "description": "성공적인 납품 시 플랫폼 수수료 10%만. 숨겨진 비용 없음."
+        }
+      }
+    },
+    "howItWorks": {
+      "badge": "간단한 프로세스",
+      "title": "아이디어에서 출시까지",
+      "titleHighlight": "5단계로 간단하게",
+      "subtitle": "AI 기반 플랫폼이 프로젝트의 모든 단계를 안내합니다",
+      "steps": {
+        "step1": {
+          "title": "프로젝트 게시",
+          "description": "자연어로 어떤 프로젝트든 설명하세요 - 디자인, 마케팅, 글쓰기, 개발, 비디오 또는 비즈니스 컨설팅.",
+          "mockupLabel": "프로젝트 요구사항",
+          "mockupText": "로고, 색상 및 소셜 미디어 템플릿이 포함된 브랜드 아이덴티티 패키지가 필요합니다...",
+          "tags": ["로고 디자인", "브랜딩", "2주"]
+        },
+        "step2": {
+          "title": "전문가가 제안서 제출",
+          "description": "AI가 기술, 포트폴리오 및 경험을 기반으로 매칭 점수를 계산합니다. 최고 매칭 전문가가 맞춤형 제안서를 제출합니다.",
+          "matchScore": "AI 매칭 점수",
+          "proposerName": "Maria 디자인 스튜디오",
+          "proposerStatus": "제안서 전송됨",
+          "proposerText": "브랜드 디자인 및 아이덴티티 8년 경력을 바탕으로...",
+          "skills": "기술",
+          "skillsMatch": "94% 일치",
+          "experience": "경험",
+          "experienceYears": "8년 이상",
+          "rate": "요율",
+          "inBudget": "예산 내"
+        },
+        "step3": {
+          "title": "검토 및 선택",
+          "description": "상세한 포트폴리오, 고객 리뷰 및 작업 샘플을 둘러보세요. 채용 전에 전문가와 채팅하세요.",
+          "studioName": "크리에이티브 스튜디오",
+          "studioType": "브랜드 및 디자인 에이전시 • 150개 이상의 프로젝트",
+          "skills": ["로고 디자인", "브랜드 아이덴티티", "UI/UX"],
+          "pricing": "$2,500/프로젝트 • 가능",
+          "chat": "채팅"
+        },
+        "step4": {
+          "title": "협업 및 구축",
+          "description": "내장 칸반 보드, 시간 추적, 화상 통화 및 파일 공유를 사용하세요. 모든 것이 실시간으로 동기화됩니다.",
+          "columns": ["할 일", "진행 중", "완료"],
+          "task": "작업",
+          "hoursTracked": "이번 주 32시간 추적"
+        },
+        "step5": {
+          "title": "14일 에스크로 보호",
+          "description": "승인 시까지 자금이 보관되거나 14일 후 자동 해제됩니다. 분쟁이 발생하면 7-2-2 시스템이 신속하게 해결합니다.",
+          "escrowTitle": "14일 에스크로",
+          "protected": "보호됨",
+          "timeline": {
+            "day0": "0일차",
+            "day0Event": "고객이 마일스톤 자금 지원",
+            "day0Status": "승인됨",
+            "day10": "10일차",
+            "day10Event": "개발자가 작업 제출",
+            "day10Status": "검토 중",
+            "day15": "15일차",
+            "day15Event": "고객 승인",
+            "day15Status": "해제됨"
+          },
+          "autoRelease": "응답이 없으면 24일차에 자동 해제 • 7-2-2 분쟁 해결",
+          "releasePayment": "결제 해제"
+        }
+      }
+    },
+    "whyChoose": {
+      "title": "Team@Once를 선택해야 하는 이유",
+      "subtitle": "개발 인재를 고용하고 관리하는 스마트한 방법"
+    },
+    "comparison": {
+      "badge": "차이점 확인",
+      "title": "Team@Once가",
+      "titleHighlight": "경쟁사를 이기는 이유",
+      "subtitle": "다른 곳에서는 할 수 없는 것을 할 수 있는 올인원 플랫폼을 구축했습니다",
+      "feature": "기능",
+      "teamAtOnce": "Team@Once",
+      "allInOne": "올인원",
+      "marketplace": "마켓플레이스",
+      "gigPlatform": "긱 플랫폼",
+      "eliteTalent": "엘리트 인재",
+      "full": "완전",
+      "basic": "기본",
+      "partial": "부분",
+      "manual": "수동",
+      "features": {
+        "paymentProtection": "결제 보호",
+        "paymentProtectionValue": "14일 자동 해제 + 분쟁",
+        "proofOfDelivery": "납품 증명",
+        "proofOfDeliveryValue": "필수 업로드 + 추적",
+        "teamManagement": "팀 관리",
+        "teamManagementValue": "회사 프로필 + 할당",
+        "projectTemplates": "프로젝트 템플릿",
+        "projectTemplatesValue": "95개 이상의 템플릿, 14개 카테고리",
+        "disputeResolution": "분쟁 해결",
+        "disputeResolutionValue": "자동화된 7-2-2 타임라인",
+        "aiFeatures": "AI 기능",
+        "aiFeaturesValue": "매칭 + 비용 추정",
+        "communicationHub": "커뮤니케이션 허브",
+        "communicationHubValue": "채팅, 비디오, 화이트보드",
+        "milestoneWorkflow": "마일스톤 워크플로우",
+        "milestoneWorkflowValue": "제출 → 검토 → 승인",
+        "teamSupport": "개인/팀/에이전시 지원"
+      }
+    },
+    "testimonials": {
+      "badge": "사람들의 말",
+      "title": "고객의 신뢰를 받음",
+      "titleHighlight": "개발자와 마찬가지로",
+      "subtitle": "Team@Once에 대한 커뮤니티의 경험을 들어보세요",
+      "fallback": {
+        "testimonial1": {
+          "content": "AI 매칭 덕분에 검색 시간이 몇 주나 절약되었습니다. 프로젝트 요구사항을 완벽하게 이해하는 React 개발자를 찾았습니다.",
+          "name": "James Mitchell",
+          "company": "CEO, TechStartup Inc",
+          "role": "고객"
+        },
+        "testimonial2": {
+          "content": "프리랜스 개발자로서 Team@Once는 게임 체인저였습니다. 가입 이후 수입이 40% 증가했습니다.",
+          "name": "Sarah Chen",
+          "title": "시니어 React 개발자",
+          "role": "개발자"
+        },
+        "testimonial3": {
+          "content": "에스크로 결제 시스템은 저에게 안심을 줍니다. 모든 비즈니스에 강력히 추천합니다!",
+          "name": "Michael Rodriguez",
+          "company": "제품 관리자, FinanceApp",
+          "role": "고객"
+        }
+      }
+    },
+    "faq": {
+      "badge": "궁금한 점이 있나요?",
+      "title": "자주 묻는",
+      "titleHighlight": "질문",
+      "subtitle": "Team@Once에 대해 알아야 할 모든 것. 답을 찾을 수 없나요? 지원팀에 문의하세요.",
+      "stillHaveQuestions": "여전히 궁금한 점이 있나요?",
+      "items": {
+        "escrow": {
+          "question": "14일 에스크로 보호는 어떻게 작동하나요?",
+          "answer": "마일스톤에 자금을 지원하면 Stripe는 결제를 승인하지만 아직 수금하지 않습니다. 개발자는 '자금 지원됨' 상태를 보고 작업을 시작합니다. 제출 후 14일 동안 검토할 수 있습니다. 승인하면 결제가 수금되어 해제됩니다(플랫폼 수수료 10% 차감). 아무 조치도 취하지 않으면 14일 후 결제가 자동 해제됩니다 - 사라지는 고객으로부터 개발자를 보호합니다."
+        },
+        "dispute": {
+          "question": "7-2-2 분쟁 해결 시스템은 무엇인가요?",
+          "answer": "분쟁이 발생하면: 양측이 증거를 제출하는 7일간의 협상, 검토하고 분할을 결정하는 2일간의 관리자 중재, 그리고 2일간의 실행. 이 자동화된 타임라인은 끝없는 왕복 없이 신속하고 공정한 해결을 보장합니다. 증거가 필요합니다 - 우리는 주장만으로 결정하지 않습니다."
+        },
+        "templates": {
+          "question": "95개 이상의 프로젝트 템플릿이란 무엇인가요?",
+          "answer": "비즈니스 앱($15k-$80k), 전자상거래($10k-$50k), 의료($20k-$100k), AI/ML($25k-$150k) 등 14개 카테고리에 걸쳐 사전 구축된 프로젝트 템플릿을 제공합니다. 각 템플릿에는 기본 마일스톤, 기술 스택 권장사항, 타임라인 추정치 및 요구사항 체크리스트가 포함되어 있어 탄탄한 기반에서 시작할 수 있습니다."
+        },
+        "team": {
+          "question": "팀 관리는 어떻게 작동하나요?",
+          "answer": "우리는 세 가지 계정 유형을 지원합니다: 개인 개발자(개별 프리랜서), 소규모 팀(2-10명) 및 개발 회사(전체 에이전시). 팀 기능에는 구성원 역할(소유자, 관리자, 개발자, 디자이너, QA), 작업량 추적(시각적 용량 표시기), 할당 비율이 있는 프로젝트 할당 및 성과 지표가 포함됩니다."
+        },
+        "communication": {
+          "question": "어떤 커뮤니케이션 도구가 포함되어 있나요?",
+          "answer": "우리의 커뮤니케이션 허브에는 다음이 포함됩니다: 파일 첨부 및 반응이 있는 실시간 채팅, 화면 공유 및 녹화가 있는 화상 회의, 다이어그램용 협업 화이트보드, 시간대 지원 회의 스케줄러 및 마감 추적을 위한 프로젝트 캘린더. 모두 내장되어 있어 외부 도구가 필요 없습니다."
+        },
+        "bidding": {
+          "question": "입찰 시스템은 어떻게 작동하나요?",
+          "answer": "고객은 팀을 지정하지 않고 프로젝트를 게시합니다. 개발자는 마켓플레이스를 둘러보고 커버 레터, 제안 비용, 맞춤 마일스톤 및 팀 구성이 포함된 제안서를 제출합니다. AI는 기술 스택 중복을 기반으로 매칭 점수를 계산합니다. 고객은 제안서를 비교하고 승자를 선택합니다 - 다른 제안서는 자동으로 거부되고 프로젝트는 마켓플레이스에서 사라집니다."
+        },
+        "proofOfDelivery": {
+          "question": "어떤 납품 증명이 필요한가요?",
+          "answer": "개발자는 마일스톤 제출 시 결과물(코드, 파일, 스크린샷)을 업로드해야 합니다. 시스템은 제출 타임스탬프, 재제출 횟수 및 검토 기록을 추적합니다. 이는 분쟁 발생 시 양측을 보호하는 증거 추적을 생성합니다 - 더 이상 '내가 납품했다' vs '받은 적 없다'라는 논쟁이 없습니다."
+        },
+        "fees": {
+          "question": "Team@Once는 어떤 수수료를 청구하나요?",
+          "answer": "성공적인 납품에 대해서만 플랫폼 수수료 10%를 청구합니다. 이는 결제가 개발자에게 해제될 때 차감됩니다. 숨겨진 수수료, 구독 비용, 선불 요금이 없습니다. 납품되지 않아 마일스톤이 환불되면 양측 모두 수수료를 지불하지 않습니다. 프로젝트가 성공할 때만 우리는 돈을 법니다."
+        }
+      }
+    },
+    "cta": {
+      "title": "변화할 준비가 되셨나요",
+      "titleLine2": "다음 프로젝트?",
+      "subtitle": "원활한 협업과 뛰어난 결과를 위해 Team@Once를 신뢰하는 수천 개의 회사 및 개발자에 합류하세요.",
+      "trustIndicators": {
+        "noCard": "신용카드 불필요",
+        "freeStart": "무료로 시작",
+        "cancel": "언제든지 취소"
+      }
+    },
+    "contact": {
+      "badge": "연락하기",
+      "title": "질문이 있으신가요?",
+      "titleHighlight": "귀하의 연락을 기다립니다",
+      "subtitle": "아래 양식을 작성하시면 저희 팀이 24시간 이내에 답변드립니다",
+      "form": {
+        "fullName": "성명 *",
+        "fullNamePlaceholder": "홍길동",
+        "email": "이메일 주소 *",
+        "emailPlaceholder": "john@example.com",
+        "subject": "제목 *",
+        "subjectPlaceholder": "어떻게 도와드릴까요?",
+        "message": "메시지 *",
+        "messagePlaceholder": "프로젝트 또는 문의에 대해 자세히 알려주세요...",
+        "privacy": "이 양식을 제출함으로써 다음에 동의합니다",
+        "privacyPolicy": "개인정보 보호정책",
+        "and": "및",
+        "terms": "서비스 약관"
+      }
+    }
+  },
+  "footer": {
+    "description": "세계적 수준의 개발자를 찾고, 고용하고, 관리하기 위한 올인원 플랫폼.",
+    "copyright": "© {{year}} Team@Once. 모든 권리 보유.",
+    "product": {
+      "title": "제품",
+      "features": "기능",
+      "pricing": "가격",
+      "howItWorks": "작동 방식",
+      "faq": "FAQ"
+    },
+    "company": {
+      "title": "회사",
+      "about": "소개",
+      "blog": "블로그",
+      "careers": "채용"
+    },
+    "legal": {
+      "title": "법적 고지",
+      "privacy": "개인정보",
+      "terms": "약관",
+      "cookiePolicy": "쿠키 정책",
+      "gdpr": "GDPR"
+    }
+  },
+  "languageSwitcher": {
+    "language": "언어"
+  },
+  "auth": {
+    "login": {
+      "title": "로그인",
+      "subtitle": "계속하려면 자격 증명을 입력하세요",
+      "email": "이메일 주소",
+      "emailPlaceholder": "you@example.com",
+      "password": "비밀번호",
+      "passwordPlaceholder": "비밀번호를 입력하세요",
+      "forgotPassword": "비밀번호를 잊으셨나요?",
+      "signIn": "로그인",
+      "signingIn": "로그인 중...",
+      "noAccount": "계정이 없으신가요?",
+      "signUp": "가입하기",
+      "accountBanned": "계정 차단됨",
+      "orContinueWith": "또는 다음으로 계속"
+    },
+    "signup": {
+      "title": "계정 만들기",
+      "invitationTitle": "초대 수락",
+      "subtitle": "전 세계 수천 명의 고객 및 판매자와 함께하세요",
+      "invitationSubtitle": "팀에 합류하려면 계정을 만드세요",
+      "selectType": "다음으로 가입하려고 합니다:",
+      "client": "고객",
+      "clientDescription": "내 프로젝트를 위해 개발자를 고용하고 싶습니다",
+      "seller": "판매자",
+      "sellerDescription": "내 서비스를 제공하고 싶습니다",
+      "clientFeatures": {
+        "feature1": "무제한 프로젝트 게시",
+        "feature2": "AI 기반 팀 매칭",
+        "feature3": "안전한 마일스톤 결제"
+      },
+      "sellerFeatures": {
+        "feature1": "양질의 프로젝트 찾기",
+        "feature2": "자신의 요율 설정",
+        "feature3": "안전하게 결제 받기"
+      },
+      "accountType": "계정",
+      "change": "변경",
+      "fullName": "성명",
+      "fullNamePlaceholder": "홍길동",
+      "email": "이메일 주소",
+      "emailPlaceholder": "you@example.com",
+      "password": "비밀번호",
+      "passwordPlaceholder": "최소 8자",
+      "confirmPassword": "비밀번호 확인",
+      "confirmPasswordPlaceholder": "비밀번호를 다시 입력하세요",
+      "termsAgreement": "다음에 동의합니다",
+      "termsOfService": "서비스 약관",
+      "and": "및",
+      "privacyPolicy": "개인정보 보호정책",
+      "createAccount": "계정 만들기",
+      "creatingAccount": "계정 만드는 중...",
+      "haveAccount": "이미 계정이 있으신가요?",
+      "signIn": "로그인",
+      "invitationNotice": "팀 초대",
+      "invitationMessage": "팀에 합류하도록 초대되었습니다. 초대를 수락하려면 등록을 완료하세요."
+    },
+    "forgotPassword": {
+      "title": "비밀번호를 잊으셨나요?",
+      "subtitle": "걱정하지 마세요! 이메일을 입력하면 재설정 지침을 보내드립니다",
+      "email": "이메일 주소",
+      "emailPlaceholder": "you@example.com",
+      "sendResetLink": "재설정 링크 보내기",
+      "sending": "전송 중...",
+      "backToSignIn": "로그인으로 돌아가기",
+      "checkEmail": "이메일을 확인하세요",
+      "emailSentTo": "비밀번호 재설정 지침을 다음 주소로 보냈습니다:",
+      "didntReceive": "이메일의 링크를 클릭하여 비밀번호를 재설정하세요. 보이지 않으면 스팸 폴더를 확인하세요.",
+      "resendEmail": "이메일 재전송",
+      "needHelp": "도움이 필요하신가요?",
+      "contactSupport": "다음 주소로 지원팀에 문의하세요:",
+      "dataSecure": "귀하의 데이터는",
+      "secure": "안전하게",
+      "withUs": "저희와 함께합니다"
+    },
+    "authSuccess": {
+      "title": "인증 성공!",
+      "message": "성공적으로 로그인되었습니다. 대시보드로 리디렉션 중..."
+    },
+    "authError": {
+      "title": "인증 실패",
+      "tryAgain": "다시 시도",
+      "backToHome": "홈으로 돌아가기"
+    },
+    "oauthCallback": {
+      "title": "로그인 완료 중...",
+      "message": "계정 설정을 완료하는 동안 잠시 기다려 주세요"
+    },
+    "errors": {
+      "emailRequired": "이메일이 필요합니다",
+      "emailInvalid": "이메일이 유효하지 않습니다",
+      "validEmail": "유효한 이메일 주소를 입력하세요",
+      "passwordRequired": "비밀번호가 필요합니다",
+      "passwordLength": "비밀번호는 최소 6자 이상이어야 합니다",
+      "passwordMin8": "비밀번호는 최소 8자 이상이어야 합니다",
+      "confirmPasswordRequired": "비밀번호를 확인하세요",
+      "passwordsMismatch": "비밀번호가 일치하지 않습니다",
+      "nameRequired": "이름이 필요합니다",
+      "nameMin": "이름은 최소 2자 이상이어야 합니다",
+      "selectAccountType": "계정 유형을 선택하세요",
+      "acceptTerms": "약관에 동의해야 합니다",
+      "resetFailed": "재설정 이메일 전송 실패"
+    },
+    "social": {
+      "continueWith": "다음으로 계속",
+      "google": "Google",
+      "github": "GitHub",
+      "divider": "또는"
+    }
   }
 }

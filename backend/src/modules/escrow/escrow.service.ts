@@ -39,7 +39,7 @@ import { StripeConnectService } from './stripe-connect.service';
 @Injectable()
 export class EscrowService {
   private readonly logger = new Logger(EscrowService.name);
-  private stripe: Stripe;
+  private stripe: any;
 
   // Configurable constants from environment variables
   private readonly PLATFORM_FEE_PERCENT: number;
@@ -214,7 +214,7 @@ export class EscrowService {
     this.logger.log(`Platform fee: $${platformFee}, Seller amount: $${sellerAmount}`);
 
     // Create Payment Intent with MANUAL capture (escrow mode)
-    let paymentIntent: Stripe.PaymentIntent;
+    let paymentIntent: any;
     try {
       paymentIntent = await this.stripe.paymentIntents.create({
         amount: Math.round(amount * 100), // Convert to cents
@@ -564,7 +564,7 @@ export class EscrowService {
     }
 
     // ⭐ CAPTURE THE PAYMENT - Actually charge the card!
-    let paymentIntent: Stripe.PaymentIntent;
+    let paymentIntent: any;
     try {
       paymentIntent = await this.stripe.paymentIntents.capture(
         payment.stripe_payment_intent_id,

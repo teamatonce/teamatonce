@@ -35,6 +35,11 @@ export class VideoService {
     private readonly LiveKitVideoService: LiveKitVideoService,
   ) {}
 
+  // Legacy alias used throughout the file - points at the LiveKit service
+  private get dbVideoService(): LiveKitVideoService {
+    return this.LiveKitVideoService;
+  }
+
   /**
    * Create a new video session
    * Integrates with database LiveKit-based video conferencing

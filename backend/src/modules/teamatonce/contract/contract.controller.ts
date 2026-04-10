@@ -15,6 +15,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@ne
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { ContractService } from './contract.service';
 import { SupportService } from './support.service';
+import { PaymentService } from './payment.service';
 import {
   CreateContractDto,
   UpdateContractDto,

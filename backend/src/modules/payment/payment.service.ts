@@ -27,7 +27,7 @@ export class PaymentService {
   /**
    * Create or update subscription from Stripe subscription object
    */
-  async upsertSubscription(subscription: Stripe.Subscription): Promise<any> {
+  async upsertSubscription(subscription: any): Promise<any> {
     try {
       const customerId = typeof subscription.customer === 'string'
         ? subscription.customer
@@ -209,7 +209,7 @@ export class PaymentService {
   /**
    * Create or update payment method from Stripe payment method object
    */
-  async upsertPaymentMethod(paymentMethod: Stripe.PaymentMethod): Promise<any> {
+  async upsertPaymentMethod(paymentMethod: any): Promise<any> {
     try {
       const customerId = typeof paymentMethod.customer === 'string'
         ? paymentMethod.customer
@@ -344,7 +344,7 @@ export class PaymentService {
   /**
    * Create or update payment from payment intent
    */
-  async upsertPaymentFromIntent(paymentIntent: Stripe.PaymentIntent): Promise<any> {
+  async upsertPaymentFromIntent(paymentIntent: any): Promise<any> {
     try {
       const customerId = typeof paymentIntent.customer === 'string'
         ? paymentIntent.customer
@@ -417,7 +417,7 @@ export class PaymentService {
   /**
    * Update payment record from invoice
    */
-  async updatePaymentFromInvoice(invoice: Stripe.Invoice): Promise<any> {
+  async updatePaymentFromInvoice(invoice: any): Promise<any> {
     try {
       const customerId = typeof invoice.customer === 'string'
         ? invoice.customer

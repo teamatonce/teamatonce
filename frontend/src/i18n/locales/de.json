@@ -15,5 +15,430 @@
     "howItWorks": "So Funktioniert Es",
     "pricing": "Preise",
     "login": "Anmelden"
+  },
+  "landing": {
+    "hero": {
+      "badge": {
+        "talent": "10.000+ Experten-Entwickler bereit zur Arbeit",
+        "jobs": "5.000+ verfügbare Jobs von Top-Unternehmen"
+      },
+      "title": {
+        "talent": "Stellen Sie Experten-Entwickler ein",
+        "talentHighlight": "Für Jedes Projekt",
+        "jobs": "Finden Sie Ihren Traumjob",
+        "jobsHighlight": "Arbeiten an tollen Projekten"
+      },
+      "subtitle": {
+        "talent": "Verbinden Sie sich mit erstklassigen Entwicklern weltweit. KI-gestütztes Matching in Minuten.",
+        "jobs": "Entdecken Sie Möglichkeiten führender Unternehmen. KI-gestütztes Job-Matching."
+      },
+      "searchPlaceholder": {
+        "talent": "Suche \"React-Entwickler\", \"Mobile App\", \"KI-Ingenieur\"...",
+        "jobs": "Suche \"Frontend-Job\", \"Remote-Position\", \"Vollzeit\"..."
+      },
+      "popular": "Beliebt:",
+      "popularTalent": ["React-Entwickler", "Mobile App", "KI/ML", "Full Stack", "DevOps", "UI/UX"],
+      "popularJobs": ["Remote-Jobs", "Frontend", "Backend", "Vollzeit", "Vertrag", "Teilzeit"],
+      "trustBadges": {
+        "secure": "Sicher & Verifiziert",
+        "noCard": "Keine Kreditkarte erforderlich",
+        "aiPowered": "KI-gestütztes Matching"
+      }
+    },
+    "categories": {
+      "badge": "Talente Entdecken",
+      "title": "Nach Kategorie Durchsuchen",
+      "subtitle": "Finden Sie den perfekten Entwickler für Ihre Projektanforderungen in verschiedenen Spezialgebieten",
+      "viewAll": "Alle Kategorien Anzeigen"
+    },
+    "featuredDevelopers": {
+      "badge": "Top-Talente",
+      "title": "Bestbewertete Verkäufer",
+      "subtitle": "Handverlesene Verkäufer mit nachgewiesener Erfolgsbilanz, bereit, Ihre Ideen zum Leben zu erwecken",
+      "viewAll": "Alle Verkäufer Anzeigen"
+    },
+    "featuredJobs": {
+      "badge": "Heiße Jobs",
+      "title": "Ausgewählte Job-Möglichkeiten",
+      "subtitle": "Entdecken Sie aufregende Möglichkeiten von Top-Unternehmen, die talentierte Entwickler suchen",
+      "viewAll": "Alle Jobs Anzeigen"
+    },
+    "features": {
+      "badge": "Warum Uns Wählen",
+      "title": "Alles Was Sie Brauchen",
+      "titleHighlight": "In Einer Plattform",
+      "subtitle": "Leistungsstarke Funktionen, entwickelt, um Einstellung und Arbeit nahtlos zu gestalten",
+      "items": {
+        "escrow": {
+          "title": "14-Tage Treuhand-Schutz",
+          "description": "Gelder werden sicher bis zur Lieferung gehalten. Automatische Freigabe nach 14 Tagen schützt beide Parteien."
+        },
+        "aiMatching": {
+          "title": "KI-gestütztes Matching",
+          "description": "Das intelligente Gebotssystem verbindet Kunden mit perfekten Teams basierend auf über 50 Faktoren."
+        },
+        "templates": {
+          "title": "95+ Projekt-Vorlagen",
+          "description": "Vorgefertigte Workflows in 14 Kategorien mit Meilensteinen, Kosten und Anforderungen."
+        },
+        "dispute": {
+          "title": "7-2-2 Streitbeilegung",
+          "description": "7 Tage Verhandlung, 2 Tage Mediation, 2 Tage Ausführung. Schnelle, faire Lösungen."
+        },
+        "communication": {
+          "title": "Kommunikationszentrum",
+          "description": "Integrierter Chat, Videoanrufe, Whiteboard und Meeting-Planer an einem Ort."
+        },
+        "teamTypes": {
+          "title": "Solo, Team & Agentur",
+          "description": "Flexible Unternehmensprofile für Einzelpersonen, kleine Teams oder vollständige Agenturen."
+        },
+        "proofOfDelivery": {
+          "title": "Liefernachweis",
+          "description": "Erforderliche Datei-Uploads und Zeitplan-Verfolgung gewährleisten Rechenschaftspflicht."
+        },
+        "pricing": {
+          "title": "Transparente Preisgestaltung",
+          "description": "Nur 10% Plattformgebühr bei erfolgreicher Lieferung. Keine versteckten Kosten."
+        }
+      }
+    },
+    "howItWorks": {
+      "badge": "Einfacher Prozess",
+      "title": "Von der Idee zum Start",
+      "titleHighlight": "In 5 Einfachen Schritten",
+      "subtitle": "Unsere KI-gestützte Plattform führt Sie durch jede Phase Ihres Projekts",
+      "steps": {
+        "step1": {
+          "title": "Veröffentlichen Sie Ihr Projekt",
+          "description": "Beschreiben Sie jedes Projekt in natürlicher Sprache - Design, Marketing, Texten, Entwicklung, Video oder Unternehmensberatung.",
+          "mockupLabel": "Projektanforderungen",
+          "mockupText": "Benötige ein Markenidentitäts-Paket mit Logo, Farben und Social-Media-Vorlagen...",
+          "tags": ["Logo-Design", "Branding", "2 Wochen"]
+        },
+        "step2": {
+          "title": "Experten Reichen Vorschläge Ein",
+          "description": "KI berechnet Match-Scores basierend auf Fähigkeiten, Portfolio und Erfahrung. Die am besten passenden Fachleute reichen maßgeschneiderte Vorschläge ein.",
+          "matchScore": "KI Match-Score",
+          "proposerName": "Maria Design Studio",
+          "proposerStatus": "Vorschlag Gesendet",
+          "proposerText": "Basierend auf meinen 8 Jahren in Markendesign & Identität...",
+          "skills": "Fähigkeiten",
+          "skillsMatch": "94% Übereinstimmung",
+          "experience": "Erfahrung",
+          "experienceYears": "8+ Jahre",
+          "rate": "Satz",
+          "inBudget": "Im Budget"
+        },
+        "step3": {
+          "title": "Überprüfen & Auswählen",
+          "description": "Durchsuchen Sie detaillierte Portfolios, Kundenbewertungen und Arbeitsproben. Chatten Sie vor der Einstellung mit Fachleuten.",
+          "studioName": "Creative Studio",
+          "studioType": "Marken- und Design-Agentur • 150+ Projekte",
+          "skills": ["Logo-Design", "Markenidentität", "UI/UX"],
+          "pricing": "2.500 $/Projekt • Verfügbar",
+          "chat": "Chat"
+        },
+        "step4": {
+          "title": "Zusammenarbeiten & Aufbauen",
+          "description": "Nutzen Sie integrierte Kanban-Boards, Zeiterfassung, Videoanrufe und Dateifreigabe. Alles in Echtzeit synchronisiert.",
+          "columns": ["Zu Erledigen", "In Bearbeitung", "Erledigt"],
+          "task": "Aufgabe",
+          "hoursTracked": "32h diese Woche erfasst"
+        },
+        "step5": {
+          "title": "14-Tage Treuhand-Schutz",
+          "description": "Gelder werden bis zur Genehmigung gehalten oder nach 14 Tagen automatisch freigegeben. Bei Streitigkeiten löst unser 7-2-2-System diese schnell.",
+          "escrowTitle": "14-Tage Treuhand",
+          "protected": "Geschützt",
+          "timeline": {
+            "day0": "Tag 0",
+            "day0Event": "Kunde finanziert Meilenstein",
+            "day0Status": "autorisiert",
+            "day10": "Tag 10",
+            "day10Event": "Entwickler reicht Arbeit ein",
+            "day10Status": "Überprüfung",
+            "day15": "Tag 15",
+            "day15Event": "Kunde genehmigt",
+            "day15Status": "freigegeben"
+          },
+          "autoRelease": "Automatische Freigabe Tag 24, wenn keine Antwort • 7-2-2 Streitbeilegung",
+          "releasePayment": "Zahlung Freigeben"
+        }
+      }
+    },
+    "whyChoose": {
+      "title": "Warum Team@Once Wählen",
+      "subtitle": "Der intelligente Weg, Entwicklertalente einzustellen und zu verwalten"
+    },
+    "comparison": {
+      "badge": "Den Unterschied Sehen",
+      "title": "Warum Team@Once",
+      "titleHighlight": "die Konkurrenz Schlägt",
+      "subtitle": "Wir haben die All-in-One-Plattform gebaut, die tut, was andere nicht können",
+      "feature": "Funktion",
+      "teamAtOnce": "Team@Once",
+      "allInOne": "All-in-One",
+      "marketplace": "Marktplatz",
+      "gigPlatform": "Gig-Plattform",
+      "eliteTalent": "Elite-Talente",
+      "full": "Vollständig",
+      "basic": "Basis",
+      "partial": "Teilweise",
+      "manual": "Manuell",
+      "features": {
+        "paymentProtection": "Zahlungsschutz",
+        "paymentProtectionValue": "14-Tage automatische Freigabe + Streit",
+        "proofOfDelivery": "Liefernachweis",
+        "proofOfDeliveryValue": "Erforderliche Uploads + Verfolgung",
+        "teamManagement": "Team-Management",
+        "teamManagementValue": "Unternehmensprofile + Zuweisungen",
+        "projectTemplates": "Projekt-Vorlagen",
+        "projectTemplatesValue": "95+ Vorlagen, 14 Kategorien",
+        "disputeResolution": "Streitbeilegung",
+        "disputeResolutionValue": "Automatisierter 7-2-2-Zeitplan",
+        "aiFeatures": "KI-Funktionen",
+        "aiFeaturesValue": "Matching + Kostenschätzung",
+        "communicationHub": "Kommunikationszentrum",
+        "communicationHubValue": "Chat, Video, Whiteboard",
+        "milestoneWorkflow": "Meilenstein-Workflow",
+        "milestoneWorkflowValue": "Einreichen → Überprüfen → Genehmigen",
+        "teamSupport": "Solo/Team/Agentur-Unterstützung"
+      }
+    },
+    "testimonials": {
+      "badge": "Was Leute Sagen",
+      "title": "Vertraut von Kunden",
+      "titleHighlight": "und Entwicklern",
+      "subtitle": "Sehen Sie, was unsere Community über ihre Erfahrungen mit Team@Once zu sagen hat",
+      "fallback": {
+        "testimonial1": {
+          "content": "Das KI-Matching hat uns Wochen der Suche erspart. Wir haben einen React-Entwickler gefunden, der unsere Projektanforderungen perfekt verstanden hat.",
+          "name": "James Mitchell",
+          "company": "CEO, TechStartup Inc",
+          "role": "Kunde"
+        },
+        "testimonial2": {
+          "content": "Als freiberuflicher Entwickler war Team@Once ein Game-Changer. Ich habe mein Einkommen seit dem Beitritt um 40% gesteigert.",
+          "name": "Sarah Chen",
+          "title": "Senior React-Entwicklerin",
+          "role": "Entwickler"
+        },
+        "testimonial3": {
+          "content": "Das Treuhand-Zahlungssystem gibt mir Seelenfrieden. Sehr empfehlenswert für jedes Unternehmen!",
+          "name": "Michael Rodriguez",
+          "company": "Produktmanager, FinanceApp",
+          "role": "Kunde"
+        }
+      }
+    },
+    "faq": {
+      "badge": "Haben Sie Fragen?",
+      "title": "Häufig Gestellte",
+      "titleHighlight": "Fragen",
+      "subtitle": "Alles, was Sie über Team@Once wissen müssen. Sie finden die Antwort nicht? Kontaktieren Sie unser Support-Team.",
+      "stillHaveQuestions": "Haben Sie noch Fragen?",
+      "items": {
+        "escrow": {
+          "question": "Wie funktioniert der 14-tägige Treuhand-Schutz?",
+          "answer": "Wenn Sie einen Meilenstein finanzieren, autorisiert Stripe die Zahlung, erfasst sie aber noch nicht. Der Entwickler sieht den Status 'Finanziert' und beginnt mit der Arbeit. Nach der Einreichung haben Sie 14 Tage Zeit zur Überprüfung. Wenn Sie genehmigen, wird die Zahlung erfasst und freigegeben (abzüglich 10% Plattformgebühr). Wenn Sie nichts tun, wird die Zahlung nach 14 Tagen automatisch freigegeben - was Entwickler vor verschwindenden Kunden schützt."
+        },
+        "dispute": {
+          "question": "Was ist das 7-2-2 Streitbeilegungssystem?",
+          "answer": "Bei einem Streit: 7 Tage Verhandlung, in denen beide Parteien Beweise vorlegen, 2 Tage Admin-Mediation, in denen wir prüfen und die Aufteilung entscheiden, und 2 Tage Ausführung. Dieser automatisierte Zeitplan gewährleistet schnelle, faire Lösungen ohne endloses Hin und Her. Beweise sind erforderlich - wir verlassen uns nicht auf 'Er sagte, sie sagte'."
+        },
+        "templates": {
+          "question": "Was sind die 95+ Projekt-Vorlagen?",
+          "answer": "Wir bieten vorgefertigte Projekt-Vorlagen in 14 Kategorien: Business-Apps (15k$-80k$), E-Commerce (10k$-50k$), Gesundheitswesen (20k$-100k$), KI/ML (25k$-150k$) und mehr. Jede Vorlage enthält Standard-Meilensteine, Tech-Stack-Empfehlungen, Zeitplan-Schätzungen und Anforderungs-Checklisten - damit Sie mit einer soliden Grundlage beginnen."
+        },
+        "team": {
+          "question": "Wie funktioniert das Team-Management?",
+          "answer": "Wir unterstützen drei Kontotypen: Solo-Entwickler (einzelner Freiberufler), Kleines Team (2-10 Mitglieder) und Entwicklungsunternehmen (vollständige Agentur). Team-Funktionen umfassen Mitgliederrollen (Eigentümer, Admin, Entwickler, Designer, QA), Arbeitslast-Verfolgung (visuelle Kapazitätsanzeiger), Projekt-Zuweisungen mit Zuteilungsprozentsätzen und Leistungsmetriken."
+        },
+        "communication": {
+          "question": "Welche Kommunikationstools sind enthalten?",
+          "answer": "Unser Kommunikationszentrum umfasst: Echtzeit-Chat mit Datei-Anhängen und Reaktionen, Videokonferenzen mit Bildschirmfreigabe und Aufzeichnung, kollaboratives Whiteboard für Diagramme, Meeting-Planer mit Zeitzonen-Unterstützung und Projektkalender zur Termin-Verfolgung. Alles integriert - keine externen Tools nötig."
+        },
+        "bidding": {
+          "question": "Wie funktioniert das Gebotssystem?",
+          "answer": "Kunden veröffentlichen Projekte, ohne ein Team zuzuweisen. Entwickler durchsuchen den Marktplatz und reichen Vorschläge mit Anschreiben, vorgeschlagenen Kosten, benutzerdefinierten Meilensteinen und Teamzusammensetzung ein. KI berechnet Match-Scores basierend auf Tech-Stack-Überschneidungen. Kunden vergleichen Vorschläge und wählen einen Gewinner - andere Vorschläge werden automatisch abgelehnt und das Projekt verlässt den Marktplatz."
+        },
+        "proofOfDelivery": {
+          "question": "Welcher Liefernachweis ist erforderlich?",
+          "answer": "Entwickler müssen beim Einreichen von Meilensteinen Lieferobjekte (Code, Dateien, Screenshots) hochladen. Das System verfolgt Einreichungs-Zeitstempel, erneute Einreichungen und Überprüfungshistorie. Dies schafft einen Beweismittel-Pfad, der beide Parteien im Streitfall schützt - keine Diskussionen mehr à la 'Ich habe geliefert' vs. 'Ich habe es nie erhalten'."
+        },
+        "fees": {
+          "question": "Welche Gebühren berechnet Team@Once?",
+          "answer": "Wir berechnen 10% Plattformgebühr nur bei erfolgreichen Lieferungen. Diese wird abgezogen, wenn die Zahlung an den Entwickler freigegeben wird. Keine versteckten Gebühren, keine Abonnementkosten, keine Vorabgebühren. Wenn ein Meilenstein wegen Nichtlieferung zurückerstattet wird, zahlt keine Partei eine Gebühr. Wir verdienen nur Geld, wenn Projekte erfolgreich sind."
+        }
+      }
+    },
+    "cta": {
+      "title": "Bereit zur Transformation",
+      "titleLine2": "Ihres Nächsten Projekts?",
+      "subtitle": "Schließen Sie sich Tausenden von Unternehmen und Entwicklern an, die Team@Once für nahtlose Zusammenarbeit und außergewöhnliche Ergebnisse vertrauen.",
+      "trustIndicators": {
+        "noCard": "Keine Kreditkarte erforderlich",
+        "freeStart": "Kostenlos starten",
+        "cancel": "Jederzeit kündbar"
+      }
+    },
+    "contact": {
+      "badge": "Kontaktieren Sie Uns",
+      "title": "Haben Sie Fragen?",
+      "titleHighlight": "Wir freuen uns auf Ihre Nachricht",
+      "subtitle": "Füllen Sie das folgende Formular aus und unser Team wird sich innerhalb von 24 Stunden bei Ihnen melden",
+      "form": {
+        "fullName": "Vollständiger Name *",
+        "fullNamePlaceholder": "Max Mustermann",
+        "email": "E-Mail-Adresse *",
+        "emailPlaceholder": "max@beispiel.com",
+        "subject": "Betreff *",
+        "subjectPlaceholder": "Wie können wir Ihnen helfen?",
+        "message": "Nachricht *",
+        "messagePlaceholder": "Erzählen Sie uns mehr über Ihr Projekt oder Ihre Anfrage...",
+        "privacy": "Mit dem Absenden dieses Formulars stimmen Sie unseren",
+        "privacyPolicy": "Datenschutzrichtlinien",
+        "and": "und",
+        "terms": "Nutzungsbedingungen"
+      }
+    }
+  },
+  "footer": {
+    "description": "Die All-in-One-Plattform zum Finden, Einstellen und Verwalten erstklassiger Entwickler.",
+    "copyright": "© {{year}} Team@Once. Alle Rechte vorbehalten.",
+    "product": {
+      "title": "Produkt",
+      "features": "Funktionen",
+      "pricing": "Preise",
+      "howItWorks": "So Funktioniert Es",
+      "faq": "FAQ"
+    },
+    "company": {
+      "title": "Unternehmen",
+      "about": "Über Uns",
+      "blog": "Blog",
+      "careers": "Karriere"
+    },
+    "legal": {
+      "title": "Rechtliches",
+      "privacy": "Datenschutz",
+      "terms": "Bedingungen",
+      "cookiePolicy": "Cookie-Richtlinie",
+      "gdpr": "DSGVO"
+    }
+  },
+  "languageSwitcher": {
+    "language": "Sprache"
+  },
+  "auth": {
+    "login": {
+      "title": "Anmelden",
+      "subtitle": "Geben Sie Ihre Zugangsdaten ein, um fortzufahren",
+      "email": "E-Mail-Adresse",
+      "emailPlaceholder": "sie@beispiel.com",
+      "password": "Passwort",
+      "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+      "forgotPassword": "Passwort vergessen?",
+      "signIn": "Anmelden",
+      "signingIn": "Anmeldung läuft...",
+      "noAccount": "Haben Sie noch kein Konto?",
+      "signUp": "Registrieren",
+      "accountBanned": "Konto Gesperrt",
+      "orContinueWith": "oder fortfahren mit"
+    },
+    "signup": {
+      "title": "Erstellen Sie Ihr Konto",
+      "invitationTitle": "Einladung Annehmen",
+      "subtitle": "Schließen Sie sich Tausenden von Kunden und Verkäufern weltweit an",
+      "invitationSubtitle": "Erstellen Sie ein Konto, um dem Team beizutreten",
+      "selectType": "Ich möchte mich registrieren als:",
+      "client": "Kunde",
+      "clientDescription": "Ich möchte Entwickler für meine Projekte einstellen",
+      "seller": "Verkäufer",
+      "sellerDescription": "Ich möchte meine Dienste anbieten",
+      "clientFeatures": {
+        "feature1": "Unbegrenzt Projekte veröffentlichen",
+        "feature2": "KI-gestütztes Team-Matching",
+        "feature3": "Sichere Meilenstein-Zahlungen"
+      },
+      "sellerFeatures": {
+        "feature1": "Qualitätsprojekte finden",
+        "feature2": "Eigene Raten festlegen",
+        "feature3": "Sicher bezahlt werden"
+      },
+      "accountType": "Konto",
+      "change": "Ändern",
+      "fullName": "Vollständiger Name",
+      "fullNamePlaceholder": "Max Mustermann",
+      "email": "E-Mail-Adresse",
+      "emailPlaceholder": "sie@beispiel.com",
+      "password": "Passwort",
+      "passwordPlaceholder": "Mindestens 8 Zeichen",
+      "confirmPassword": "Passwort Bestätigen",
+      "confirmPasswordPlaceholder": "Passwort erneut eingeben",
+      "termsAgreement": "Ich stimme den",
+      "termsOfService": "Nutzungsbedingungen",
+      "and": "und",
+      "privacyPolicy": "Datenschutzrichtlinien zu",
+      "createAccount": "Konto Erstellen",
+      "creatingAccount": "Konto wird erstellt...",
+      "haveAccount": "Haben Sie bereits ein Konto?",
+      "signIn": "Anmelden",
+      "invitationNotice": "Team-Einladung",
+      "invitationMessage": "Sie wurden eingeladen, einem Team beizutreten. Vervollständigen Sie Ihre Registrierung, um die Einladung anzunehmen."
+    },
+    "forgotPassword": {
+      "title": "Passwort vergessen?",
+      "subtitle": "Keine Sorge! Geben Sie Ihre E-Mail ein und wir senden Ihnen Anweisungen zum Zurücksetzen",
+      "email": "E-Mail-Adresse",
+      "emailPlaceholder": "sie@beispiel.com",
+      "sendResetLink": "Reset-Link Senden",
+      "sending": "Sendet...",
+      "backToSignIn": "Zurück zur Anmeldung",
+      "checkEmail": "Überprüfen Sie Ihre E-Mail",
+      "emailSentTo": "Wir haben Anweisungen zum Zurücksetzen des Passworts gesendet an:",
+      "didntReceive": "Klicken Sie auf den Link in der E-Mail, um Ihr Passwort zurückzusetzen. Wenn Sie ihn nicht sehen, überprüfen Sie Ihren Spam-Ordner.",
+      "resendEmail": "E-Mail Erneut Senden",
+      "needHelp": "Brauchen Sie Hilfe?",
+      "contactSupport": "Kontaktieren Sie unser Support-Team unter",
+      "dataSecure": "Ihre Daten sind",
+      "secure": "sicher",
+      "withUs": "bei uns"
+    },
+    "authSuccess": {
+      "title": "Authentifizierung Erfolgreich!",
+      "message": "Sie wurden erfolgreich angemeldet. Weiterleitung zu Ihrem Dashboard..."
+    },
+    "authError": {
+      "title": "Authentifizierung Fehlgeschlagen",
+      "tryAgain": "Erneut Versuchen",
+      "backToHome": "Zurück zur Startseite"
+    },
+    "oauthCallback": {
+      "title": "Anmeldung wird abgeschlossen...",
+      "message": "Bitte warten Sie, während wir die Einrichtung Ihres Kontos abschließen"
+    },
+    "errors": {
+      "emailRequired": "E-Mail ist erforderlich",
+      "emailInvalid": "E-Mail ist ungültig",
+      "validEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "passwordRequired": "Passwort ist erforderlich",
+      "passwordLength": "Passwort muss mindestens 6 Zeichen lang sein",
+      "passwordMin8": "Passwort muss mindestens 8 Zeichen lang sein",
+      "confirmPasswordRequired": "Bitte bestätigen Sie Ihr Passwort",
+      "passwordsMismatch": "Passwörter stimmen nicht überein",
+      "nameRequired": "Name ist erforderlich",
+      "nameMin": "Name muss mindestens 2 Zeichen lang sein",
+      "selectAccountType": "Bitte wählen Sie den Kontotyp aus",
+      "acceptTerms": "Sie müssen die Geschäftsbedingungen akzeptieren",
+      "resetFailed": "Fehler beim Senden der Reset-E-Mail"
+    },
+    "social": {
+      "continueWith": "Fortfahren mit",
+      "google": "Google",
+      "github": "GitHub",
+      "divider": "oder"
+    }
   }
 }

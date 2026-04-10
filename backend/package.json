@@ -23,17 +23,10 @@
     "seed": "node scripts/seed-test-data.js seed",
     "seed:clear": "node scripts/seed-test-data.js clear",
     "seed:reset": "node scripts/seed-test-data.js reset",
-    "seed:admin": "ts-node scripts/seed-admin.ts",
-    "seed:instructor": "ts-node scripts/seed-instructor.ts",
-    "seed:courses": "ts-node scripts/seed-courses.ts",
     "seed:all": "ts-node -r tsconfig-paths/register src/database/seeds/seed.ts",
     "seed:dev": "npm run build && node dist/database/seeds/seed.js",
     "clear:data": "ts-node -r tsconfig-paths/register src/database/scripts/clear-all-data.ts",
-    "reset:db": "npm run clear:data && npm run migrate",
-    "check:role": "ts-node scripts/check-user-role.ts",
-    "set:admin": "ts-node scripts/set-admin-role.ts",
-    "deploy:rollback": "node scripts/deploy-rollback.js",
-    "deploy:scale": "node scripts/deploy-scale.js"
+    "reset:db": "npm run clear:data && npm run migrate"
   },
   "keywords": [],
   "author": "",

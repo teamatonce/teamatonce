@@ -9,12 +9,12 @@ import Stripe from 'stripe';
  * Handles Stripe Connect account creation and management for developers
  * Allows developers to receive payments through the platform's escrow system
  *
- * @see ESCROW_PAYMENT_SYSTEM_DESIGN.md Phase 2: Stripe Connect Setup
+ * @see ESCROW_PAYMENT_SYSTEM_DESIGN.md Phase 2: any Connect Setup
  */
 @Injectable()
 export class StripeConnectService {
   private readonly logger = new Logger(StripeConnectService.name);
-  private stripe: Stripe;
+  private stripe: any;
 
   constructor(
     private readonly config: ConfigService,

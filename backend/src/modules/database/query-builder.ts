@@ -31,16 +31,71 @@ export class QueryBuilder {
     this._table = tableName;
   }
 
-  select(columns: string): this {
-    this._selectColumns = columns;
+  select(...columns: string[]): this {
+    if (columns.length === 0) {
+      this._selectColumns = '*';
+    } else if (columns.length === 1) {
+      this._selectColumns = columns[0];
+    } else {
+      this._selectColumns = columns.join(', ');
+    }
     this._operation = 'select';
     return this;
   }
 
-  where(column: string, operator: string, value: any): this {
-    this._whereValues.push(value);
+  where(column: string, operatorOrValue: any, value?: any): this {
+    // Support both: where('col', value) and where('col', '>=', value)
+    let operator: string;
+    let actualValue: any;
+    if (arguments.length === 2) {
+      operator = '=';
+      actualValue = operatorOrValue;
+    } else {
+      operator = operatorOrValue;
+      actualValue = value;
+    }
+    this._whereValues.push(actualValue);
     this._whereClauses.push(`"${column}" ${operator} $${this._whereValues.length}`);
     return this;
+  }
+
+  // Comparison aliases used by some callers
+  gte(column: string, value: any): this { return this.where(column, '>=', value); }
+  lte(column: string, value: any): this { return this.where(column, '<=', value); }
+  gt(column: string, value: any): this { return this.where(column, '>', value); }
+  lt(column: string, value: any): this { return this.where(column, '<', value); }
+  eq(column: string, value: any): this { return this.where(column, '=', value); }
+  neq(column: string, value: any): this { return this.where(column, '!=', value); }
+
+  // Combined OR clause - accepts callbacks that build sub-clauses on a temp builder
+  or(...callbacks: Array<(qb: QueryBuilder) => any>): this {
+    const subClauses: string[] = [];
+    for (const cb of callbacks) {
+      const sub = new QueryBuilder(this._pool, this._table);
+      // Share the parameter index with parent so placeholder numbers stay unique
+      (sub as any)._whereValues = this._whereValues;
+      cb(sub);
+      if ((sub as any)._whereClauses.length > 0) {
+        subClauses.push((sub as any)._whereClauses.join(' AND '));
+      }
+    }
+    if (subClauses.length > 0) {
+      this._whereClauses.push(`(${subClauses.join(' OR ')})`);
+    }
+    return this;
+  }
+
+  // Alias for whereIn
+  in(column: string, values: any[]): this {
+    return this.whereIn(column, values);
+  }
+
+  // Count rows matching current filters
+  async count(): Promise<number> {
+    const whereStr = this.buildWhereClause();
+    const sql = `SELECT COUNT(*) as count FROM "${this._table}"${whereStr}`;
+    const result = await this._pool.query(sql, this._whereValues);
+    return parseInt(result.rows[0]?.count || '0', 10);
   }
 
   whereIn(column: string, values: any[]): this {
@@ -88,7 +143,7 @@ export class QueryBuilder {
   }
 
   // Get all results (alias for execute)
-  async get(): Promise<{ data: any[]; count: number }> {
+  async get(): Promise<any> {
     return this.execute();
   }
 
@@ -192,17 +247,19 @@ export class QueryBuilder {
     }
   }
 
-  async execute(): Promise<{ data: any[]; count: number }> {
+  async execute(): Promise<any> {
     const { sql, params } = this.buildSQL();
     const result = await this._pool.query(sql, params);
-    return {
-      data: result.rows,
-      count: result.rowCount || 0,
-    };
+    // Array-shaped result with `.data` self-ref and `.count` so callers can
+    // use both array methods and the {data, count} destructuring pattern.
+    const arr: any = (result.rows || []).slice();
+    arr.data = arr;
+    arr.count = result.rowCount || arr.length;
+    return arr;
   }
 
   // Alias for execute
-  async then(resolve: (value: { data: any[]; count: number }) => any, reject?: (reason: any) => any) {
+  async then(resolve: (value: any) => any, reject?: (reason: any) => any) {
     try {
       const result = await this.execute();
       resolve(result);

@@ -19,12 +19,11 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
       inject: [ConfigService],
     }),
   ],
-  controllers: [AuthController, SocialAuthController],
+  controllers: [AuthController],
   providers: [
     AuthService,
     JwtAuthGuard,
-    SocialAuthService,
   ],
-  exports: [AuthService, JwtModule, JwtAuthGuard, SocialAuthService],
+  exports: [AuthService, JwtModule, JwtAuthGuard],
 })
 export class AuthModule {}

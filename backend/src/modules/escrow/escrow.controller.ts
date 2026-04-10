@@ -43,7 +43,7 @@ import {
 @Controller('escrow')
 @UseGuards(JwtAuthGuard)
 export class EscrowController {
-  private stripe: Stripe;
+  private stripe: any;
 
   constructor(
     private readonly escrowService: EscrowService,
@@ -673,7 +673,7 @@ export class EscrowController {
 @ApiTags('escrow-webhooks')
 @Controller('escrow')
 export class EscrowWebhookController {
-  private stripe: Stripe;
+  private stripe: any;
 
   constructor(
     private readonly stripeConnect: StripeConnectService,
@@ -714,7 +714,7 @@ export class EscrowWebhookController {
       throw new HttpException('Webhook secret not configured', HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    let event: Stripe.Event;
+    let event: any;
     try {
       event = this.stripe.webhooks.constructEvent(
         rawBody,
@@ -738,10 +738,10 @@ export class EscrowWebhookController {
     return { received: true, eventType: event.type };
   }
 
-  private async processConnectWebhookEvent(event: Stripe.Event): Promise<void> {
+  private async processConnectWebhookEvent(event: any): Promise<void> {
     switch (event.type) {
       case 'account.updated':
-        const account = event.data.object as Stripe.Account;
+        const account = event.data.object as any;
         console.log(`[EscrowWebhook] Account updated: ${account.id}`);
         await this.stripeConnect.updateAccountFromWebhook(account.id);
         break;

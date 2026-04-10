@@ -4,7 +4,7 @@
     "search": "Rechercher",
     "getStartedFree": "Commencer Gratuitement",
     "viewPricing": "Voir les Tarifs",
-    "seeHowItWorks": "Voir Comment Ca Marche",
+    "seeHowItWorks": "Voir Comment Ça Marche",
     "learnMore": "En Savoir Plus",
     "sendMessage": "Envoyer un Message",
     "contactSupport": "Contacter le Support"
@@ -12,8 +12,433 @@
   "header": {
     "findTalent": "Trouver des Talents",
     "findJobs": "Trouver un Emploi",
-    "howItWorks": "Comment Ca Marche",
+    "howItWorks": "Comment Ça Marche",
     "pricing": "Tarifs",
     "login": "Connexion"
+  },
+  "landing": {
+    "hero": {
+      "badge": {
+        "talent": "10 000+ Développeurs Experts Prêts à Travailler",
+        "jobs": "5 000+ Emplois Disponibles dans les Meilleures Entreprises"
+      },
+      "title": {
+        "talent": "Embauchez des Développeurs Experts",
+        "talentHighlight": "Pour Tout Projet",
+        "jobs": "Trouvez l'Emploi de Vos Rêves",
+        "jobsHighlight": "Travaillez sur des Projets Incroyables"
+      },
+      "subtitle": {
+        "talent": "Connectez-vous avec les meilleurs développeurs du monde. Mise en relation par IA en quelques minutes.",
+        "jobs": "Découvrez les opportunités des entreprises leaders. Mise en relation d'emplois par IA."
+      },
+      "searchPlaceholder": {
+        "talent": "Rechercher \"Développeur React\", \"App mobile\", \"Ingénieur IA\"...",
+        "jobs": "Rechercher \"Emploi frontend\", \"Poste à distance\", \"Temps plein\"..."
+      },
+      "popular": "Populaire :",
+      "popularTalent": ["Développeur React", "App Mobile", "IA/ML", "Full Stack", "DevOps", "UI/UX"],
+      "popularJobs": ["Emplois à Distance", "Frontend", "Backend", "Temps Plein", "Contrat", "Temps Partiel"],
+      "trustBadges": {
+        "secure": "Sécurisé et Vérifié",
+        "noCard": "Sans Carte de Crédit",
+        "aiPowered": "Mise en Relation par IA"
+      }
+    },
+    "categories": {
+      "badge": "Explorer les Talents",
+      "title": "Parcourir par Catégorie",
+      "subtitle": "Trouvez le développeur parfait pour les besoins de votre projet dans diverses spécialisations",
+      "viewAll": "Voir Toutes les Catégories"
+    },
+    "featuredDevelopers": {
+      "badge": "Meilleurs Talents",
+      "title": "Vendeurs les Mieux Notés",
+      "subtitle": "Vendeurs triés sur le volet avec des antécédents éprouvés, prêts à donner vie à vos idées",
+      "viewAll": "Voir Tous les Vendeurs"
+    },
+    "featuredJobs": {
+      "badge": "Emplois Populaires",
+      "title": "Opportunités d'Emploi en Vedette",
+      "subtitle": "Découvrez des opportunités passionnantes auprès d'entreprises de premier plan à la recherche de développeurs talentueux",
+      "viewAll": "Voir Tous les Emplois"
+    },
+    "features": {
+      "badge": "Pourquoi Nous Choisir",
+      "title": "Tout Ce Dont Vous Avez Besoin",
+      "titleHighlight": "En Une Seule Plateforme",
+      "subtitle": "Des fonctionnalités puissantes conçues pour rendre l'embauche et le travail fluides",
+      "items": {
+        "escrow": {
+          "title": "Protection Séquestre de 14 Jours",
+          "description": "Fonds détenus en toute sécurité jusqu'à la livraison. Libération automatique après 14 jours protège les deux parties."
+        },
+        "aiMatching": {
+          "title": "Mise en Relation par IA",
+          "description": "Le système d'enchères intelligent connecte les clients avec des équipes parfaites basées sur plus de 50 facteurs."
+        },
+        "templates": {
+          "title": "95+ Modèles de Projets",
+          "description": "Flux de travail préconstruits dans 14 catégories avec jalons, coûts et exigences."
+        },
+        "dispute": {
+          "title": "Résolution de Litige 7-2-2",
+          "description": "7 jours de négociation, 2 jours de médiation, 2 jours d'exécution. Résolutions rapides et équitables."
+        },
+        "communication": {
+          "title": "Centre de Communication",
+          "description": "Chat intégré, appels vidéo, tableau blanc et planificateur de réunions en un seul endroit."
+        },
+        "teamTypes": {
+          "title": "Solo, Équipe et Agence",
+          "description": "Profils d'entreprise flexibles pour les individus, les petites équipes ou les agences complètes."
+        },
+        "proofOfDelivery": {
+          "title": "Preuve de Livraison",
+          "description": "Téléchargements de fichiers requis et suivi de la chronologie assurent la responsabilité."
+        },
+        "pricing": {
+          "title": "Tarification Transparente",
+          "description": "Seulement 10 % de frais de plateforme sur livraison réussie. Pas de coûts cachés."
+        }
+      }
+    },
+    "howItWorks": {
+      "badge": "Processus Simple",
+      "title": "De l'Idée au Lancement",
+      "titleHighlight": "En 5 Étapes Simples",
+      "subtitle": "Notre plateforme alimentée par l'IA vous guide à chaque étape de votre projet",
+      "steps": {
+        "step1": {
+          "title": "Publiez Votre Projet",
+          "description": "Décrivez tout projet en langage naturel - design, marketing, rédaction, développement, vidéo ou conseil en affaires.",
+          "mockupLabel": "Exigences du Projet",
+          "mockupText": "Besoin d'un package d'identité de marque avec logo, couleurs et modèles de médias sociaux...",
+          "tags": ["Design de Logo", "Image de Marque", "2 semaines"]
+        },
+        "step2": {
+          "title": "Les Experts Soumettent des Propositions",
+          "description": "L'IA calcule les scores de correspondance basés sur les compétences, le portfolio et l'expérience. Les professionnels les mieux adaptés soumettent des propositions sur mesure.",
+          "matchScore": "Score IA",
+          "proposerName": "Studio de Design Maria",
+          "proposerStatus": "Proposition Envoyée",
+          "proposerText": "Basé sur mes 8 années en design de marque et d'identité...",
+          "skills": "Compétences",
+          "skillsMatch": "94 % correspondance",
+          "experience": "Expérience",
+          "experienceYears": "8+ ans",
+          "rate": "Tarif",
+          "inBudget": "Dans le budget"
+        },
+        "step3": {
+          "title": "Examiner et Sélectionner",
+          "description": "Parcourez les portfolios détaillés, les avis des clients et les échantillons de travail. Discutez avec les professionnels avant l'embauche.",
+          "studioName": "Studio Créatif",
+          "studioType": "Agence de Marque et Design • 150+ projets",
+          "skills": ["Design de Logo", "Identité de Marque", "UI/UX"],
+          "pricing": "2 500 $/projet • Disponible",
+          "chat": "Chat"
+        },
+        "step4": {
+          "title": "Collaborer et Construire",
+          "description": "Utilisez les tableaux Kanban intégrés, le suivi du temps, les appels vidéo et le partage de fichiers. Tout est synchronisé en temps réel.",
+          "columns": ["À Faire", "En Cours", "Terminé"],
+          "task": "Tâche",
+          "hoursTracked": "32h suivies cette semaine"
+        },
+        "step5": {
+          "title": "Protection Séquestre de 14 Jours",
+          "description": "Fonds détenus jusqu'à l'approbation ou libération automatique après 14 jours. En cas de litiges, notre système 7-2-2 les résout rapidement.",
+          "escrowTitle": "Séquestre de 14 Jours",
+          "protected": "Protégé",
+          "timeline": {
+            "day0": "Jour 0",
+            "day0Event": "Le client finance le jalon",
+            "day0Status": "autorisé",
+            "day10": "Jour 10",
+            "day10Event": "Le développeur soumet le travail",
+            "day10Status": "révision",
+            "day15": "Jour 15",
+            "day15Event": "Le client approuve",
+            "day15Status": "libéré"
+          },
+          "autoRelease": "Libération automatique Jour 24 en l'absence de réponse • Résolution de litige 7-2-2",
+          "releasePayment": "Libérer le Paiement"
+        }
+      }
+    },
+    "whyChoose": {
+      "title": "Pourquoi Choisir Team@Once",
+      "subtitle": "La manière intelligente d'embaucher et de gérer les talents en développement"
+    },
+    "comparison": {
+      "badge": "Voir la Différence",
+      "title": "Pourquoi Team@Once",
+      "titleHighlight": "Bat la Concurrence",
+      "subtitle": "Nous avons construit la plateforme tout-en-un qui fait ce que les autres ne peuvent pas faire",
+      "feature": "Fonctionnalité",
+      "teamAtOnce": "Team@Once",
+      "allInOne": "Tout-en-Un",
+      "marketplace": "Marché",
+      "gigPlatform": "Plateforme Gig",
+      "eliteTalent": "Talent d'Élite",
+      "full": "Complet",
+      "basic": "Basique",
+      "partial": "Partiel",
+      "manual": "Manuel",
+      "features": {
+        "paymentProtection": "Protection des Paiements",
+        "paymentProtectionValue": "Libération automatique de 14 jours + litige",
+        "proofOfDelivery": "Preuve de Livraison",
+        "proofOfDeliveryValue": "Téléchargements requis + suivi",
+        "teamManagement": "Gestion d'Équipe",
+        "teamManagementValue": "Profils d'entreprise + affectations",
+        "projectTemplates": "Modèles de Projets",
+        "projectTemplatesValue": "95+ modèles, 14 catégories",
+        "disputeResolution": "Résolution des Litiges",
+        "disputeResolutionValue": "Chronologie automatisée 7-2-2",
+        "aiFeatures": "Fonctionnalités IA",
+        "aiFeaturesValue": "Mise en relation + estimation des coûts",
+        "communicationHub": "Centre de Communication",
+        "communicationHubValue": "Chat, vidéo, tableau blanc",
+        "milestoneWorkflow": "Flux de Travail Jalons",
+        "milestoneWorkflowValue": "Soumettre → Réviser → Approuver",
+        "teamSupport": "Support Solo/Équipe/Agence"
+      }
+    },
+    "testimonials": {
+      "badge": "Ce Que Disent les Gens",
+      "title": "Fait Confiance par les Clients",
+      "titleHighlight": "et les Développeurs",
+      "subtitle": "Voyez ce que notre communauté a à dire sur son expérience avec Team@Once",
+      "fallback": {
+        "testimonial1": {
+          "content": "La mise en relation par IA nous a fait économiser des semaines de recherche. Nous avons trouvé un développeur React qui a parfaitement compris les exigences de notre projet.",
+          "name": "James Mitchell",
+          "company": "PDG, TechStartup Inc",
+          "role": "Client"
+        },
+        "testimonial2": {
+          "content": "En tant que développeur freelance, Team@Once a changé la donne. J'ai augmenté mon revenu de 40 % depuis que j'ai rejoint.",
+          "name": "Sarah Chen",
+          "title": "Développeuse React Senior",
+          "role": "Développeur"
+        },
+        "testimonial3": {
+          "content": "Le système de paiement séquestre me donne la tranquillité d'esprit. Hautement recommandé pour toute entreprise !",
+          "name": "Michael Rodriguez",
+          "company": "Chef de Produit, FinanceApp",
+          "role": "Client"
+        }
+      }
+    },
+    "faq": {
+      "badge": "Des Questions ?",
+      "title": "Questions",
+      "titleHighlight": "Fréquemment Posées",
+      "subtitle": "Tout ce que vous devez savoir sur Team@Once. Vous ne trouvez pas la réponse ? Contactez notre équipe de support.",
+      "stillHaveQuestions": "Vous avez encore des questions ?",
+      "items": {
+        "escrow": {
+          "question": "Comment fonctionne la protection séquestre de 14 jours ?",
+          "answer": "Lorsque vous financez un jalon, Stripe autorise le paiement mais ne le capture pas encore. Le développeur voit le statut 'Financé' et commence à travailler. Après soumission, vous avez 14 jours pour examiner. Si vous approuvez, le paiement est capturé et libéré (moins 10 % de frais de plateforme). Si vous ne faites rien, le paiement est libéré automatiquement après 14 jours - protégeant les développeurs des clients qui disparaissent."
+        },
+        "dispute": {
+          "question": "Qu'est-ce que le système de résolution de litige 7-2-2 ?",
+          "answer": "En cas de litige : 7 jours de négociation où les deux parties soumettent des preuves, 2 jours de médiation administrative où nous examinons et décidons de la répartition, et 2 jours d'exécution. Cette chronologie automatisée garantit des résolutions rapides et équitables sans allers-retours interminables. Des preuves sont requises - nous ne nous fions pas aux dires et contredits."
+        },
+        "templates": {
+          "question": "Quels sont les 95+ modèles de projets ?",
+          "answer": "Nous fournissons des modèles de projets préconstruits dans 14 catégories : Apps d'Affaires (15k$-80k$), E-Commerce (10k$-50k$), Santé (20k$-100k$), IA/ML (25k$-150k$) et plus. Chaque modèle comprend des jalons par défaut, des recommandations de stack technique, des estimations de chronologie et des listes de vérification des exigences - pour que vous commenciez avec une base solide."
+        },
+        "team": {
+          "question": "Comment fonctionne la gestion d'équipe ?",
+          "answer": "Nous prenons en charge trois types de comptes : Développeur Solo (freelance individuel), Petite Équipe (2-10 membres) et Entreprise de Développement (agence complète). Les fonctionnalités d'équipe comprennent les rôles des membres (Propriétaire, Admin, Développeur, Designer, QA), le suivi de la charge de travail (indicateurs de capacité visuels), les affectations de projets avec pourcentages d'allocation et les métriques de performance."
+        },
+        "communication": {
+          "question": "Quels outils de communication sont inclus ?",
+          "answer": "Notre Centre de Communication comprend : chat en temps réel avec pièces jointes et réactions, visioconférence avec partage d'écran et enregistrement, tableau blanc collaboratif pour les diagrammes, planificateur de réunions avec support des fuseaux horaires et calendrier de projet pour le suivi des délais. Tout intégré - pas besoin d'outils externes."
+        },
+        "bidding": {
+          "question": "Comment fonctionne le système d'enchères ?",
+          "answer": "Les clients publient des projets sans assigner une équipe. Les développeurs parcourent le marché et soumettent des propositions avec des lettres de motivation, des coûts proposés, des jalons personnalisés et la composition de l'équipe. L'IA calcule les scores de correspondance en fonction du chevauchement du stack technique. Les clients comparent les propositions et sélectionnent un gagnant - les autres propositions sont automatiquement rejetées et le projet quitte le marché."
+        },
+        "proofOfDelivery": {
+          "question": "Quelle preuve de livraison est requise ?",
+          "answer": "Les développeurs doivent télécharger les livrables (code, fichiers, captures d'écran) lors de la soumission des jalons. Le système suit les horodatages de soumission, les nombres de resoumissions et l'historique des révisions. Cela crée une trace de preuves qui protège les deux parties en cas de litiges - plus de disputes 'je l'ai livré' contre 'je ne l'ai jamais reçu'."
+        },
+        "fees": {
+          "question": "Quels frais facture Team@Once ?",
+          "answer": "Nous facturons des frais de plateforme de 10 % sur les livraisons réussies uniquement. Cela est déduit lorsque le paiement est libéré au développeur. Pas de frais cachés, pas de coûts d'abonnement, pas de frais initiaux. Si un jalon est remboursé en raison d'une non-livraison, aucune partie ne paie de frais. Nous ne gagnons de l'argent que lorsque les projets réussissent."
+        }
+      }
+    },
+    "cta": {
+      "title": "Prêt à Transformer",
+      "titleLine2": "Votre Prochain Projet ?",
+      "subtitle": "Rejoignez des milliers d'entreprises et de développeurs qui font confiance à Team@Once pour une collaboration fluide et des résultats exceptionnels.",
+      "trustIndicators": {
+        "noCard": "Sans carte de crédit",
+        "freeStart": "Gratuit pour commencer",
+        "cancel": "Annulez à tout moment"
+      }
+    },
+    "contact": {
+      "badge": "Contactez-Nous",
+      "title": "Des Questions ?",
+      "titleHighlight": "Nous Aimerions Vous Entendre",
+      "subtitle": "Remplissez le formulaire ci-dessous et notre équipe vous répondra dans les 24 heures",
+      "form": {
+        "fullName": "Nom Complet *",
+        "fullNamePlaceholder": "Jean Dupont",
+        "email": "Adresse E-mail *",
+        "emailPlaceholder": "jean@exemple.com",
+        "subject": "Sujet *",
+        "subjectPlaceholder": "Comment pouvons-nous vous aider ?",
+        "message": "Message *",
+        "messagePlaceholder": "Dites-nous en plus sur votre projet ou demande...",
+        "privacy": "En soumettant ce formulaire, vous acceptez notre",
+        "privacyPolicy": "Politique de Confidentialité",
+        "and": "et",
+        "terms": "Conditions d'Utilisation"
+      }
+    }
+  },
+  "footer": {
+    "description": "La plateforme tout-en-un pour trouver, embaucher et gérer des développeurs de classe mondiale.",
+    "copyright": "© {{year}} Team@Once. Tous droits réservés.",
+    "product": {
+      "title": "Produit",
+      "features": "Fonctionnalités",
+      "pricing": "Tarifs",
+      "howItWorks": "Comment Ça Marche",
+      "faq": "FAQ"
+    },
+    "company": {
+      "title": "Entreprise",
+      "about": "À Propos",
+      "blog": "Blog",
+      "careers": "Carrières"
+    },
+    "legal": {
+      "title": "Légal",
+      "privacy": "Confidentialité",
+      "terms": "Conditions",
+      "cookiePolicy": "Politique des Cookies",
+      "gdpr": "RGPD"
+    }
+  },
+  "languageSwitcher": {
+    "language": "Langue"
+  },
+  "auth": {
+    "login": {
+      "title": "Se Connecter",
+      "subtitle": "Entrez vos identifiants pour continuer",
+      "email": "Adresse E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "password": "Mot de Passe",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "forgotPassword": "Mot de passe oublié ?",
+      "signIn": "Se Connecter",
+      "signingIn": "Connexion en cours...",
+      "noAccount": "Vous n'avez pas de compte ?",
+      "signUp": "S'inscrire",
+      "accountBanned": "Compte Banni",
+      "orContinueWith": "ou continuez avec"
+    },
+    "signup": {
+      "title": "Créez Votre Compte",
+      "invitationTitle": "Accepter l'Invitation",
+      "subtitle": "Rejoignez des milliers de clients et vendeurs dans le monde entier",
+      "invitationSubtitle": "Créez un compte pour rejoindre l'équipe",
+      "selectType": "Je veux m'inscrire en tant que :",
+      "client": "Client",
+      "clientDescription": "Je veux embaucher des développeurs pour mes projets",
+      "seller": "Vendeur",
+      "sellerDescription": "Je veux offrir mes services",
+      "clientFeatures": {
+        "feature1": "Publiez des projets illimités",
+        "feature2": "Mise en relation d'équipe par IA",
+        "feature3": "Paiements sécurisés par jalon"
+      },
+      "sellerFeatures": {
+        "feature1": "Trouvez des projets de qualité",
+        "feature2": "Fixez vos propres tarifs",
+        "feature3": "Soyez payé en toute sécurité"
+      },
+      "accountType": "Compte",
+      "change": "Changer",
+      "fullName": "Nom Complet",
+      "fullNamePlaceholder": "Jean Dupont",
+      "email": "Adresse E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "password": "Mot de Passe",
+      "passwordPlaceholder": "Au moins 8 caractères",
+      "confirmPassword": "Confirmer le Mot de Passe",
+      "confirmPasswordPlaceholder": "Ressaisissez votre mot de passe",
+      "termsAgreement": "J'accepte les",
+      "termsOfService": "Conditions d'Utilisation",
+      "and": "et",
+      "privacyPolicy": "Politique de Confidentialité",
+      "createAccount": "Créer un Compte",
+      "creatingAccount": "Création du Compte...",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "signIn": "Se Connecter",
+      "invitationNotice": "Invitation d'Équipe",
+      "invitationMessage": "Vous avez été invité à rejoindre une équipe. Terminez votre inscription pour accepter l'invitation."
+    },
+    "forgotPassword": {
+      "title": "Mot de Passe Oublié ?",
+      "subtitle": "Pas de souci ! Entrez votre e-mail et nous vous enverrons les instructions de réinitialisation",
+      "email": "Adresse E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "sendResetLink": "Envoyer le Lien de Réinitialisation",
+      "sending": "Envoi en cours...",
+      "backToSignIn": "Retour à la Connexion",
+      "checkEmail": "Vérifiez Votre E-mail",
+      "emailSentTo": "Nous avons envoyé les instructions de réinitialisation du mot de passe à :",
+      "didntReceive": "Cliquez sur le lien dans l'e-mail pour réinitialiser votre mot de passe. Si vous ne le voyez pas, vérifiez votre dossier spam.",
+      "resendEmail": "Renvoyer l'E-mail",
+      "needHelp": "Besoin d'aide ?",
+      "contactSupport": "Contactez notre équipe de support à",
+      "dataSecure": "Vos données sont",
+      "secure": "sécurisées",
+      "withUs": "avec nous"
+    },
+    "authSuccess": {
+      "title": "Authentification Réussie !",
+      "message": "Vous avez été connecté avec succès. Redirection vers votre tableau de bord..."
+    },
+    "authError": {
+      "title": "Échec de l'Authentification",
+      "tryAgain": "Réessayer",
+      "backToHome": "Retour à l'Accueil"
+    },
+    "oauthCallback": {
+      "title": "Finalisation de la connexion...",
+      "message": "Veuillez patienter pendant que nous terminons la configuration de votre compte"
+    },
+    "errors": {
+      "emailRequired": "L'e-mail est requis",
+      "emailInvalid": "L'e-mail n'est pas valide",
+      "validEmail": "Veuillez entrer une adresse e-mail valide",
+      "passwordRequired": "Le mot de passe est requis",
+      "passwordLength": "Le mot de passe doit contenir au moins 6 caractères",
+      "passwordMin8": "Le mot de passe doit contenir au moins 8 caractères",
+      "confirmPasswordRequired": "Veuillez confirmer votre mot de passe",
+      "passwordsMismatch": "Les mots de passe ne correspondent pas",
+      "nameRequired": "Le nom est requis",
+      "nameMin": "Le nom doit contenir au moins 2 caractères",
+      "selectAccountType": "Veuillez sélectionner le type de compte",
+      "acceptTerms": "Vous devez accepter les termes et conditions",
+      "resetFailed": "Échec de l'envoi de l'e-mail de réinitialisation"
+    },
+    "social": {
+      "continueWith": "Continuer avec",
+      "google": "Google",
+      "github": "GitHub",
+      "divider": "ou"
+    }
   }
 }
