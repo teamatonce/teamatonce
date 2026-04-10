@@ -19,4 +19,4 @@
 
 ## License
 
-[Apache License 2.0](LICENSE)
+[GNU AGPL 3.0](LICENSE)

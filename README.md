@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/teamatonce/teamatonce/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
+  <a href="https://github.com/teamatonce/teamatonce/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" alt="License"></a>
   <a href="https://github.com/teamatonce/teamatonce/stargazers"><img src="https://img.shields.io/github/stars/teamatonce/teamatonce?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/teamatonce/teamatonce/issues"><img src="https://img.shields.io/github/issues/teamatonce/teamatonce" alt="Issues"></a>
 </p>
@@ -61,7 +61,7 @@ Team@Once is an open-source AI-driven development outsourcing marketplace that e
 | **Smart Contracts** | ✅ Auto-generated + e-sign | ⚠️ Basic | ❌ | ⚠️ Basic | ✅ |
 | **API Access** | ✅ Full REST API | ⚠️ Partial | ❌ | ❌ | ✅ |
 | **Self-Hosted** | ✅ Docker Compose | ❌ | ❌ | ❌ | ❌ |
-| **Open Source** | ✅ Apache 2.0 | ❌ | ❌ | ❌ | ❌ |
+| **Open Source** | ✅ AGPL 3.0 | ❌ | ❌ | ❌ | ❌ |
 | **Platform Fee** | 🟢 3-5% | 💰 10-20% | 💰 ~2x markup | 💰 20% | 💰 Custom |
 | **i18n** | ✅ 11 languages | ✅ | ✅ | ✅ | ✅ |
 
@@ -193,6 +193,6 @@ Please report security vulnerabilities responsibly. See [SECURITY.md](SECURITY.m
 
 ## License
 
-This project is licensed under the [Apache License 2.0](LICENSE).
+This project is licensed under the [GNU Affero General Public License v3.0](LICENSE).
 
 Copyright 2025 Team@Once Contributors.
