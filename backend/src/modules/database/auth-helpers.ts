@@ -28,10 +28,18 @@ export interface AuthUser {
   id: string;
   email: string;
   name: string | null;
+  full_name: string | null;
+  username: string | null;
+  avatar_url: string | null;
+  phone: string | null;
+  role: string;
   emailVerified: boolean;
+  email_confirmed_at: string | null;
   metadata: Record<string, any>;
   user_metadata: Record<string, any>;
   created_at: string;
+  // Legacy SDK shape that some callers expect
+  app_metadata?: Record<string, any>;
 }
 
 export interface AuthSession {
@@ -57,16 +65,29 @@ function rowToUser(row: any): AuthUser {
     id: row.id,
     email: row.email,
     name: row.name,
+    full_name: row.full_name || row.name,
+    username: row.username,
+    avatar_url: row.avatar_url,
+    phone: row.phone,
+    role: row.role || 'user',
     emailVerified: !!row.email_verified,
+    email_confirmed_at: row.email_confirmed_at,
     metadata: row.metadata || {},
     user_metadata: row.user_metadata || {},
+    app_metadata: { role: row.role || 'user' },
     created_at: row.created_at,
   };
 }
 
 function signAccessToken(user: AuthUser, cfg: AuthConfig): string {
   return jwt.sign(
-    { sub: user.id, email: user.email, emailVerified: user.emailVerified },
+    {
+      sub: user.id,
+      userId: user.id, // legacy alias used by some guards
+      email: user.email,
+      emailVerified: user.emailVerified,
+      role: user.role,
+    },
     cfg.jwtSecret,
     { expiresIn: cfg.jwtExpiresIn } as jwt.SignOptions,
   );
@@ -111,11 +132,28 @@ export async function registerUser(
   const hash = await bcrypt.hash(data.password, cfg.bcryptRounds);
   const verificationToken = crypto.randomBytes(32).toString('hex');
 
+  // Pull role / username out of metadata so they get their own columns
+  const md = { ...(data.metadata || {}) };
+  const role = md.role || 'user';
+  const username = md.username || null;
+  delete md.role;
+
   const insert = await pool.query(
-    `INSERT INTO "users" ("email", "password_hash", "name", "email_verified", "email_verification_token", "metadata", "user_metadata")
-     VALUES ($1, $2, $3, false, $4, $5, $6)
+    `INSERT INTO "users" ("email", "password_hash", "name", "full_name", "username", "role",
+                          "email_verified", "email_verification_token", "metadata", "user_metadata")
+     VALUES ($1, $2, $3, $4, $5, $6, false, $7, $8, $9)
      RETURNING *`,
-    [email, hash, data.name || null, verificationToken, data.metadata || {}, data.metadata || {}],
+    [
+      email,
+      hash,
+      data.name || null,
+      data.name || null,
+      username,
+      role,
+      verificationToken,
+      md,
+      md,
+    ],
   );
 
   const user = rowToUser(insert.rows[0]);
@@ -166,7 +204,10 @@ export async function loginUser(
     throw err;
   }
 
-  await pool.query('UPDATE "users" SET "last_login_at" = now() WHERE "id" = $1', [row.id]);
+  await pool.query(
+    'UPDATE "users" SET "last_login_at" = now(), "last_sign_in_at" = now() WHERE "id" = $1',
+    [row.id],
+  );
 
   const user = rowToUser(row);
   const accessToken = signAccessToken(user, cfg);
@@ -273,7 +314,12 @@ export async function verifyEmailFn(
   token: string,
 ): Promise<{ success: boolean }> {
   const result = await pool.query(
-    'UPDATE "users" SET "email_verified" = true, "email_verification_token" = NULL WHERE "email_verification_token" = $1 RETURNING id',
+    `UPDATE "users"
+     SET "email_verified" = true,
+         "email_confirmed_at" = now(),
+         "email_verification_token" = NULL
+     WHERE "email_verification_token" = $1
+     RETURNING id`,
     [token],
   );
   return { success: result.rowCount! > 0 };
@@ -284,8 +330,8 @@ export async function updateUserFn(
   userId: string,
   updates: Record<string, any>,
 ): Promise<AuthUser> {
-  // Allow only known columns plus metadata
-  const allowed = ['name', 'avatar_url', 'phone', 'metadata', 'user_metadata'];
+  // Allow only known columns. Metadata is jsonb-merged so callers can patch.
+  const allowed = ['name', 'full_name', 'username', 'avatar_url', 'phone', 'role', 'email'];
   const cols: string[] = [];
   const vals: any[] = [];
   for (const key of Object.keys(updates)) {
@@ -293,6 +339,16 @@ export async function updateUserFn(
       cols.push(`"${key}" = $${vals.length + 1}`);
       vals.push(updates[key]);
     }
+  }
+  // Handle metadata patches: jsonb-merge instead of replace, so callers
+  // can add a key without nuking the rest of the object.
+  if (updates.metadata !== undefined) {
+    cols.push(`"metadata" = COALESCE("metadata", '{}'::jsonb) || $${vals.length + 1}::jsonb`);
+    vals.push(updates.metadata);
+  }
+  if (updates.user_metadata !== undefined) {
+    cols.push(`"user_metadata" = COALESCE("user_metadata", '{}'::jsonb) || $${vals.length + 1}::jsonb`);
+    vals.push(updates.user_metadata);
   }
   if (cols.length === 0) {
     const r = await pool.query('SELECT * FROM "users" WHERE "id" = $1 LIMIT 1', [userId]);
