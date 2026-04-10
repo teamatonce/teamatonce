@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
-- Open-source release under Apache License 2.0
+- Open-source release under GNU AGPL 3.0
 - PostgreSQL direct database layer
 - Community infrastructure (CONTRIBUTING, CODE_OF_CONDUCT, SECURITY)
 - CI workflow and Dependabot
