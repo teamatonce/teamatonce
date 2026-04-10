@@ -486,7 +486,7 @@ export class VideoService {
     const recordingData = await this.db.insert('video_session_recordings', {
       video_session_id: sessionId,
       project_id: session.project_id,
-      database_recording_id: (recording as any).egressId || recording.id,
+      database_recording_id: recording.database_recording_id || recording.recordingId,
       status: RecordingStatus.RECORDING,
       started_at: new Date().toISOString(),
       started_by: userId,
