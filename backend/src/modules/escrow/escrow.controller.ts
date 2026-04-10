@@ -15,7 +15,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import Stripe from 'stripe';
+import * as Stripe from 'stripe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { EscrowService } from './escrow.service';
 import { DisputeService } from './dispute.service';
