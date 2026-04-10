@@ -289,7 +289,7 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
       // Emit via AppGateway (default namespace)
       this.socketGateway.emitToUser(userId, 'notification:event', socketEvent);
 
-      // Also emit via TeamAtOnceGateway (/teamatonce namespace) - this is what the frontend connects to
+      // Also emit via Team@OnceGateway (/teamatonce namespace) - this is what the frontend connects to
       this.teamAtOnceGateway.sendToUser(userId, 'notification', {
         ...socketEvent,
         notification: event.data, // Include notification data for easier access

@@ -40,7 +40,7 @@ export class GreenJapanCrawler {
     });
 
     this.userAgent = this.configService.get<string>('CRAWLER_USER_AGENT') ||
-      'TeamAtOnce Bot/1.0 (Data Collection for Talent Matching; contact@teamatonce.com)';
+      'Team@Once Bot/1.0 (Data Collection for Talent Matching; contact@teamatonce.com)';
   }
 
   /**

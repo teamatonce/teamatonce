@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://teamatonce.com">
-    <img src="frontend/public/assets/logo.png" alt="TeamAtOnce" width="80">
+    <img src="frontend/public/assets/logo.png" alt="Team@Once" width="80">
   </a>
-  <h1 align="center">TeamAtOnce</h1>
+  <h1 align="center">Team@Once</h1>
   <p align="center"><strong>오픈소스 AI 기반 개발 아웃소싱 플랫폼</strong></p>
   <p align="center">지능형 자동화와 투명한 프로세스로 소프트웨어 개발 아웃소싱을 혁신합니다.</p>
 </p>

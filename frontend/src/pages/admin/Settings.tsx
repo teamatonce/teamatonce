@@ -34,7 +34,7 @@ const AdminSettings: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [settings, setSettings] = useState({
     // General
-    siteName: 'TeamAtOnce',
+    siteName: 'Team@Once',
     siteDescription: 'Connect with top freelancers and agencies',
     maintenanceMode: false,
 
@@ -52,7 +52,7 @@ const AdminSettings: React.FC = () => {
     // Email
     smtpConfigured: true,
     fromEmail: 'noreply@teamatonce.com',
-    fromName: 'TeamAtOnce',
+    fromName: 'Team@Once',
 
     // Platform
     requireUserApproval: true,

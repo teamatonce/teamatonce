@@ -36,7 +36,7 @@ export class SesEmailService implements OnModuleInit {
     const pass = this.configService.get<string>('SES_SMTP_PASS');
 
     this.defaultFrom = this.configService.get<string>('SES_FROM_ADDRESS') || 'noreply@promoatonce.com';
-    this.defaultFromName = this.configService.get<string>('SES_FROM_NAME') || 'TeamAtOnce';
+    this.defaultFromName = this.configService.get<string>('SES_FROM_NAME') || 'Team@Once';
 
     if (!host || !user || !pass) {
       this.logger.warn('AWS SES SMTP not configured. Outreach email service will be disabled.');
@@ -154,7 +154,7 @@ export class SesEmailService implements OnModuleInit {
   async sendTestEmail(to: string): Promise<OutreachEmailResult> {
     return this.sendEmail({
       to,
-      subject: 'TeamAtOnce - SES Email Test',
+      subject: 'Team@Once - SES Email Test',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <h2 style="color: #333;">AWS SES Configuration Test</h2>

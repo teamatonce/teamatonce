@@ -1,6 +1,6 @@
 # Company Onboarding Component
 
-A complete multi-step wizard for company onboarding in the TeamAtOnce platform.
+A complete multi-step wizard for company onboarding in the Team@Once platform.
 
 ## Features
 

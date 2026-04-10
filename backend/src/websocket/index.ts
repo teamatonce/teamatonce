@@ -1,6 +1,6 @@
 /**
  * WebSocket Module Exports
- * Central export point for TeamAtOnce WebSocket functionality
+ * Central export point for Team@Once WebSocket functionality
  */
 
 export * from './teamatonce.gateway';

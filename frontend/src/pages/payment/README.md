@@ -1,8 +1,8 @@
-# TeamAtOnce Payment & Contract Management System
+# Team@Once Payment & Contract Management System
 
 ## Overview
 
-Comprehensive payment and contract management system for the TeamAtOnce platform, providing secure milestone-based payments, contract management, and invoice generation.
+Comprehensive payment and contract management system for the Team@Once platform, providing secure milestone-based payments, contract management, and invoice generation.
 
 ## Features
 
@@ -222,4 +222,4 @@ For issues or questions regarding the payment system:
 
 ## License
 
-Part of the TeamAtOnce platform. All rights reserved.
+Part of the Team@Once platform. All rights reserved.

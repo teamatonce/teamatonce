@@ -40,7 +40,7 @@ import {
 } from '@/components/ui/select'
 import { notificationService, NotificationPreferences } from '@/services/notificationService'
 
-// Default notification categories for TeamAtOnce
+// Default notification categories for Team@Once
 const NOTIFICATION_CATEGORIES = [
   {
     key: 'PROJECT',

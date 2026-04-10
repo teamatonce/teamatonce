@@ -54,7 +54,7 @@ export class databaseSocialAuthService {
 
       this.logger.log(`OAuth callback successful for ${provider}, user: ${response.user.email}`);
 
-      // Map database response to TeamAtOnce format
+      // Map database response to Team@Once format
       // ✅ Note: role should be read from response.user.role (direct column)
       return {
         user: {

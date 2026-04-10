@@ -57,7 +57,7 @@ export class WeWorkRemotelyCrawler {
       const response = await this.limiter.schedule(() =>
         fetch(rssUrl, {
           headers: {
-            'User-Agent': 'TeamAtOnce Bot/1.0 (Data Collection for Talent Matching)',
+            'User-Agent': 'Team@Once Bot/1.0 (Data Collection for Talent Matching)',
             'Accept': 'application/rss+xml, application/xml, text/xml',
           },
         }),

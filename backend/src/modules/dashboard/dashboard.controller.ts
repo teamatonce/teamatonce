@@ -39,7 +39,7 @@ export class DashboardController {
       // Pass both userId and companyId to get comprehensive stats
       const dashboardData = await this.dashboardService.getDashboardData(userId, companyId);
 
-      // Return TeamAtOnce client stats
+      // Return Team@Once client stats
       return {
         activeProjects: dashboardData.stats.activeProjects || 0,
         totalProjects: dashboardData.stats.totalProjects || 0,

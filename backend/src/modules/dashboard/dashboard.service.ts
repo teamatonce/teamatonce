@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 
 /**
- * Dashboard Service for TeamAtOnce Platform
+ * Dashboard Service for Team@Once Platform
  * Provides aggregated dashboard data for clients
  */
 @Injectable()

@@ -815,7 +815,7 @@ export class AuthService {
    * This is called by frontend after receiving database token from OAuth redirect
    *
    * database's job: Create/authenticate user in database database, return tokens and user info
-   * TeamAtOnce's job: Generate our own JWT for API authentication
+   * Team@Once's job: Generate our own JWT for API authentication
    *
    * THREE SCENARIOS:
    * 1. Existing user with role → return tokens (needsRoleSelection: false)

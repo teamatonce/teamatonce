@@ -21,16 +21,16 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       throw new UnauthorizedException('Token not found');
     }
 
-    // Try to verify with TeamAtOnce JWT secret first (for TeamAtOnce native tokens)
+    // Try to verify with Team@Once JWT secret first (for Team@Once native tokens)
     try {
       const payload = this.jwtService.verify(token);
       request.user = this.normalizePayload(payload);
       return true;
     } catch (error) {
-      // TeamAtOnce secret failed, try database token validation
+      // Team@Once secret failed, try database token validation
     }
 
-    // Token is not a TeamAtOnce token, just decode it and trust it
+    // Token is not a Team@Once token, just decode it and trust it
     // (Similar to how Supabase/Firebase work - the client trusts JWTs from the BaaS)
     try {
       // Decode (not verify) the token to get userId and other claims
@@ -47,7 +47,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         throw new UnauthorizedException('Invalid token format - no user identifier');
       }
 
-      // Map database user to TeamAtOnce format
+      // Map database user to Team@Once format
       // We trust the token since it came from database (our BaaS)
       request.user = {
         sub: userId,
@@ -69,7 +69,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   /**
    * Normalize payload from different JWT formats
    * database uses: { userId, email, projectId, ... }
-   * TeamAtOnce uses: { sub, email, ... }
+   * Team@Once uses: { sub, email, ... }
    */
   private normalizePayload(payload: any) {
     return {

@@ -10,12 +10,12 @@ import { AuthModule } from '../auth/auth.module';
 /**
  * Payment Module
  *
- * Provides Stripe payment integration for TeamAtOnce platform
+ * Provides Stripe payment integration for Team@Once platform
  * Handles subscriptions, payment methods, invoices, and checkout sessions
  *
  * Includes two controllers:
  * - PaymentController: Original /payment/* endpoints
- * - TeamAtOncePaymentController: Wrapper /teamatonce/* endpoints for frontend compatibility
+ * - Team@OncePaymentController: Wrapper /teamatonce/* endpoints for frontend compatibility
  */
 @Module({
   providers: [StripeService, PaymentService],

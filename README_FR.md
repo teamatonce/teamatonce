@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://teamatonce.com">
-    <img src="frontend/public/assets/logo.png" alt="TeamAtOnce" width="80">
+    <img src="frontend/public/assets/logo.png" alt="Team@Once" width="80">
   </a>
-  <h1 align="center">TeamAtOnce</h1>
+  <h1 align="center">Team@Once</h1>
   <p align="center"><strong>Plateforme d'externalisation de developpement pilotee par l'IA</strong></p>
   <p align="center">Revolutionner l'externalisation du developpement logiciel.</p>
 </p>

@@ -1,6 +1,6 @@
 /**
  * Payment and Contract Management Type Definitions
- * TeamAtOnce Platform
+ * Team@Once Platform
  */
 
 export type MilestoneStatus = 'pending' | 'in-progress' | 'review' | 'completed' | 'paid' | 'disputed';

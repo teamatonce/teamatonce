@@ -1,5 +1,5 @@
 /**
- * TeamAtOnce Database Schema Definition
+ * Team@Once Database Schema Definition
  * Using database's migration system
  * Note: User authentication is handled by database, so no users table is included
  */

@@ -1,6 +1,6 @@
 /**
  * Navigation utilities for handling company-based routing
- * Pattern adapted from database for TeamAtOnce
+ * Pattern adapted from database for Team@Once
  */
 
 export type SectionType = 'client' | 'developer' | 'settings' | 'project';

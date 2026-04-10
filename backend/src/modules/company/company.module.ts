@@ -23,7 +23,7 @@ import { AuthModule } from '../auth/auth.module';
  * - Statistics and analytics
  * - Workload management
  *
- * This module provides a complete company management system for the TeamAtOnce platform,
+ * This module provides a complete company management system for the Team@Once platform,
  * allowing developers to create companies, invite team members, and manage their organization.
  */
 @Module({

@@ -210,7 +210,7 @@
       "badge": "お客様の声",
       "title": "クライアントと",
       "titleHighlight": "開発者に信頼される",
-      "subtitle": "TeamAtOnceでの体験についてコミュニティの声をご覧ください",
+      "subtitle": "Team@Onceでの体験についてコミュニティの声をご覧ください",
       "fallback": {
         "testimonial1": {
           "content": "AIマッチングで何週間もの探索時間を節約できました。プロジェクト要件を完璧に理解するReact開発者が見つかりました。",
@@ -219,7 +219,7 @@
           "role": "クライアント"
         },
         "testimonial2": {
-          "content": "フリーランス開発者として、TeamAtOnceは革命的でした。参加以来、収入が40%増加しました。",
+          "content": "フリーランス開発者として、Team@Onceは革命的でした。参加以来、収入が40%増加しました。",
           "name": "サラ・チェン",
           "title": "シニアReact開発者",
           "role": "開発者"
@@ -236,7 +236,7 @@
       "badge": "ご質問は？",
       "title": "よくある",
       "titleHighlight": "ご質問",
-      "subtitle": "TeamAtOnceについて知っておくべきこと。答えが見つからない場合はサポートチームにお問い合わせください。",
+      "subtitle": "Team@Onceについて知っておくべきこと。答えが見つからない場合はサポートチームにお問い合わせください。",
       "stillHaveQuestions": "まだ質問がありますか？",
       "items": {
         "escrow": {

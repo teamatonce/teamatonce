@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://teamatonce.com">
-    <img src="frontend/public/assets/logo.png" alt="TeamAtOnce" width="80">
+    <img src="frontend/public/assets/logo.png" alt="Team@Once" width="80">
   </a>
-  <h1 align="center">TeamAtOnce</h1>
+  <h1 align="center">Team@Once</h1>
   <p align="center"><strong>开源AI驱动的开发外包平台</strong></p>
   <p align="center">通过智能自动化和透明流程，革新软件开发外包。</p>
 </p>

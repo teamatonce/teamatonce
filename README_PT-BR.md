@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://teamatonce.com">
-    <img src="frontend/public/assets/logo.png" alt="TeamAtOnce" width="80">
+    <img src="frontend/public/assets/logo.png" alt="Team@Once" width="80">
   </a>
-  <h1 align="center">TeamAtOnce</h1>
+  <h1 align="center">Team@Once</h1>
   <p align="center"><strong>Plataforma de terceirizacao de desenvolvimento com IA</strong></p>
   <p align="center">Revolucionando a terceirizacao de desenvolvimento de software.</p>
 </p>

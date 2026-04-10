@@ -1,6 +1,6 @@
 # Payment Module
 
-Complete Stripe payment integration for TeamAtOnce platform.
+Complete Stripe payment integration for Team@Once platform.
 
 ## 📁 Module Structure
 
@@ -285,4 +285,4 @@ Integrate with other modules:
 
 ## 📝 License
 
-Part of TeamAtOnce platform - All rights reserved.
+Part of Team@Once platform - All rights reserved.

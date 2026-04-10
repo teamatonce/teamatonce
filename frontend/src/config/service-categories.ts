@@ -1,5 +1,5 @@
 /**
- * Comprehensive Service Categories for TeamAtOnce
+ * Comprehensive Service Categories for Team@Once
  * Modeled after Fiverr/Upwork marketplace categories
  */
 

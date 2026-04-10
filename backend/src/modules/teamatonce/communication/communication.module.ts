@@ -31,7 +31,7 @@ import { NotesService } from './notes.service';
  *
  * All services use:
  * - DatabaseService for database operations
- * - TeamAtOnceGateway for WebSocket real-time updates
+ * - Team@OnceGateway for WebSocket real-time updates
  * - ProjectAccessService for unified access control
  * - Multi-tenant architecture with project-based filtering
  *

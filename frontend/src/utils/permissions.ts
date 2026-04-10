@@ -1,7 +1,7 @@
 /**
  * Permission Utility Functions
  *
- * Centralized permission checks for TeamAtOnce application
+ * Centralized permission checks for Team@Once application
  */
 
 import { Project } from '@/types/project';

@@ -1,6 +1,6 @@
 /**
  * Gig Service
- * Handles all gig/service package related API calls for TeamAtOnce platform
+ * Handles all gig/service package related API calls for Team@Once platform
  */
 
 import { apiClient } from '@/lib/api-client';

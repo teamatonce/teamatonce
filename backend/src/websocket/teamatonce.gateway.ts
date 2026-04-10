@@ -25,7 +25,7 @@ import {
 import { RoomHelper } from './interfaces/websocket.interface';
 
 /**
- * TeamAtOnce WebSocket Gateway
+ * Team@Once WebSocket Gateway
  * Handles real-time communication for the multi-tenant project outsourcing platform
  *
  * Features:
@@ -80,7 +80,7 @@ export class TeamAtOnceGateway
    * https://docs.nestjs.com/websockets/adapter#extend-socket-adapter
    */
   async afterInit(server: Server) {
-    this.logger.log('TeamAtOnce WebSocket Gateway initialized');
+    this.logger.log('Team@Once WebSocket Gateway initialized');
     this.logger.log('Redis adapter disabled - running in single-instance mode');
     this.logger.log('For production scaling, implement RedisIoAdapter');
 

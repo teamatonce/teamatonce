@@ -158,7 +158,7 @@ export class AuthController {
   }
 
   @Post('oauth/exchange')
-  @ApiOperation({ summary: 'Exchange database token for TeamAtOnce JWT' })
+  @ApiOperation({ summary: 'Exchange database token for Team@Once JWT' })
   async exchangeOAuthToken(@Body() dto: { authToken: string; userId: string; email: string; role?: string }) {
     return await this.authService.exchangedatabaseToken(dto.authToken, dto.userId, dto.email, dto.role);
   }
@@ -184,8 +184,8 @@ export class AuthController {
 
   // NOTE: OAuth callback is handled by database backend
   // GitHub/Google redirects to storage backend callback
-  // database backend exchanges code for tokens and redirects to TeamAtOnce frontend with tokens
-  // TeamAtOnce frontend receives tokens and exchanges them for TeamAtOnce JWT
+  // database backend exchanges code for tokens and redirects to Team@Once frontend with tokens
+  // Team@Once frontend receives tokens and exchanges them for Team@Once JWT
 
   // ============================================
 

@@ -1,4 +1,4 @@
-# Contributing to TeamAtOnce
+# Contributing to Team@Once
 
 Thank you for your interest in contributing! See our [Code of Conduct](CODE_OF_CONDUCT.md).
 

@@ -305,7 +305,7 @@ export class GenericCrawler {
     const response = await this.limiter.schedule(() =>
       fetch(url, {
         headers: {
-          'User-Agent': 'TeamAtOnce Bot/1.0 (Data Collection for Talent Matching)',
+          'User-Agent': 'Team@Once Bot/1.0 (Data Collection for Talent Matching)',
           Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         },
         signal: AbortSignal.timeout(30000),
@@ -341,7 +341,7 @@ export class GenericCrawler {
   private async fetchPageWithBrowser(browser: any, url: string): Promise<string> {
     const page = await browser.newPage();
     try {
-      await page.setUserAgent('TeamAtOnce Bot/1.0 (Data Collection for Talent Matching)');
+      await page.setUserAgent('Team@Once Bot/1.0 (Data Collection for Talent Matching)');
       await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
       return await page.content();
     } finally {

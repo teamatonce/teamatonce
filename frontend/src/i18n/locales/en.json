@@ -210,7 +210,7 @@
       "badge": "What People Say",
       "title": "Trusted by Clients",
       "titleHighlight": "& Developers Alike",
-      "subtitle": "See what our community has to say about their experience with TeamAtOnce",
+      "subtitle": "See what our community has to say about their experience with Team@Once",
       "fallback": {
         "testimonial1": {
           "content": "The AI matching saved us weeks of searching. We found a React developer who understood our project requirements perfectly.",
@@ -219,7 +219,7 @@
           "role": "Client"
         },
         "testimonial2": {
-          "content": "As a freelance developer, TeamAtOnce has been a game-changer. I've increased my income by 40% since joining.",
+          "content": "As a freelance developer, Team@Once has been a game-changer. I've increased my income by 40% since joining.",
           "name": "Sarah Chen",
           "title": "Senior React Developer",
           "role": "Developer"
@@ -236,7 +236,7 @@
       "badge": "Got Questions?",
       "title": "Frequently Asked",
       "titleHighlight": "Questions",
-      "subtitle": "Everything you need to know about TeamAtOnce. Can't find the answer? Contact our support team.",
+      "subtitle": "Everything you need to know about Team@Once. Can't find the answer? Contact our support team.",
       "stillHaveQuestions": "Still have questions?",
       "items": {
         "escrow": {

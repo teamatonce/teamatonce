@@ -30,7 +30,7 @@ import { StorageModule } from './modules/storage/storage.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { InstructorsModule } from './modules/instructors/instructors.module';
 
-// TeamAtOnce specific modules
+// Team@Once specific modules
 import { TeamAtOnceWebSocketModule } from './websocket/websocket.module';
 import { ProjectModule } from './modules/teamatonce/project/project.module';
 import { CommunicationModule } from './modules/teamatonce/communication/communication.module';
@@ -85,7 +85,7 @@ import { QueueModule } from './modules/queue/queue.module';
     AdminModule,
     InstructorsModule,
 
-    // TeamAtOnce modules
+    // Team@Once modules
     ProjectModule,
     CommunicationModule,
     ContractModule,

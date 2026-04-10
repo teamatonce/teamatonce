@@ -2,7 +2,7 @@
 
 ## Overview
 
-A comprehensive, production-ready modal system built with Radix UI Dialog and Framer Motion. These components replace browser alerts (`window.alert`, `window.confirm`) with beautiful, accessible, and animated modals that match the TeamAtOnce design system.
+A comprehensive, production-ready modal system built with Radix UI Dialog and Framer Motion. These components replace browser alerts (`window.alert`, `window.confirm`) with beautiful, accessible, and animated modals that match the Team@Once design system.
 
 ## Features
 
@@ -308,7 +308,7 @@ await alert(
 
 ### Button Variants
 
-All buttons use the TeamAtOnce gradient style:
+All buttons use the Team@Once gradient style:
 
 - **primary**: Blue → Purple → Pink gradient (default)
 - **danger**: Red gradient (for destructive actions)
@@ -492,7 +492,7 @@ if (step1) {
 
 ## License
 
-Part of TeamAtOnce frontend components. MIT License.
+Part of Team@Once frontend components. MIT License.
 
 ---
 

@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://teamatonce.com">
-    <img src="frontend/public/assets/logo.png" alt="TeamAtOnce" width="80">
+    <img src="frontend/public/assets/logo.png" alt="Team@Once" width="80">
   </a>
-  <h1 align="center">TeamAtOnce</h1>
+  <h1 align="center">Team@Once</h1>
   <p align="center">
     <strong>Open-source AI-driven development outsourcing platform</strong>
   </p>
@@ -41,13 +41,13 @@
 
 ---
 
-## What is TeamAtOnce?
+## What is Team@Once?
 
-TeamAtOnce is an open-source AI-driven development outsourcing marketplace that eliminates traditional risks through intelligent automation, AI-powered assessments, escrow payments, and real-time project management.
+Team@Once is an open-source AI-driven development outsourcing marketplace that eliminates traditional risks through intelligent automation, AI-powered assessments, escrow payments, and real-time project management.
 
-## Why TeamAtOnce? (Comparison)
+## Why Team@Once? (Comparison)
 
-| Feature | TeamAtOnce | Upwork | Toptal | Fiverr | Deel |
+| Feature | Team@Once | Upwork | Toptal | Fiverr | Deel |
 |---------|-----------|--------|--------|--------|------|
 | **AI-Powered Matching** | ✅ NLP + smart matching | ❌ | ⚠️ Manual vetting | ❌ | ❌ |
 | **Built-in Project Mgmt** | ✅ Kanban, milestones, time tracking | ⚠️ Basic | ❌ | ❌ | ❌ |
@@ -138,7 +138,7 @@ teamatonce/
 
 ## Contributors
 
-Thank you to all the amazing people who have contributed to TeamAtOnce! 🎉
+Thank you to all the amazing people who have contributed to Team@Once! 🎉
 
 <a href="https://github.com/teamatonce/teamatonce/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=teamatonce/teamatonce&anon=1&max=100&columns=10" />
@@ -163,4 +163,4 @@ Please report security vulnerabilities responsibly. See [SECURITY.md](SECURITY.m
 
 This project is licensed under the [Apache License 2.0](LICENSE).
 
-Copyright 2025 TeamAtOnce Contributors.
+Copyright 2025 Team@Once Contributors.

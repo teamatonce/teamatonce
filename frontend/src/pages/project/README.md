@@ -122,7 +122,7 @@ src/
 
 ## 🎨 Styling
 
-All pages use Tailwind CSS with the TeamAtOnce design system:
+All pages use Tailwind CSS with the Team@Once design system:
 - Gradients: `from-blue-50 via-purple-50 to-pink-50`
 - Primary colors: Blue (#47bdff) and Purple
 - Rounded corners: `rounded-xl` and `rounded-2xl`

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Company Management Module provides a comprehensive system for managing developer companies/organizations within the TeamAtOnce platform. This module enables developers to create companies, invite team members, manage roles and permissions, and track company statistics and workload.
+The Company Management Module provides a comprehensive system for managing developer companies/organizations within the Team@Once platform. This module enables developers to create companies, invite team members, manage roles and permissions, and track company statistics and workload.
 
 ## Features
 
@@ -788,4 +788,4 @@ For issues or questions:
 
 **Last Updated**: January 2024
 **Module Version**: 1.0.0
-**Compatible with**: TeamAtOnce Platform v2.0+
+**Compatible with**: Team@Once Platform v2.0+

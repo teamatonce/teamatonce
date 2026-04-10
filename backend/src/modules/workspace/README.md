@@ -1,6 +1,6 @@
 # Deskive Workspace Module
 
-Complete workspace invitation system for Deskive, based on the TeamAtOnce implementation.
+Complete workspace invitation system for Deskive, based on the Team@Once implementation.
 
 ## 📦 What's Included
 
@@ -314,7 +314,7 @@ WHERE status = 'accepted';
 
 ## 🎓 Learn More
 
-- **TeamAtOnce Reference**: `/backend/src/modules/company/`
+- **Team@Once Reference**: `/backend/src/modules/company/`
 - **Fluxez SDK**: Database and email service
 - **NestJS**: Framework documentation
 
@@ -333,7 +333,7 @@ Part of the Deskive project.
 
 ---
 
-**Production Ready** • **Fully Documented** • **Based on TeamAtOnce**
+**Production Ready** • **Fully Documented** • **Based on Team@Once**
 
 For detailed documentation, see:
 - [INTEGRATION_GUIDE.md](./INTEGRATION_GUIDE.md) - Setup and integration

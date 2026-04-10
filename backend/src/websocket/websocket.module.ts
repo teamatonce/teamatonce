@@ -6,7 +6,7 @@ import { WsAuthGuard } from './guards/ws-auth.guard';
 import type { StringValue } from 'ms';
 
 /**
- * WebSocket Module for TeamAtOnce Platform
+ * WebSocket Module for Team@Once Platform
  *
  * This module provides real-time communication capabilities:
  * - Multi-tenant project rooms

@@ -6,7 +6,7 @@ import { DashboardService } from './dashboard.service';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { AuthGuard } from '../../common/guards/auth.guard';
 
-// TeamAtOnce modules for real data
+// Team@Once modules for real data
 import { ProjectModule } from '../teamatonce/project/project.module';
 import { AnalyticsModule } from '../teamatonce/analytics/analytics.module';
 import { ActivityLoggerModule } from '../activity-logger/activity-logger.module';
@@ -20,7 +20,7 @@ import { ProgressModule } from '../progress/progress.module';
     AuthModule,
     ConfigModule,
     NotificationsModule,
-    // TeamAtOnce real data modules
+    // Team@Once real data modules
     forwardRef(() => ProjectModule),
     forwardRef(() => AnalyticsModule),
     ActivityLoggerModule,

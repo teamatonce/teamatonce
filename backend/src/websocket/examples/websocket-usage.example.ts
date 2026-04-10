@@ -1,7 +1,7 @@
 /**
  * WebSocket Usage Examples
  *
- * This file demonstrates how to integrate the TeamAtOnce WebSocket Gateway
+ * This file demonstrates how to integrate the Team@Once WebSocket Gateway
  * into your services and controllers.
  */
 
@@ -285,7 +285,7 @@ export class ProjectControllerExample {
 /**
  * Example: Module Configuration
  *
- * To use the WebSocket gateway in your modules, import the TeamAtOnceWebSocketModule
+ * To use the WebSocket gateway in your modules, import the Team@OnceWebSocketModule
  */
 /*
 import { Module } from '@nestjs/common';

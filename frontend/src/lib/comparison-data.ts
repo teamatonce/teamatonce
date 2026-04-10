@@ -35,7 +35,7 @@ export interface PlatformFee {
 }
 
 export const platformFees: Record<string, PlatformFee> = {
-  teamatonce: { platform: "TeamAtOnce", fee: "3-5%", note: "Lowest in industry" },
+  teamatonce: { platform: "Team@Once", fee: "3-5%", note: "Lowest in industry" },
   upwork: { platform: "Upwork", fee: "10-20%" },
   deel: { platform: "Deel", fee: "Custom" },
   toptal: { platform: "Toptal", fee: "None*", note: "+2x markup" },

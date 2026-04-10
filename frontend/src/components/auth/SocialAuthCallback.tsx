@@ -96,7 +96,7 @@ const SocialAuthCallback: React.FC = () => {
         // Retrieve the role that was stored before OAuth redirect (from signup page)
         const signupRole = localStorage.getItem('oauth_signup_role') as 'client' | 'seller' | null;
 
-        // Exchange database token for TeamAtOnce JWT with role
+        // Exchange database token for Team@Once JWT with role
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/v1';
         const exchangeResponse = await fetch(`${apiUrl}/auth/oauth/exchange`, {
           method: 'POST',
@@ -157,7 +157,7 @@ const SocialAuthCallback: React.FC = () => {
         }
 
         // Existing user or role already set - proceed with login
-        // Store TeamAtOnce tokens
+        // Store Team@Once tokens
         localStorage.setItem('accessToken', exchangeData.accessToken);
         localStorage.setItem('refreshToken', exchangeData.refreshToken);
 

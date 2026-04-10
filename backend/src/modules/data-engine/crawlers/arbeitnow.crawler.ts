@@ -69,7 +69,7 @@ export class ArbeitnowCrawler {
       const response = await this.limiter.schedule(() =>
         fetch(ARBEITNOW_API_URL, {
           headers: {
-            'User-Agent': 'TeamAtOnce Bot/1.0 (Data Collection for Talent Matching)',
+            'User-Agent': 'Team@Once Bot/1.0 (Data Collection for Talent Matching)',
             'Accept': 'application/json',
           },
         })

@@ -1,7 +1,7 @@
 # Team Management Module
 
 ## Overview
-Complete implementation of the Team Management Module for the multi-tenant project outsourcing platform (TeamAtOnce). This module manages the developer marketplace, project assignments, and real-time status tracking for independent contractors working across multiple client projects.
+Complete implementation of the Team Management Module for the multi-tenant project outsourcing platform (Team@Once). This module manages the developer marketplace, project assignments, and real-time status tracking for independent contractors working across multiple client projects.
 
 ## Architecture
 

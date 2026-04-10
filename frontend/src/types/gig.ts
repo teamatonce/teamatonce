@@ -1,6 +1,6 @@
 /**
  * Gig/Service Package Type Definitions
- * TeamAtOnce Platform - Fiverr/Upwork style service offerings
+ * Team@Once Platform - Fiverr/Upwork style service offerings
  */
 
 export type GigStatus = 'draft' | 'pending_review' | 'active' | 'paused' | 'rejected';

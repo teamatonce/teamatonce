@@ -1,7 +1,7 @@
 /**
  * WorkspaceSelector Component
  * Beautiful dropdown for selecting and switching between workspaces
- * Based on TeamAtOnce's SimpleMegaMenu company selector
+ * Based on Team@Once's SimpleMegaMenu company selector
  */
 
 import React, { useState, useEffect, useRef } from 'react';

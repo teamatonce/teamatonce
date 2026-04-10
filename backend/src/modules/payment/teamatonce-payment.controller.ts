@@ -32,7 +32,7 @@ import {
 } from './dto/payment.dto';
 
 /**
- * TeamAtOnce Payment Controller
+ * Team@Once Payment Controller
  *
  * Wrapper controller that exposes Stripe payment functionality under /teamatonce prefix
  * to match frontend expectations
@@ -40,7 +40,7 @@ import {
  * Frontend expects: /teamatonce/subscription/*, /teamatonce/payment-method/*
  * This controller provides these endpoints by wrapping StripeService methods
  */
-@ApiTags('TeamAtOnce Payment Management')
+@ApiTags('Team@Once Payment Management')
 @Controller('teamatonce')
 export class TeamAtOncePaymentController {
   constructor(private readonly stripeService: StripeService) {}
@@ -56,7 +56,7 @@ export class TeamAtOncePaymentController {
   @Post('subscription/create')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Create a new subscription (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Create a new subscription (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'Subscription created successfully',
@@ -103,7 +103,7 @@ export class TeamAtOncePaymentController {
   @Get('subscription')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get current user subscription (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Get current user subscription (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Subscription retrieved successfully',
@@ -140,7 +140,7 @@ export class TeamAtOncePaymentController {
   @Get('subscription/:subscriptionId')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get subscription details by ID (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Get subscription details by ID (Team@Once endpoint)' })
   @ApiParam({ name: 'subscriptionId', description: 'Stripe subscription ID' })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -161,7 +161,7 @@ export class TeamAtOncePaymentController {
   @Put('subscription/upgrade')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Upgrade/downgrade subscription (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Upgrade/downgrade subscription (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Subscription updated successfully',
@@ -214,7 +214,7 @@ export class TeamAtOncePaymentController {
   @Delete('subscription/cancel')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Cancel subscription at period end (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Cancel subscription at period end (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Subscription cancelled successfully',
@@ -265,7 +265,7 @@ export class TeamAtOncePaymentController {
   @Post('subscription/resume')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Resume a cancelled subscription (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Resume a cancelled subscription (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Subscription resumed successfully',
@@ -299,7 +299,7 @@ export class TeamAtOncePaymentController {
   @Post('subscription/checkout')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Create Stripe checkout session (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Create Stripe checkout session (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'Checkout session created successfully',
@@ -354,7 +354,7 @@ export class TeamAtOncePaymentController {
   @Get('subscription/plans')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get available subscription plans (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Get available subscription plans (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Plans retrieved successfully',
@@ -380,7 +380,7 @@ export class TeamAtOncePaymentController {
   @Post('payment-method/add')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Add payment method (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Add payment method (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'Payment method added successfully',
@@ -430,7 +430,7 @@ export class TeamAtOncePaymentController {
   @Get('payment-method/list')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'List payment methods (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'List payment methods (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Payment methods retrieved successfully',
@@ -463,7 +463,7 @@ export class TeamAtOncePaymentController {
   @Delete('payment-method/:paymentMethodId')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Remove payment method (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Remove payment method (Team@Once endpoint)' })
   @ApiParam({
     name: 'paymentMethodId',
     description: 'Stripe payment method ID',
@@ -483,7 +483,7 @@ export class TeamAtOncePaymentController {
   @Put('payment-method/default')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Set default payment method (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Set default payment method (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Default payment method set successfully',
@@ -529,7 +529,7 @@ export class TeamAtOncePaymentController {
   @Get('billing/invoices')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'List invoices for current user (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'List invoices for current user (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Invoices retrieved successfully',
@@ -563,7 +563,7 @@ export class TeamAtOncePaymentController {
   @Get('billing/invoice/:invoiceId')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get invoice details (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Get invoice details (Team@Once endpoint)' })
   @ApiParam({ name: 'invoiceId', description: 'Stripe invoice ID' })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -584,7 +584,7 @@ export class TeamAtOncePaymentController {
   @Get('billing/upcoming')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get upcoming invoice (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Get upcoming invoice (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Upcoming invoice retrieved successfully',
@@ -612,7 +612,7 @@ export class TeamAtOncePaymentController {
   @Get('customer')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get current user Stripe customer (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Get current user Stripe customer (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Customer retrieved successfully',
@@ -633,7 +633,7 @@ export class TeamAtOncePaymentController {
   @Put('customer')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Update customer details (TeamAtOnce endpoint)' })
+  @ApiOperation({ summary: 'Update customer details (Team@Once endpoint)' })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Customer updated successfully',

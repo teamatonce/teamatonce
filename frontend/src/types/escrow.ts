@@ -1,6 +1,6 @@
 /**
  * Escrow System Type Definitions
- * TeamAtOnce Platform - Secure Payment Escrow
+ * Team@Once Platform - Secure Payment Escrow
  */
 
 /**

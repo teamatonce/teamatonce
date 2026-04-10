@@ -1,8 +1,8 @@
-# TeamAtOnce WebSocket Module
+# Team@Once WebSocket Module
 
 ## Overview
 
-This module provides real-time communication capabilities for the TeamAtOnce platform, a multi-tenant project outsourcing platform. It enables real-time features such as project messaging, whiteboard collaboration, and member status tracking.
+This module provides real-time communication capabilities for the Team@Once platform, a multi-tenant project outsourcing platform. It enables real-time features such as project messaging, whiteboard collaboration, and member status tracking.
 
 ## Features
 
@@ -18,7 +18,7 @@ This module provides real-time communication capabilities for the TeamAtOnce pla
 
 ### Components
 
-1. **TeamAtOnceGateway** (`teamatonce.gateway.ts`)
+1. **Team@OnceGateway** (`teamatonce.gateway.ts`)
    - Main WebSocket gateway with Socket.IO
    - Handles all real-time events and room management
    - Namespace: `/teamatonce`
@@ -202,18 +202,18 @@ Response to ping health check.
 
 ### Backend Integration
 
-The gateway is automatically initialized when the `TeamAtOnceWebSocketModule` is imported into `app.module.ts`.
+The gateway is automatically initialized when the `Team@OnceWebSocketModule` is imported into `app.module.ts`.
 
 #### Inject Gateway into Services
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { TeamAtOnceGateway } from '../websocket/teamatonce.gateway';
+import { Team@OnceGateway } from '../websocket/teamatonce.gateway';
 
 @Injectable()
 export class ProjectService {
   constructor(
-    private readonly wsGateway: TeamAtOnceGateway,
+    private readonly wsGateway: Team@OnceGateway,
   ) {}
 
   async notifyProjectUpdate(projectId: string, data: any) {
@@ -276,11 +276,11 @@ const socket = io('http://localhost:3001/teamatonce', {
 
 // Connection events
 socket.on('connect', () => {
-  console.log('Connected to TeamAtOnce WebSocket');
+  console.log('Connected to Team@Once WebSocket');
 });
 
 socket.on('disconnect', () => {
-  console.log('Disconnected from TeamAtOnce WebSocket');
+  console.log('Disconnected from Team@Once WebSocket');
 });
 
 // Join a project
@@ -307,7 +307,7 @@ socket.on('member-status-update', (status) => {
 import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
-export function useTeamAtOnceSocket(userId: string, projectId?: string) {
+export function useTeam@OnceSocket(userId: string, projectId?: string) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [connected, setConnected] = useState(false);
 
@@ -399,17 +399,17 @@ socket-io-client http://localhost:3001/teamatonce \
 
 ```typescript
 import { Test } from '@nestjs/testing';
-import { TeamAtOnceGateway } from './teamatonce.gateway';
+import { Team@OnceGateway } from './teamatonce.gateway';
 
-describe('TeamAtOnceGateway', () => {
-  let gateway: TeamAtOnceGateway;
+describe('Team@OnceGateway', () => {
+  let gateway: Team@OnceGateway;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      providers: [TeamAtOnceGateway],
+      providers: [Team@OnceGateway],
     }).compile();
 
-    gateway = module.get<TeamAtOnceGateway>(TeamAtOnceGateway);
+    gateway = module.get<Team@OnceGateway>(Team@OnceGateway);
   });
 
   it('should be defined', () => {
@@ -473,4 +473,4 @@ app.useLogger(['log', 'error', 'warn', 'debug', 'verbose']);
 
 ## License
 
-Part of the TeamAtOnce platform. All rights reserved.
+Part of the Team@Once platform. All rights reserved.

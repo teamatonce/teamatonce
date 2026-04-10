@@ -94,7 +94,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { /* your icons */ } from 'lucide-react';
 import { HeroSlider } from '@/components/landing'; // NEW IMPORT
 
-const TeamAtOnceLanding = () => {
+const Team@OnceLanding = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Removed: currentSlide, isAutoPlay state
@@ -123,7 +123,7 @@ const TeamAtOnceLanding = () => {
   );
 };
 
-export default TeamAtOnceLanding;
+export default Team@OnceLanding;
 ```
 
 ## Benefits
