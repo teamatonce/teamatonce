@@ -54,7 +54,7 @@
     "dompurify": "^3.3.1",
     "framer-motion": "^12.23.12",
     "i18next": "^25.7.4",
-    "i18next-browser-languagedetector": "^8.2.0",
+    "i18next-browser-languagedetector": "^8.2.1",
     "jodit-react": "^5.2.25",
     "jspdf": "^3.0.3",
     "leaflet": "^1.9.4",
