@@ -37,7 +37,7 @@ export const appConfig = {
    */
   api: {
     // Base URL for REST API calls
-    baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:3003/api/v1',
+    baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:3001/api/v1',
 
     // Request timeout in milliseconds
     timeout: parseNumber(import.meta.env.VITE_API_TIMEOUT, 30000),
