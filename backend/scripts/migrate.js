@@ -87,6 +87,22 @@ async function runMigrations() {
 }
 
 runMigrations().catch((err) => {
-  console.error('Migration error:', err);
+  console.error('Migration error:', err.message || err);
+  if (err.code === '28P01' || err.code === '28000') {
+    console.error(
+      '\n' +
+      'Database authentication failed. To fix this:\n' +
+      '  1. Run "docker compose up -d" from the project root to start PostgreSQL\n' +
+      '  2. Or update DATABASE_PASSWORD in backend/.env to match your local PostgreSQL password\n' +
+      '\n' +
+      'See README.md for full setup instructions.'
+    );
+  } else if (err.code === 'ECONNREFUSED') {
+    console.error(
+      '\n' +
+      'Could not connect to PostgreSQL. Make sure it is running:\n' +
+      '  docker compose up -d'
+    );
+  }
   process.exit(1);
 });

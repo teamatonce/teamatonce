@@ -104,20 +104,52 @@ Team@Once is an open-source AI-driven development outsourcing marketplace that e
 | **Payments** | Stripe (escrow, subscriptions) |
 | **Search** | Qdrant (vector search) |
 
+## Prerequisites
+
+- **Node.js** >= 18
+- **Docker** (recommended) or PostgreSQL 15+, Redis, and Qdrant installed locally
+
 ## Quick Start
+
+### 1. Start services
+
+The easiest way to run PostgreSQL, Redis, and Qdrant is with Docker:
 
 ```bash
 git clone https://github.com/teamatonce/teamatonce.git
 cd teamatonce
+docker compose up -d
+```
 
-# Backend
+This starts all required services with credentials that match `.env.example` out of the box.
+
+<details>
+<summary>Without Docker (manual setup)</summary>
+
+Install and start PostgreSQL, Redis, and Qdrant yourself, then update `backend/.env` with your connection details:
+
+```bash
+# PostgreSQL — create the dev database
+createdb -U postgres teamatonce_dev
+
+# Update DATABASE_PASSWORD in backend/.env to match your PostgreSQL password
+```
+
+</details>
+
+### 2. Backend
+
+```bash
 cd backend
-cp .env.example .env
+cp .env.example .env    # credentials already match docker-compose.yml
 npm install
 npm run migrate
 npm run start:dev
+```
 
-# Frontend (new terminal)
+### 3. Frontend (new terminal)
+
+```bash
 cd frontend
 npm install
 npm run dev

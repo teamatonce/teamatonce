@@ -18,6 +18,7 @@ import { AuthModule } from '../auth/auth.module';
  * - Team@OncePaymentController: Wrapper /teamatonce/* endpoints for frontend compatibility
  */
 @Module({
+  imports: [forwardRef(() => NotificationsModule)],
   providers: [StripeService, PaymentService],
   controllers: [PaymentController, TeamAtOncePaymentController],
   exports: [StripeService, PaymentService],

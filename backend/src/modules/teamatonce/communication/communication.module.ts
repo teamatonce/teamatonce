@@ -15,6 +15,7 @@ import { WhiteboardService } from './whiteboard.service';
 import { EventsService } from './events.service';
 import { ChatService } from './chat.service';
 import { VideoService } from './video.service';
+import { LiveKitVideoService } from './livekit-video.service';
 import { CalendarService } from './calendar.service';
 import { NotesService } from './notes.service';
 
@@ -56,6 +57,7 @@ import { NotesService } from './notes.service';
     EventsService,
     ChatService,
     VideoService,
+    LiveKitVideoService,
     CalendarService,
     NotesService,
   ],
@@ -65,6 +67,7 @@ import { NotesService } from './notes.service';
     EventsService,
     ChatService,
     VideoService,
+    LiveKitVideoService,
     CalendarService,
     NotesService,
   ],

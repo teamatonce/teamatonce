@@ -816,7 +816,7 @@ CREATE TABLE IF NOT EXISTS "company_team_members" (
   "on_time_delivery_rate" TEXT,
   "is_online" BOOLEAN DEFAULT false,
   "last_seen_at" TIMESTAMPTZ,
-  "joined_date" DATE NOT NULL DEFAULT 'CURRENT_DATE',
+  "joined_date" DATE NOT NULL DEFAULT CURRENT_DATE,
   "activated_at" TIMESTAMPTZ,
   "deactivated_at" TIMESTAMPTZ,
   "metadata" JSONB DEFAULT '{}',

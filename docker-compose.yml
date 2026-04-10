@@ -1,0 +1,37 @@
+# Development services for Team@Once
+# Usage: docker compose up -d
+# This starts PostgreSQL, Redis, and Qdrant for local development.
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: teamatonce-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: teamatonce_dev
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: teamatonce-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  qdrant:
+    image: qdrant/qdrant
+    container_name: teamatonce-qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+volumes:
+  postgres_data:
+  redis_data:
+  qdrant_data:

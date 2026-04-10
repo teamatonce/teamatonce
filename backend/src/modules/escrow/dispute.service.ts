@@ -4,7 +4,7 @@ import { StripeService } from '../payment/stripe.service';
 import { TeamAtOnceGateway } from '../../websocket/teamatonce.gateway';
 import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationType, NotificationPriority } from '../notifications/dto';
-import Stripe from 'stripe';
+import * as Stripe from 'stripe';
 
 /**
  * Dispute Resolution Service
