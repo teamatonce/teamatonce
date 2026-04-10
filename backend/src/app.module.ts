@@ -37,6 +37,7 @@ import { WorkspaceModule } from './modules/workspace/workspace.module';
 import { TeamAtOnceWebSocketModule } from './websocket/websocket.module';
 import { ProjectModule } from './modules/teamatonce/project/project.module';
 import { CommunicationModule } from './modules/teamatonce/communication/communication.module';
+import { HealthModule } from './modules/health/health.module';
 import { ContractModule } from './modules/teamatonce/contract/contract.module';
 import { FeedbackModule } from './modules/teamatonce/feedback/feedback.module';
 import { ProjectDefinitionModule } from './modules/teamatonce/project-definition/project-definition.module';
@@ -90,6 +91,9 @@ import { QueueModule } from './modules/queue/queue.module';
     EscrowModule,
     PaymentModule,
     WorkspaceModule,
+
+    // Infrastructure
+    HealthModule,
 
     // Team@Once modules
     ProjectModule,

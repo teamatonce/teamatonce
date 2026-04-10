@@ -1,6 +1,27 @@
-# Development services for Team@Once
-# Usage: docker compose up -d
-# This starts PostgreSQL, Redis, and Qdrant for local development.
+# Development services for Team@Once.
+#
+# Defaults to the absolute minimum (Postgres + Redis) so a fresh clone
+# can boot with one command:
+#
+#   docker compose up -d
+#
+# Optional services are behind compose profiles. Opt in with one or more
+# --profile flags. Example:
+#
+#   docker compose --profile qdrant --profile maildev up -d
+#
+# Available profiles:
+#
+#   qdrant       — Qdrant vector search (SEARCH_PROVIDER=qdrant)
+#   meilisearch  — Meilisearch (SEARCH_PROVIDER=meilisearch, PR #30)
+#   typesense    — Typesense  (SEARCH_PROVIDER=typesense,   PR #30)
+#   minio        — MinIO S3-compatible storage (STORAGE_PROVIDER=minio, PR #28)
+#   maildev      — local SMTP capture for dev (EMAIL_PROVIDER=smtp, PR #29)
+#   ollama       — local LLMs (AI_PROVIDER=ollama, PR #27)
+#
+# See backend/docs/providers/ for per-provider setup guides and
+# the setup wizard (`cd backend && npm run setup`) for an interactive
+# provider picker.
 
 services:
   postgres:
@@ -14,6 +35,11 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   redis:
     image: redis:7-alpine
@@ -22,16 +48,83 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # ---------- Optional services (opt-in via --profile) ----------
 
   qdrant:
     image: qdrant/qdrant
     container_name: teamatonce-qdrant
+    profiles: ["qdrant"]
     ports:
       - "6333:6333"
     volumes:
       - qdrant_data:/qdrant/storage
 
+  meilisearch:
+    image: getmeili/meilisearch:v1.10
+    container_name: teamatonce-meilisearch
+    profiles: ["meilisearch"]
+    ports:
+      - "7700:7700"
+    environment:
+      MEILI_MASTER_KEY: masterKey
+      MEILI_ENV: development
+    volumes:
+      - meili_data:/meili_data
+
+  typesense:
+    image: typesense/typesense:0.25.2
+    container_name: teamatonce-typesense
+    profiles: ["typesense"]
+    ports:
+      - "8108:8108"
+    environment:
+      TYPESENSE_API_KEY: xyz
+      TYPESENSE_DATA_DIR: /data
+    volumes:
+      - typesense_data:/data
+
+  minio:
+    image: minio/minio:latest
+    container_name: teamatonce-minio
+    profiles: ["minio"]
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/data
+
+  maildev:
+    image: maildev/maildev:latest
+    container_name: teamatonce-maildev
+    profiles: ["maildev"]
+    ports:
+      - "1080:1080"  # web UI
+      - "1025:1025"  # SMTP
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: teamatonce-ollama
+    profiles: ["ollama"]
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
 volumes:
   postgres_data:
   redis_data:
   qdrant_data:
+  meili_data:
+  typesense_data:
+  minio_data:
+  ollama_data:
