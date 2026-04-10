@@ -31,7 +31,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     }
 
     // Token is not a Team@Once token, just decode it and trust it
-    // (Similar to how Supabase/Firebase work - the client trusts JWTs from the BaaS)
+    // (Similar to how BaaS providers work - the client trusts JWTs from the BaaS)
     try {
       // Decode (not verify) the token to get userId and other claims
       const decoded = jwt.decode(token) as any;

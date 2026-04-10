@@ -173,7 +173,7 @@ export const ProjectDefinition: React.FC = () => {
           stack.frontend.push(tech);
         } else if (['node', 'express', 'nestjs', 'django', 'flask', 'rails', 'spring', 'laravel', 'php', 'python', 'java', 'go', 'rust'].some(k => lowerTech.includes(k))) {
           stack.backend.push(tech);
-        } else if (['postgres', 'mysql', 'mongo', 'redis', 'sqlite', 'sql', 'firebase', 'supabase', 'prisma'].some(k => lowerTech.includes(k))) {
+        } else if (['postgres', 'mysql', 'mongo', 'redis', 'sqlite', 'sql', 'firebase', 'prisma'].some(k => lowerTech.includes(k))) {
           stack.database.push(tech);
         } else if (['docker', 'kubernetes', 'aws', 'azure', 'gcp', 'vercel', 'netlify', 'heroku', 'nginx'].some(k => lowerTech.includes(k))) {
           stack.infrastructure.push(tech);

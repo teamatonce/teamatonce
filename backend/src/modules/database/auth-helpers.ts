@@ -417,9 +417,9 @@ export async function deleteUserFn(pool: Pool, userId: string): Promise<{ succes
 }
 
 export async function banUserFn(pool: Pool, userId: string, reason?: string): Promise<{ success: boolean }> {
-  // Set both `is_banned` (boolean style) and `banned_until` (Supabase
-  // timestamp style) so legacy admin code that filters on either name
-  // sees the user as suspended.
+  // Set both `is_banned` (boolean style) and `banned_until` (timestamp
+  // style) so legacy admin code that filters on either name sees the
+  // user as suspended.
   await pool.query(
     `UPDATE "users"
      SET "is_banned" = true,

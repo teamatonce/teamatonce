@@ -19,10 +19,10 @@
 --     Default value is a UUID rendered as text, so IDs are still globally
 --     unique without breaking any existing FK column.
 --   - Both `metadata`/`user_metadata` (new style) AND `raw_user_meta_data`/
---     `raw_app_meta_data` (Supabase/fluxez style) columns exist. Helpers
+--     `raw_app_meta_data` (legacy BaaS style) columns exist. Helpers
 --     write to both pairs so legacy code that reads either name works.
 --   - Both `is_banned`/`banned_reason` (boolean style) AND `banned_until`
---     (Supabase timestamp style) columns exist. banUser/unbanUser keep
+--     (timestamp style) columns exist. banUser/unbanUser keep
 --     them in sync.
 --   - `email_confirmed_at` mirrors `email_verified` (timestamp vs bool).
 --     verifyEmailFn sets both. Some legacy code reads the timestamp.
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "users" (
   "is_active" BOOLEAN NOT NULL DEFAULT true,
   "is_banned" BOOLEAN NOT NULL DEFAULT false,
   "banned_reason" TEXT,
-  -- Supabase-compat: timestamp form of is_banned. NULL = not banned;
+  -- Compat: timestamp form of is_banned. NULL = not banned;
   -- non-null = banned (timestamp marks when the ban was applied or
   -- when it expires; legacy code only checks for null/non-null).
   "banned_until" TIMESTAMPTZ,
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS "users" (
   "user_metadata" JSONB NOT NULL DEFAULT '{}',
   "raw_user_meta_data" JSONB NOT NULL DEFAULT '{}',
   -- App-controlled metadata (e.g. role, approval_status). Mirrored to
-  -- `raw_app_meta_data` (fluxez/Supabase name) so both readers work.
+  -- `raw_app_meta_data` (legacy BaaS name) so both readers work.
   "app_metadata" JSONB NOT NULL DEFAULT '{}',
   "raw_app_meta_data" JSONB NOT NULL DEFAULT '{}',
   "oauth_provider" VARCHAR(64),
@@ -95,7 +95,7 @@ CREATE INDEX IF NOT EXISTS "idx_refresh_tokens_token_hash" ON "auth_refresh_toke
 CREATE INDEX IF NOT EXISTS "idx_refresh_tokens_expires_at" ON "auth_refresh_tokens" ("expires_at");
 
 -- Backwards-compatible view: some legacy queries reference auth.users
--- (the Supabase schema namespace). Expose the same table under that name
+-- (a separate `auth` schema namespace). Expose the same table under that name
 -- so existing code that runs raw SELECTs against auth.users keeps working.
 CREATE SCHEMA IF NOT EXISTS "auth";
 CREATE OR REPLACE VIEW "auth"."users" AS SELECT * FROM public."users";

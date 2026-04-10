@@ -373,7 +373,6 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       'MongoDB',
       'Redis',
       'Firebase',
-      'Supabase',
       'Prisma',
       'AWS',
       'Google Cloud',
