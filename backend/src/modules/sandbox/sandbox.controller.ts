@@ -4,12 +4,11 @@ import {
   Get,
   Post,
   UseGuards,
-  BadRequestException,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { SandboxService } from './sandbox.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { ExecuteInput } from './providers';
+import { ExecuteDto } from './dto/execute.dto';
 
 /**
  * Sandbox endpoints.
@@ -52,16 +51,16 @@ export class SandboxController {
     description:
       'Sandpack-style providers throw NotSupported here because they run in the browser.',
   })
-  async execute(@Body() input: ExecuteInput) {
-    if (!input?.language || !input?.source) {
-      throw new BadRequestException('language and source are required');
-    }
-    if (typeof input.source !== 'string' || input.source.length === 0) {
-      throw new BadRequestException('source must be a non-empty string');
-    }
-    if (input.source.length > 65536) {
-      throw new BadRequestException('source too large (max 64KB)');
-    }
+  async execute(@Body() input: ExecuteDto) {
+    // Input shape + upper-bound validation is handled by the global
+    // ValidationPipe via class-validator decorators on ExecuteDto.
+    // That enforces:
+    //   - language / source are non-empty strings
+    //   - source ≤ 64KB
+    //   - stdin ≤ 32KB
+    //   - timeLimitSeconds ∈ [1, 15]
+    //   - memoryLimitKb ∈ [16MB, 500MB]
+    //   - commandLineArgs ≤ 32 entries × 256 chars
     return this.sandbox.execute(input);
   }
 }
