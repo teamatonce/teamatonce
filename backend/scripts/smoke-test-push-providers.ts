@@ -262,11 +262,13 @@ async function main(): Promise<void> {
             sentMessages.push(msg);
             return `fcm-msg-${sentMessages.length}`;
           },
-          sendAll: async (msgs: any[]) => ({
+          sendEach: async (msgs: any[]) => ({
             responses: msgs.map((_, i) => ({
               success: true,
               messageId: `fcm-batch-${i}`,
             })),
+            successCount: msgs.length,
+            failureCount: 0,
           }),
         }),
       };
@@ -309,8 +311,8 @@ async function main(): Promise<void> {
       );
     }
 
-    // 7. fcm sendBulk → sendAll batches
-    console.log('\n7. fcm sendBulk uses sendAll batch API');
+    // 7. fcm sendBulk → sendEach batches
+    console.log('\n7. fcm sendBulk uses sendEach batch API');
     {
       const p = createPushProvider(
         fakeConfig({

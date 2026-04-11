@@ -177,8 +177,10 @@ export class FcmProvider implements PushProvider {
   ): Promise<PushBulkResult> {
     this.loadSdk();
 
-    // FCM's sendAll supports up to 500 messages per batch. For
-    // larger fan-outs, chunk.
+    // FCM's sendEach supports up to 500 messages per batch. For
+    // larger fan-outs, chunk. (sendAll was removed in firebase-admin
+    // v12 — sendEach is the replacement with the same BatchResponse
+    // shape.)
     const results: PushResult[] = [];
     let accepted = 0;
     let failed = 0;
@@ -190,7 +192,7 @@ export class FcmProvider implements PushProvider {
       try {
         const response = await this.admin
           .messaging(this.app)
-          .sendAll(msgs);
+          .sendEach(msgs);
         for (let j = 0; j < response.responses.length; j++) {
           const r = response.responses[j];
           if (r.success) {
