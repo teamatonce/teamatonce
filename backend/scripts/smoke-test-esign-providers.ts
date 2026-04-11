@@ -360,6 +360,58 @@ async function main(): Promise<void> {
     );
   }
 
+  // 8b. documenso fail-closed: secret set, no signature → throw
+  console.log(
+    '\n8b. documenso parseWebhook requires signature when secret is set',
+  );
+  {
+    const p = createEsignProvider(
+      fakeConfig({
+        ESIGN_PROVIDER: 'documenso',
+        DOCUMENSO_API_TOKEN: 'k',
+        DOCUMENSO_WEBHOOK_SECRET: 'webhook-secret',
+      }),
+    );
+    ok(
+      await expectThrow(
+        'missing signature header throws',
+        () =>
+          p.parseWebhook(
+            JSON.stringify({ event: 'document.completed' }),
+            undefined,
+          ),
+        (e) => /signature missing/i.test(e.message),
+      ),
+    );
+  }
+
+  // 8c. documenso length-mismatch signature rejects cleanly (no RangeError)
+  console.log(
+    '\n8c. documenso length-mismatch signature rejects cleanly',
+  );
+  {
+    const p = createEsignProvider(
+      fakeConfig({
+        ESIGN_PROVIDER: 'documenso',
+        DOCUMENSO_API_TOKEN: 'k',
+        DOCUMENSO_WEBHOOK_SECRET: 'webhook-secret',
+      }),
+    );
+    ok(
+      await expectThrow(
+        'short signature rejects without RangeError',
+        () =>
+          p.parseWebhook(
+            JSON.stringify({ event: 'document.completed' }),
+            'deadbeef',
+          ),
+        (e) =>
+          /signature mismatch/i.test(e.message) &&
+          !/ERR_CRYPTO_TIMING_SAFE_EQUAL_LENGTH/i.test(e.message),
+      ),
+    );
+  }
+
   // 9. documenso parseWebhook unknown event → null
   console.log('\n9. documenso parseWebhook unknown event → null');
   {

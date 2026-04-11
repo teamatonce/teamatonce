@@ -197,13 +197,32 @@ export class DocumensoProvider implements EsignProvider {
     rawBody: string,
     signature?: string,
   ): Promise<WebhookEvent | null> {
-    // Verify HMAC signature if a secret is configured
-    if (this.webhookSecret && signature) {
+    // Fail-closed HMAC verification. If DOCUMENSO_WEBHOOK_SECRET is
+    // set the signature header is REQUIRED — otherwise an attacker
+    // who finds the webhook URL could post forged document.completed
+    // events by omitting the header.
+    if (this.webhookSecret) {
+      if (!signature) {
+        throw new Error(
+          'Documenso webhook signature missing (DOCUMENSO_WEBHOOK_SECRET is set). ' +
+            'Verify upstream proxy is forwarding the X-Documenso-Signature header.',
+        );
+      }
       const expected = crypto
         .createHmac('sha256', this.webhookSecret)
         .update(rawBody)
         .digest('hex');
-      if (!crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature))) {
+
+      // timingSafeEqual throws ERR_CRYPTO_TIMING_SAFE_EQUAL_LENGTH
+      // when buffer lengths differ — a short/long malformed
+      // signature would surface as a 500 instead of a clean reject.
+      // Length-check first.
+      const expectedBuf = Buffer.from(expected, 'hex');
+      const providedBuf = Buffer.from(signature, 'hex');
+      if (
+        expectedBuf.length !== providedBuf.length ||
+        !crypto.timingSafeEqual(expectedBuf, providedBuf)
+      ) {
         throw new Error('Documenso webhook signature mismatch');
       }
     }
