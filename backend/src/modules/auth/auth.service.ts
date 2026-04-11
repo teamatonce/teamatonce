@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException, BadRequestException, ConflictException, NotFoundException, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import * as crypto from 'crypto';
 import { DatabaseService } from '../database/database.service';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 import {
@@ -565,8 +566,11 @@ export class AuthService {
 
         const registerResponse = await /* TODO: use AuthService */ this.db.signUp(
           profile.email,
-          // Generate random password for social auth users
-          Math.random().toString(36).slice(-16) + Math.random().toString(36).slice(-16),
+          // Random 256-bit password for social-auth users. They
+          // never see it (SSO log-in only) but it must be
+          // crypto-strong: Math.random is predictable and not
+          // suitable for anything security-sensitive.
+          crypto.randomBytes(32).toString('hex'),
           profile.name || profile.email.split('@')[0],
           {
             avatar_url: profile.avatarUrl,
@@ -626,6 +630,61 @@ export class AuthService {
   async linkSocialAccount(userId: string, dto: LinkSocialAccountDto): Promise<{ success: boolean; message: string }> {
     this.logger.debug(`Linking ${dto.provider} account to user: ${userId} (deprecated method)`);
     throw new BadRequestException('This method is deprecated. Account linking happens automatically during OAuth login');
+  }
+
+  /**
+   * Find-or-create a user by email and return a signed access token.
+   * Used by the magic-link flow: the email was already proven to
+   * belong to the caller (they clicked a link sent to that address),
+   * so we trust it as identity without a password.
+   *
+   * Idempotent — calling this repeatedly with the same email returns
+   * the same user and a fresh token each time.
+   */
+  async authenticateViaMagicLink(
+    email: string,
+  ): Promise<{
+    success: true;
+    user: { id: string; email: string; name: string; role: string };
+    access_token: string;
+  }> {
+    const normalized = email.toLowerCase().trim();
+
+    const existingUsers = await /* TODO: use AuthService */ this.db.client.auth.searchUsers(normalized);
+    let user: any;
+
+    if (existingUsers?.users?.length) {
+      user = existingUsers.users[0];
+      this.logger.log(`Magic link sign-in for existing user: ${user.id}`);
+    } else {
+      // Create a new user with a random password — they'll never
+      // use it because they'll always come in via magic link.
+      // Must be crypto-strong: Math.random is predictable and
+      // not suitable for anything security-sensitive.
+      const randomPassword = crypto.randomBytes(32).toString('hex');
+      const registered = await /* TODO: use AuthService */ this.db.signUp(
+        normalized,
+        randomPassword,
+        normalized.split('@')[0],
+        { magic_link_auth: true, primary_provider: 'magic-link' },
+        'client',
+      );
+      user = registered.user;
+      this.logger.log(`Magic link sign-in created new user: ${user.id}`);
+    }
+
+    const token = this.generateToken(user);
+
+    return {
+      success: true,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name || normalized.split('@')[0],
+        role: user.role || 'client',
+      },
+      access_token: token,
+    };
   }
 
   /**
