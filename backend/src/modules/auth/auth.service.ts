@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException, BadRequestException, ConflictException, NotFoundException, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import * as crypto from 'crypto';
 import { DatabaseService } from '../database/database.service';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 import {
@@ -565,8 +566,11 @@ export class AuthService {
 
         const registerResponse = await /* TODO: use AuthService */ this.db.signUp(
           profile.email,
-          // Generate random password for social auth users
-          Math.random().toString(36).slice(-16) + Math.random().toString(36).slice(-16),
+          // Random 256-bit password for social-auth users. They
+          // never see it (SSO log-in only) but it must be
+          // crypto-strong: Math.random is predictable and not
+          // suitable for anything security-sensitive.
+          crypto.randomBytes(32).toString('hex'),
           profile.name || profile.email.split('@')[0],
           {
             avatar_url: profile.avatarUrl,
@@ -655,9 +659,9 @@ export class AuthService {
     } else {
       // Create a new user with a random password — they'll never
       // use it because they'll always come in via magic link.
-      const randomPassword =
-        Math.random().toString(36).slice(-16) +
-        Math.random().toString(36).slice(-16);
+      // Must be crypto-strong: Math.random is predictable and
+      // not suitable for anything security-sensitive.
+      const randomPassword = crypto.randomBytes(32).toString('hex');
       const registered = await /* TODO: use AuthService */ this.db.signUp(
         normalized,
         randomPassword,
