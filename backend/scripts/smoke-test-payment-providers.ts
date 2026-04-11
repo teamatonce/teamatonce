@@ -469,6 +469,214 @@ async function main(): Promise<void> {
     }
   }
 
+  // 8b. paypal zero-decimal currencies format without the /100 step
+  console.log('\n8b. paypal JPY amounts format as integer (zero-decimal)');
+  {
+    installMockFetch((url) => {
+      if (url.endsWith('/v1/oauth2/token')) {
+        return { status: 200, body: { access_token: 't', expires_in: 3600 } };
+      }
+      if (url.endsWith('/v2/checkout/orders')) {
+        return {
+          status: 201,
+          body: {
+            id: 'JPY-ORDER',
+            links: [{ rel: 'approve', href: 'https://x' }],
+          },
+        };
+      }
+      return { status: 404, body: {} };
+    });
+    try {
+      const p = createPaymentProvider(
+        fakeConfig({
+          PAYMENT_PROVIDER: 'paypal',
+          PAYPAL_CLIENT_ID: 'cid',
+          PAYPAL_CLIENT_SECRET: 'csec',
+        }),
+      );
+      await p.createCheckout({
+        orderReference: 'jp-1',
+        currency: 'JPY',
+        totalAmount: 1000, // 1000 yen, NOT 10 yen
+        lineItems: [
+          { productId: 'noodles', description: 'noodles', quantity: 1, unitAmount: 1000 },
+        ],
+        customer: {
+          email: 't@example.com',
+          name: 'Alice',
+          line1: '1',
+          city: 'Tokyo',
+          postalCode: '100',
+          country: 'JP',
+        },
+        successUrl: 'https://x',
+        cancelUrl: 'https://x',
+      });
+      const orderCall = fetchCalls.find((c) =>
+        c.url.endsWith('/v2/checkout/orders'),
+      );
+      ok(orderCall!.body.purchase_units[0].amount.value === '1000');
+      ok(
+        orderCall!.body.purchase_units[0].items[0].unit_amount.value === '1000',
+      );
+      console.log(`  ✅ JPY amount 1000 → "1000" (not "10.00")`);
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+  }
+
+  // 8c. paypal webhook without PAYPAL_WEBHOOK_ID → fail-closed
+  console.log('\n8c. paypal webhook refuses to run without PAYPAL_WEBHOOK_ID');
+  {
+    const p = createPaymentProvider(
+      fakeConfig({
+        PAYMENT_PROVIDER: 'paypal',
+        PAYPAL_CLIENT_ID: 'cid',
+        PAYPAL_CLIENT_SECRET: 'csec',
+        // PAYPAL_WEBHOOK_ID deliberately unset
+      }),
+    );
+    ok(
+      await expectThrow(
+        'missing PAYPAL_WEBHOOK_ID throws',
+        () => p.parseWebhook('{}', '{}'),
+        (e) => /PAYPAL_WEBHOOK_ID/.test(e.message),
+      ),
+    );
+  }
+
+  // 8d. paypal webhook with missing transmission headers → fail-closed
+  console.log('\n8d. paypal webhook rejects incomplete header bundle');
+  {
+    const p = createPaymentProvider(
+      fakeConfig({
+        PAYMENT_PROVIDER: 'paypal',
+        PAYPAL_CLIENT_ID: 'cid',
+        PAYPAL_CLIENT_SECRET: 'csec',
+        PAYPAL_WEBHOOK_ID: 'wh-123',
+      }),
+    );
+    ok(
+      await expectThrow(
+        'missing signature bundle throws',
+        () => p.parseWebhook('{}', undefined),
+        (e) => /bundle missing/.test(e.message),
+      ),
+    );
+    ok(
+      await expectThrow(
+        'incomplete headers throw',
+        () =>
+          p.parseWebhook(
+            '{}',
+            JSON.stringify({ 'paypal-transmission-id': 'x' }),
+          ),
+        (e) => /headers missing/.test(e.message),
+      ),
+    );
+  }
+
+  // 8e. paypal webhook happy path calls verify endpoint
+  console.log('\n8e. paypal webhook calls verify endpoint + returns event');
+  {
+    installMockFetch((url) => {
+      if (url.endsWith('/v1/oauth2/token')) {
+        return { status: 200, body: { access_token: 't', expires_in: 3600 } };
+      }
+      if (url.includes('/v1/notifications/verify-webhook-signature')) {
+        return { status: 200, body: { verification_status: 'SUCCESS' } };
+      }
+      return { status: 404, body: {} };
+    });
+    try {
+      const p = createPaymentProvider(
+        fakeConfig({
+          PAYMENT_PROVIDER: 'paypal',
+          PAYPAL_CLIENT_ID: 'cid',
+          PAYPAL_CLIENT_SECRET: 'csec',
+          PAYPAL_WEBHOOK_ID: 'wh-happy',
+        }),
+      );
+      const body = JSON.stringify({
+        event_type: 'PAYMENT.CAPTURE.COMPLETED',
+        resource: {
+          id: 'CAP-1',
+          amount: { value: '20.00', currency_code: 'USD' },
+          custom_id: 'ord-8e',
+        },
+      });
+      const headers = JSON.stringify({
+        'paypal-transmission-id': 'tid',
+        'paypal-transmission-time': '2026-01-01T00:00:00Z',
+        'paypal-transmission-sig': 'sig',
+        'paypal-cert-url': 'https://api.sandbox.paypal.com/v1/x',
+        'paypal-auth-algo': 'SHA256withRSA',
+      });
+      const event = await p.parseWebhook(body, headers);
+      ok(event !== null);
+      ok(event!.kind === 'payment.succeeded');
+      ok(event!.paymentId === 'CAP-1');
+      ok(event!.amount === 2000); // USD, 2-decimal
+      const verifyCall = fetchCalls.find((c) =>
+        c.url.includes('/v1/notifications/verify-webhook-signature'),
+      );
+      ok(!!verifyCall);
+      ok(verifyCall!.body.webhook_id === 'wh-happy');
+      ok(verifyCall!.body.auth_algo === 'SHA256withRSA');
+      console.log(`  ✅ verify endpoint called + event returned`);
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+  }
+
+  // 8f. paypal webhook rejects when verify_status != SUCCESS
+  console.log('\n8f. paypal webhook rejects verify_status != SUCCESS');
+  {
+    installMockFetch((url) => {
+      if (url.endsWith('/v1/oauth2/token')) {
+        return { status: 200, body: { access_token: 't', expires_in: 3600 } };
+      }
+      if (url.includes('/v1/notifications/verify-webhook-signature')) {
+        return { status: 200, body: { verification_status: 'FAILURE' } };
+      }
+      return { status: 404, body: {} };
+    });
+    try {
+      const p = createPaymentProvider(
+        fakeConfig({
+          PAYMENT_PROVIDER: 'paypal',
+          PAYPAL_CLIENT_ID: 'cid',
+          PAYPAL_CLIENT_SECRET: 'csec',
+          PAYPAL_WEBHOOK_ID: 'wh-bad',
+        }),
+      );
+      const headers = JSON.stringify({
+        'paypal-transmission-id': 'tid',
+        'paypal-transmission-time': 't',
+        'paypal-transmission-sig': 's',
+        'paypal-cert-url': 'u',
+        'paypal-auth-algo': 'a',
+      });
+      ok(
+        await expectThrow(
+          'FAILURE verification rejects',
+          () =>
+            p.parseWebhook(
+              '{"event_type":"PAYMENT.CAPTURE.COMPLETED","resource":{}}',
+              headers,
+            ),
+          (e) => /verification_status=FAILURE/.test(e.message),
+        ),
+      );
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+  }
+
   // 9. bkash without creds → unavailable
   console.log('\n9. bkash without creds → unavailable');
   {
