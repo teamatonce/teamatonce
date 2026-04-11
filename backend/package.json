@@ -80,6 +80,9 @@
     "stripe": "^22.0.1",
     "uuid": "^11.1.0"
   },
+  "optionalDependencies": {
+    "@aws-sdk/client-ses": "^3.600.0"
+  },
   "devDependencies": {
     "@nestjs/cli": "^11.0.14",
     "@nestjs/schematics": "^11.0.7",

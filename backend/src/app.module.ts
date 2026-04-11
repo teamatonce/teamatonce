@@ -27,6 +27,7 @@ import { SearchModule } from './modules/search/search.module';
 import { AchievementsModule } from './modules/achievements/achievements.module';
 import { DatabaseModule } from './modules/database/database.module';
 import { StorageModule } from './modules/storage/storage.module';
+import { EmailModule } from './modules/email/email.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { InstructorsModule } from './modules/instructors/instructors.module';
 import { EscrowModule } from './modules/escrow/escrow.module';
@@ -85,6 +86,7 @@ import { QueueModule } from './modules/queue/queue.module';
     AchievementsModule,
     DatabaseModule,
     StorageModule,
+    EmailModule,
     AdminModule,
     InstructorsModule,
     EscrowModule,
