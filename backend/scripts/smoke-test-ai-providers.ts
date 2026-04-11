@@ -320,7 +320,11 @@ async function main(): Promise<void> {
 
       const call = fetchCalls[fetchCalls.length - 1];
       ok(call.url.startsWith('https://generativelanguage.googleapis.com'));
-      ok(call.url.includes('key=gem-key'));
+      // API key MUST be in the x-goog-api-key header, NOT the URL.
+      // URL-embedded keys leak into access logs / error tracking /
+      // Sentry on any non-2xx response.
+      ok(call.headers['x-goog-api-key'] === 'gem-key');
+      ok(!call.url.includes('key='));
       const payload = JSON.parse(call.body!);
       ok(payload.system_instruction?.parts?.[0]?.text === 'Be brief.');
       ok(payload.contents.length === 3); // system removed

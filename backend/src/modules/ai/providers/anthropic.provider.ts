@@ -149,21 +149,49 @@ export class AnthropicProvider implements AiProvider {
   }
 
   async analyzeImage(input: AnalyzeImageInput): Promise<GenerateTextResult> {
-    // Anthropic accepts images as `{ type: 'image', source: { type:
-    // 'base64'|'url', ... } }` blocks inside a user message.
-    const imageBlock = input.image.startsWith('data:')
-      ? {
-          type: 'image' as const,
-          source: {
-            type: 'base64' as const,
-            media_type: this.extractDataUriMediaType(input.image) ?? 'image/jpeg',
-            data: input.image.replace(/^data:[^;]+;base64,/, ''),
-          },
-        }
-      : {
-          type: 'image' as const,
-          source: { type: 'url' as const, url: input.image },
-        };
+    // Anthropic accepts images as `{ type: 'image', source: ... }`
+    // blocks inside a user message. The Messages API ONLY accepts
+    // source.type === 'base64' (plus file_id for pre-uploaded
+    // assets) — it does NOT accept arbitrary https:// URLs. An
+    // earlier version of this provider used `source: { type: 'url' }`
+    // which failed at runtime with a confusing 400.
+    //
+    // For HTTPS URLs we fetch the image and base64-encode it
+    // ourselves so the public contract stays the same.
+    let imageBlock: any;
+    if (input.image.startsWith('data:')) {
+      imageBlock = {
+        type: 'image' as const,
+        source: {
+          type: 'base64' as const,
+          media_type:
+            this.extractDataUriMediaType(input.image) ?? 'image/jpeg',
+          data: input.image.replace(/^data:[^;]+;base64,/, ''),
+        },
+      };
+    } else if (/^https?:\/\//.test(input.image)) {
+      const fetched = await fetch(input.image);
+      if (!fetched.ok) {
+        throw new Error(
+          `Anthropic analyzeImage could not fetch ${input.image}: ${fetched.status}`,
+        );
+      }
+      const mediaType =
+        fetched.headers.get('content-type')?.split(';')[0] ?? 'image/jpeg';
+      const buf = Buffer.from(await fetched.arrayBuffer());
+      imageBlock = {
+        type: 'image' as const,
+        source: {
+          type: 'base64' as const,
+          media_type: mediaType,
+          data: buf.toString('base64'),
+        },
+      };
+    } else {
+      throw new Error(
+        `Anthropic analyzeImage: unsupported image reference "${input.image.slice(0, 60)}...". Use data: or http(s): URLs.`,
+      );
+    }
 
     const res = (await this.api('/messages', {
       model: input.model ?? this.defaultVisionModel,

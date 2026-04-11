@@ -67,10 +67,19 @@ export class GeminiProvider implements AiProvider {
     if (!this.isAvailable()) {
       throw new AiProviderNotConfiguredError('gemini', ['GEMINI_API_KEY']);
     }
-    const url = `${GEMINI_API_BASE}/models/${model}:${endpoint}?key=${this.apiKey}`;
+    // Send the key via the x-goog-api-key header rather than a
+    // URL query string. Middleware / access logs / error-tracking
+    // (Sentry, Datadog) routinely capture full URLs on failure,
+    // and a key in ?key=... ends up leaked in plaintext the first
+    // time Gemini returns a non-2xx. Header placement keeps it
+    // out of URL-based telemetry.
+    const url = `${GEMINI_API_BASE}/models/${model}:${endpoint}`;
     const res = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': this.apiKey,
+      },
       body: JSON.stringify(body),
     });
     if (!res.ok) {
@@ -159,7 +168,16 @@ export class GeminiProvider implements AiProvider {
   async analyzeImage(input: AnalyzeImageInput): Promise<GenerateTextResult> {
     const model = input.model ?? this.defaultVisionModel;
 
-    // Gemini image parts: either inlineData (base64) or fileData (URL).
+    // Gemini image parts: either inlineData (base64) or fileData (URI).
+    // IMPORTANT: fileData.fileUri ONLY accepts `gs://` URIs returned
+    // from the File API; it does NOT accept arbitrary https:// URLs.
+    // The earlier version of this provider just passed the HTTPS URL
+    // through, which produced opaque 400s at runtime.
+    //
+    // For HTTPS URLs we fetch the image ourselves, base64-encode it,
+    // and send it via inlineData. The caller-side contract is
+    // unchanged: `AnalyzeImageInput.image` may be a data URL or an
+    // HTTPS URL.
     let imagePart: any;
     if (input.image.startsWith('data:')) {
       const m = /^data:([^;]+);base64,(.+)$/.exec(input.image);
@@ -169,13 +187,33 @@ export class GeminiProvider implements AiProvider {
           data: m?.[2] ?? '',
         },
       };
-    } else {
+    } else if (input.image.startsWith('gs://')) {
       imagePart = {
         fileData: {
           mimeType: 'image/jpeg',
           fileUri: input.image,
         },
       };
+    } else if (/^https?:\/\//.test(input.image)) {
+      const fetched = await fetch(input.image);
+      if (!fetched.ok) {
+        throw new Error(
+          `Gemini analyzeImage could not fetch ${input.image}: ${fetched.status}`,
+        );
+      }
+      const mimeType =
+        fetched.headers.get('content-type')?.split(';')[0] ?? 'image/jpeg';
+      const buf = Buffer.from(await fetched.arrayBuffer());
+      imagePart = {
+        inlineData: {
+          mimeType,
+          data: buf.toString('base64'),
+        },
+      };
+    } else {
+      throw new Error(
+        `Gemini analyzeImage: unsupported image reference "${input.image.slice(0, 60)}...". Use data:, http(s):, or gs:// URIs.`,
+      );
     }
 
     const payload = {
