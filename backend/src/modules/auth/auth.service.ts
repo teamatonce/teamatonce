@@ -629,6 +629,61 @@ export class AuthService {
   }
 
   /**
+   * Find-or-create a user by email and return a signed access token.
+   * Used by the magic-link flow: the email was already proven to
+   * belong to the caller (they clicked a link sent to that address),
+   * so we trust it as identity without a password.
+   *
+   * Idempotent — calling this repeatedly with the same email returns
+   * the same user and a fresh token each time.
+   */
+  async authenticateViaMagicLink(
+    email: string,
+  ): Promise<{
+    success: true;
+    user: { id: string; email: string; name: string; role: string };
+    access_token: string;
+  }> {
+    const normalized = email.toLowerCase().trim();
+
+    const existingUsers = await /* TODO: use AuthService */ this.db.client.auth.searchUsers(normalized);
+    let user: any;
+
+    if (existingUsers?.users?.length) {
+      user = existingUsers.users[0];
+      this.logger.log(`Magic link sign-in for existing user: ${user.id}`);
+    } else {
+      // Create a new user with a random password — they'll never
+      // use it because they'll always come in via magic link.
+      const randomPassword =
+        Math.random().toString(36).slice(-16) +
+        Math.random().toString(36).slice(-16);
+      const registered = await /* TODO: use AuthService */ this.db.signUp(
+        normalized,
+        randomPassword,
+        normalized.split('@')[0],
+        { magic_link_auth: true, primary_provider: 'magic-link' },
+        'client',
+      );
+      user = registered.user;
+      this.logger.log(`Magic link sign-in created new user: ${user.id}`);
+    }
+
+    const token = this.generateToken(user);
+
+    return {
+      success: true,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name || normalized.split('@')[0],
+        role: user.role || 'client',
+      },
+      access_token: token,
+    };
+  }
+
+  /**
    * Unlink social account from user
    */
   async unlinkSocialAccount(userId: string, dto: UnlinkSocialAccountDto): Promise<{ success: boolean; message: string }> {
