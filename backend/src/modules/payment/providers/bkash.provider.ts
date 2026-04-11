@@ -63,6 +63,15 @@ export class BkashProvider implements PaymentProvider {
   private idToken: string | null = null;
   private tokenExpiresAt = 0;
 
+  /**
+   * Cache of bKash paymentID → trxID, populated by capturePayment /
+   * getPayment. refund() requires trxID (which is a different ID
+   * than the paymentID callers hold). We look it up here, and if
+   * we haven't seen it, fall through to a status call before
+   * refunding.
+   */
+  private readonly trxIdByPaymentId = new Map<string, string>();
+
   constructor(config: ConfigService) {
     this.baseUrl = (
       config.get<string>(
@@ -189,15 +198,25 @@ export class BkashProvider implements PaymentProvider {
   }
 
   /**
-   * Execute a previously-created payment. Called after bKash
+   * Finalize a previously-created payment. Called after bKash
    * redirects the customer back to the callback URL with
-   * ?paymentID=... — the controller handling that redirect should
-   * call this to actually capture the payment.
+   * ?paymentID=... — the controller handling that redirect must
+   * call this to actually capture the payment. This is part of
+   * the PaymentProvider interface so callers don't need to branch
+   * on provider name; Stripe/PayPal implement it as a pass-through.
+   *
+   * bKash's /execute response includes the trxID (not the same as
+   * paymentID). We cache it in-memory keyed on paymentID so the
+   * later refund() call can look it up without requiring callers
+   * to persist the trxID themselves.
    */
-  async executePayment(paymentId: string): Promise<PaymentInfo> {
+  async capturePayment(paymentId: string): Promise<PaymentInfo> {
     const res = await this.bkashApi('/tokenized/checkout/execute', {
       paymentID: paymentId,
     });
+    if (res.trxID) {
+      this.trxIdByPaymentId.set(paymentId, res.trxID);
+    }
     return {
       paymentId: res.paymentID ?? paymentId,
       status: res.transactionStatus === 'Completed' ? 'succeeded' : 'pending',
@@ -215,6 +234,9 @@ export class BkashProvider implements PaymentProvider {
       const res = await this.bkashApi('/tokenized/checkout/payment/status', {
         paymentID: paymentId,
       });
+      if (res.trxID) {
+        this.trxIdByPaymentId.set(paymentId, res.trxID);
+      }
       return {
         paymentId: res.paymentID ?? paymentId,
         status: this.mapStatus(res.transactionStatus),
@@ -232,16 +254,33 @@ export class BkashProvider implements PaymentProvider {
   }
 
   async refund(input: RefundInput): Promise<RefundResult> {
-    // bKash refund needs the trxID, which the provider returns
-    // from execute/status. For a first pass, we accept the
-    // payment_id (sessionId) AS the trxID — real integrations
-    // should store the trxID separately.
+    // bKash refund requires trxID, which is DIFFERENT from paymentID.
+    // trxID is returned by /execute and /payment/status. We cache
+    // it in trxIdByPaymentId; if we haven't seen it yet, fetch the
+    // status first so the refund call gets the right id.
+    let trxId = this.trxIdByPaymentId.get(input.paymentId);
+    if (!trxId) {
+      const status = await this.bkashApi(
+        '/tokenized/checkout/payment/status',
+        { paymentID: input.paymentId },
+      );
+      trxId = status.trxID;
+      if (!trxId) {
+        throw new Error(
+          `bKash refund failed: unable to resolve trxID for paymentID=${input.paymentId}. ` +
+            `The payment may not have been executed (capturePayment) yet.`,
+        );
+      }
+      this.trxIdByPaymentId.set(input.paymentId, trxId);
+    }
+
     const res = await this.bkashApi('/tokenized/checkout/payment/refund', {
       paymentID: input.paymentId,
-      amount: input.amount !== undefined
-        ? (input.amount / 100).toFixed(2)
-        : undefined,
-      trxID: input.paymentId,
+      amount:
+        input.amount !== undefined
+          ? (input.amount / 100).toFixed(2)
+          : undefined,
+      trxID: trxId,
       sku: 'refund',
       reason: input.reason ?? 'Customer refund',
     });

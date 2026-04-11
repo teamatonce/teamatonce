@@ -772,6 +772,80 @@ async function main(): Promise<void> {
     }
   }
 
+  // 10b. bkash capturePayment captures trxID, refund uses it
+  console.log(
+    '\n10b. bkash capturePayment caches trxID; refund sends trxID ≠ paymentID',
+  );
+  {
+    installMockFetch((url) => {
+      if (url.includes('/tokenized/checkout/token/grant')) {
+        return {
+          status: 200,
+          body: {
+            id_token: 'bkash-tok',
+            expires_in: 3600,
+            statusCode: '0000',
+          },
+        };
+      }
+      if (url.includes('/tokenized/checkout/execute')) {
+        return {
+          status: 200,
+          body: {
+            paymentID: 'TR0011PAYMENT',
+            trxID: 'CAPTUREDTRX999',
+            transactionStatus: 'Completed',
+            amount: '500.00',
+            statusCode: '0000',
+          },
+        };
+      }
+      if (url.includes('/tokenized/checkout/payment/refund')) {
+        return {
+          status: 200,
+          body: {
+            refundTrxID: 'REFUND-1',
+            amount: '500.00',
+            transactionStatus: 'Completed',
+            statusCode: '0000',
+          },
+        };
+      }
+      return { status: 404, body: {} };
+    });
+    try {
+      const p = createPaymentProvider(
+        fakeConfig({
+          PAYMENT_PROVIDER: 'bkash',
+          BKASH_APP_KEY: 'appkey',
+          BKASH_APP_SECRET: 'appsecret',
+          BKASH_USERNAME: 'user',
+          BKASH_PASSWORD: 'pass',
+        }),
+      );
+      // Step 1: capturePayment is part of the interface and works.
+      const info = await p.capturePayment('TR0011PAYMENT');
+      ok(info.status === 'succeeded');
+      ok(info.provider === 'bkash');
+
+      // Step 2: refund uses the cached trxID, not the paymentID.
+      await p.refund({ paymentId: 'TR0011PAYMENT', amount: 50000 });
+      const refundCall = fetchCalls.find((c) =>
+        c.url.includes('/tokenized/checkout/payment/refund'),
+      );
+      ok(!!refundCall);
+      ok(refundCall!.body.paymentID === 'TR0011PAYMENT');
+      ok(refundCall!.body.trxID === 'CAPTUREDTRX999');
+      ok(refundCall!.body.trxID !== refundCall!.body.paymentID);
+      console.log(
+        `  ✅ capturePayment ok, refund uses trxID (${refundCall!.body.trxID}) ≠ paymentID`,
+      );
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+  }
+
   // 11. Planned providers fall back to none
   console.log('\n11. razorpay / mollie / etc fall back to none');
   {

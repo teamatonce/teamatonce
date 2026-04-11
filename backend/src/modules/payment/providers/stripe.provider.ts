@@ -220,6 +220,19 @@ export class StripeProvider implements PaymentProvider {
     };
   }
 
+  /**
+   * Stripe hosted checkout auto-captures on checkout.session.completed.
+   * This method is a pass-through to getPayment so callers can use
+   * the uniform PaymentProvider.capturePayment shape without branching.
+   */
+  async capturePayment(paymentId: string): Promise<PaymentInfo> {
+    const info = await this.getPayment(paymentId);
+    if (!info) {
+      throw new Error(`Stripe payment ${paymentId} not found`);
+    }
+    return info;
+  }
+
   async refund(input: RefundInput): Promise<RefundResult> {
     const body: Record<string, any> = { payment_intent: input.paymentId };
     if (input.amount !== undefined) body.amount = input.amount;

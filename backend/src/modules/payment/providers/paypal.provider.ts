@@ -237,6 +237,19 @@ export class PayPalProvider implements PaymentProvider {
     }
   }
 
+  /**
+   * PayPal hosted checkout auto-captures on PAYMENT.CAPTURE.COMPLETED.
+   * capturePayment is a pass-through to getPayment so callers can use
+   * the uniform PaymentProvider interface without branching.
+   */
+  async capturePayment(paymentId: string): Promise<PaymentInfo> {
+    const info = await this.getPayment(paymentId);
+    if (!info) {
+      throw new Error(`PayPal payment ${paymentId} not found`);
+    }
+    return info;
+  }
+
   async refund(input: RefundInput): Promise<RefundResult> {
     // PayPal refunds happen against a capture id, not the order id.
     // Look up the order first to find the capture id.

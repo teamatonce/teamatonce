@@ -199,6 +199,17 @@ export interface PaymentProvider {
    */
   getPayment(paymentId: string): Promise<PaymentInfo | null>;
 
+  /**
+   * Finalize a payment that requires a second confirm step after
+   * the customer returns from hosted checkout (e.g. bKash's
+   * /execute call after the redirect back with ?paymentID=...).
+   * For providers whose hosted checkout auto-captures (Stripe,
+   * PayPal), this is a pass-through that returns the current
+   * payment status — so callers can always route through it
+   * without branching on provider name.
+   */
+  capturePayment(paymentId: string): Promise<PaymentInfo>;
+
   /** Refund a previously-captured payment. */
   refund(input: RefundInput): Promise<RefundResult>;
 

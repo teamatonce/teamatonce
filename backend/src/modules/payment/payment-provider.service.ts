@@ -56,6 +56,10 @@ export class PaymentProviderService implements OnModuleInit {
     return this.provider.getPayment(paymentId);
   }
 
+  async capturePayment(paymentId: string): Promise<PaymentInfo> {
+    return this.provider.capturePayment(paymentId);
+  }
+
   async refund(input: RefundInput): Promise<RefundResult> {
     return this.provider.refund(input);
   }

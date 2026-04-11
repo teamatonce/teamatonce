@@ -43,6 +43,9 @@ export class NonePaymentProvider implements PaymentProvider {
   async getPayment(_paymentId: string): Promise<PaymentInfo | null> {
     return null;
   }
+  async capturePayment(_paymentId: string): Promise<PaymentInfo> {
+    return this.fail('capturePayment');
+  }
   async refund(_input: RefundInput): Promise<RefundResult> {
     return this.fail('refund');
   }
