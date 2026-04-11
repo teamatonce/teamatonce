@@ -80,6 +80,9 @@
     "stripe": "^22.0.1",
     "uuid": "^11.1.0"
   },
+  "optionalDependencies": {
+    "web-push": "^3.6.7"
+  },
   "devDependencies": {
     "@nestjs/cli": "^11.0.14",
     "@nestjs/schematics": "^11.0.7",
