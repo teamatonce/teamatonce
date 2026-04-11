@@ -239,17 +239,31 @@ export class StripeProvider implements PaymentProvider {
     };
   }
 
+  // Stripe recommends rejecting events whose timestamp is older than
+  // 5 minutes to block replay attacks using a captured signed payload.
+  private static readonly WEBHOOK_TOLERANCE_SECONDS = 300;
+
   async parseWebhook(
     rawBody: string,
     signature?: string,
   ): Promise<WebhookEvent | null> {
     // Stripe uses Stripe-Signature header with scheme:
     //   t=<timestamp>,v1=<hmac_sha256_of_timestamp.rawBody>
-    if (this.webhookSecret && signature) {
+    //
+    // Fail-closed: if the operator configured STRIPE_WEBHOOK_SECRET we
+    // REQUIRE the signature header. An attacker who finds the webhook
+    // URL must not be able to forge events by POSTing unsigned payloads.
+    if (this.webhookSecret) {
+      if (!signature) {
+        throw new Error(
+          'Stripe webhook signature missing (STRIPE_WEBHOOK_SECRET is set). ' +
+            'Verify upstream proxy is forwarding the Stripe-Signature header.',
+        );
+      }
       const parts = Object.fromEntries(
         signature.split(',').map((s) => {
-          const [k, v] = s.split('=');
-          return [k, v];
+          const idx = s.indexOf('=');
+          return idx >= 0 ? [s.slice(0, idx), s.slice(idx + 1)] : [s, ''];
         }),
       );
       const timestamp = parts.t;
@@ -257,11 +271,33 @@ export class StripeProvider implements PaymentProvider {
       if (!timestamp || !v1) {
         throw new Error('Stripe webhook signature malformed');
       }
+
+      // Replay protection. Stripe timestamps are Unix seconds.
+      const eventTs = Number(timestamp);
+      if (!Number.isFinite(eventTs)) {
+        throw new Error('Stripe webhook timestamp not a number');
+      }
+      const now = Math.floor(Date.now() / 1000);
+      if (Math.abs(now - eventTs) > StripeProvider.WEBHOOK_TOLERANCE_SECONDS) {
+        throw new Error(
+          `Stripe webhook timestamp outside tolerance window (|now-t|=${Math.abs(now - eventTs)}s, max=${StripeProvider.WEBHOOK_TOLERANCE_SECONDS}s)`,
+        );
+      }
+
       const expected = crypto
         .createHmac('sha256', this.webhookSecret)
         .update(`${timestamp}.${rawBody}`)
         .digest('hex');
-      if (!crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(v1))) {
+
+      // timingSafeEqual throws RangeError on length mismatch — that
+      // must NOT bubble up as a 500. Length-check first and reject
+      // cleanly.
+      const expectedBuf = Buffer.from(expected, 'hex');
+      const providedBuf = Buffer.from(v1, 'hex');
+      if (
+        expectedBuf.length !== providedBuf.length ||
+        !crypto.timingSafeEqual(expectedBuf, providedBuf)
+      ) {
         throw new Error('Stripe webhook signature mismatch');
       }
     }

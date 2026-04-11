@@ -347,6 +347,44 @@ async function main(): Promise<void> {
         (e) => /signature mismatch/i.test(e.message),
       ),
     );
+
+    // Fail-closed: if webhookSecret is set, a missing signature
+    // header must throw instead of silently parsing the payload.
+    ok(
+      await expectThrow(
+        'missing signature header throws (fail-closed)',
+        () => p.parseWebhook(payload, undefined),
+        (e) => /signature missing/i.test(e.message),
+      ),
+    );
+
+    // Length-mismatch signatures must NOT bubble as RangeError
+    // from timingSafeEqual; they should be rejected cleanly.
+    ok(
+      await expectThrow(
+        'length-mismatch signature rejects cleanly',
+        () => p.parseWebhook(payload, `t=${timestamp},v1=deadbeef`),
+        (e) =>
+          /signature mismatch/i.test(e.message) &&
+          !/ERR_CRYPTO_TIMING_SAFE_EQUAL_LENGTH/i.test(e.message),
+      ),
+    );
+
+    // Replay protection: a signed payload with a 10-minute-old
+    // timestamp must be rejected (tolerance window is 5 min).
+    const staleTs = Math.floor(Date.now() / 1000) - 600;
+    const staleSigned = `${staleTs}.${payload}`;
+    const staleV1 = crypto
+      .createHmac('sha256', 'whsec_test_secret')
+      .update(staleSigned)
+      .digest('hex');
+    ok(
+      await expectThrow(
+        'stale timestamp rejected (replay protection)',
+        () => p.parseWebhook(payload, `t=${staleTs},v1=${staleV1}`),
+        (e) => /tolerance/i.test(e.message),
+      ),
+    );
   }
 
   // 7. paypal without creds → unavailable
