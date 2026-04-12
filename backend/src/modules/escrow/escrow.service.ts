@@ -14,6 +14,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationType, NotificationPriority } from '../notifications/dto';
 import { TeamAtOnceGateway } from '../../websocket/teamatonce.gateway';
 import { StripeConnectService } from './stripe-connect.service';
+import { InvoicingService } from '../invoicing/invoicing.service';
 
 /**
  * Escrow Service
@@ -54,6 +55,8 @@ export class EscrowService {
     @Inject(forwardRef(() => TeamAtOnceGateway))
     private readonly teamAtOnceGateway: TeamAtOnceGateway,
     private readonly stripeConnect: StripeConnectService,
+    @Inject(forwardRef(() => InvoicingService))
+    private readonly invoicingService: InvoicingService,
   ) {
     // Load configuration from environment variables
     this.PLATFORM_FEE_PERCENT = this.config.get<number>('PLATFORM_FEE_PERCENT', 0);
@@ -670,6 +673,15 @@ export class EscrowService {
       }
     } catch (error) {
       this.logger.error(`Failed to send payment released notification: ${error.message}`);
+    }
+
+    // Auto-generate invoice after successful escrow release
+    try {
+      await this.invoicingService.generateInvoice(payment.id, milestoneId);
+      this.logger.log(`Invoice generated for payment ${payment.id}, milestone ${milestoneId}`);
+    } catch (error) {
+      this.logger.error(`Failed to generate invoice: ${error.message}`);
+      // Non-blocking: invoice generation failure should not block the release flow
     }
 
     return {

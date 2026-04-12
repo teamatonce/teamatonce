@@ -2049,5 +2049,66 @@ export const schema = {
       { columns: ['email'], unique: true },
       { columns: ['reason'] }
     ]
+  },
+
+  // ============================================
+  // INVOICING & TAX DOCUMENTS
+  // ============================================
+
+  invoices: {
+    columns: [
+      { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
+      { name: 'invoice_number', type: 'string', nullable: false }, // UNIQUE, sequential: INV-2026-00001
+      { name: 'project_id', type: 'uuid', nullable: false },
+      { name: 'milestone_id', type: 'uuid', nullable: true },
+      { name: 'payment_id', type: 'uuid', nullable: true },
+      { name: 'client_id', type: 'string', nullable: false }, // payer user ID
+      { name: 'contractor_id', type: 'string', nullable: false }, // payee user ID
+      { name: 'amount', type: 'numeric', nullable: false },
+      { name: 'currency', type: 'string', default: 'USD' },
+      { name: 'tax_amount', type: 'numeric', default: 0 },
+      { name: 'tax_withholding_percent', type: 'numeric', default: 0 },
+      { name: 'issue_date', type: 'timestamptz', default: 'now()' },
+      { name: 'due_date', type: 'timestamptz', nullable: true },
+      { name: 'paid_at', type: 'timestamptz', nullable: true },
+      { name: 'status', type: 'string', default: 'paid' }, // draft, sent, paid, cancelled
+      { name: 'line_items', type: 'jsonb', default: '[]' },
+      { name: 'client_details', type: 'jsonb', default: '{}' },
+      { name: 'contractor_details', type: 'jsonb', default: '{}' },
+      { name: 'payment_method', type: 'string', nullable: true },
+      { name: 'payment_reference', type: 'string', nullable: true }, // Stripe charge ID
+      { name: 'notes', type: 'text', nullable: true },
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+    ],
+    indexes: [
+      { columns: ['invoice_number'], unique: true },
+      { columns: ['project_id'] },
+      { columns: ['client_id'] },
+      { columns: ['contractor_id'] },
+      { columns: ['milestone_id'] },
+      { columns: ['payment_id'] },
+      { columns: ['status'] },
+      { columns: ['issue_date'] }
+    ]
+  },
+
+  contractor_tax_info: {
+    columns: [
+      { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
+      { name: 'user_id', type: 'string', nullable: false },
+      { name: 'legal_name', type: 'string', nullable: false },
+      { name: 'country', type: 'string', nullable: false },
+      { name: 'tax_id_encrypted', type: 'text', nullable: true },
+      { name: 'form_type', type: 'string', default: 'W-8BEN' }, // W-8BEN or W-9
+      { name: 'submitted_at', type: 'timestamptz', default: 'now()' },
+      { name: 'verified', type: 'boolean', default: false },
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+    ],
+    indexes: [
+      { columns: ['user_id'] },
+      { columns: ['form_type'] }
+    ]
   }
 };

@@ -10,6 +10,7 @@ import { StripeConnectService } from './stripe-connect.service';
 import { EscrowAutomationService } from './escrow-automation.service';
 import { EscrowController, EscrowWebhookController } from './escrow.controller';
 import { AuthModule } from '../auth/auth.module';
+import { InvoicingModule } from '../invoicing/invoicing.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthModule } from '../auth/auth.module';
     TeamAtOnceWebSocketModule, // Import WebSocket for real-time notifications
     ScheduleModule.forRoot(), // Enable cron jobs
     AuthModule,
+    forwardRef(() => InvoicingModule), // Import for auto-invoice generation on escrow release
   ],
   providers: [
     EscrowService,
