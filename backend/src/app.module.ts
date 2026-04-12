@@ -51,6 +51,7 @@ import { SchedulerModule } from './modules/scheduler/scheduler.module';
 import { DataEngineModule } from './modules/data-engine/data-engine.module';
 import { QdrantModule } from './modules/qdrant/qdrant.module';
 import { QueueModule } from './modules/queue/queue.module';
+import { CurrencyModule } from './modules/currency/currency.module';
 
 @Module({
   imports: [
@@ -106,6 +107,9 @@ import { QueueModule } from './modules/queue/queue.module';
     HireRequestModule,
     SchedulerModule,
     DataEngineModule,
+
+    // Multi-currency support
+    CurrencyModule,
 
     // Infrastructure modules (Global)
     QdrantModule,
