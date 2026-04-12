@@ -4,6 +4,9 @@ import { AuthService } from './auth.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { RequireMfaGuard } from './guards/require-mfa.guard';
+import { MfaService } from './mfa/mfa.service';
+import { MfaController } from './mfa/mfa.controller';
 
 @Module({
   imports: [
@@ -19,11 +22,13 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
       inject: [ConfigService],
     }),
   ],
-  controllers: [AuthController],
+  controllers: [AuthController, MfaController],
   providers: [
     AuthService,
+    MfaService,
     JwtAuthGuard,
+    RequireMfaGuard,
   ],
-  exports: [AuthService, JwtModule, JwtAuthGuard],
+  exports: [AuthService, MfaService, JwtModule, JwtAuthGuard, RequireMfaGuard],
 })
 export class AuthModule {}

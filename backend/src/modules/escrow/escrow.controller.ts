@@ -17,6 +17,7 @@ import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagg
 import { ConfigService } from '@nestjs/config';
 import * as Stripe from 'stripe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RequireMfaGuard } from '../auth/guards/require-mfa.guard';
 import { EscrowService } from './escrow.service';
 import { DisputeService } from './dispute.service';
 import { StripeConnectService } from './stripe-connect.service';
@@ -41,7 +42,7 @@ import {
 @ApiTags('escrow')
 @ApiBearerAuth()
 @Controller('escrow')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RequireMfaGuard)
 export class EscrowController {
   private stripe: any;
 
