@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException, BadRequestException, ConflictExcepti
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../database/database.service';
+import { MfaService } from './mfa/mfa.service';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 import {
   SocialProvider,
@@ -26,6 +27,7 @@ export class AuthService {
     private readonly db: DatabaseService,
     private jwtService: JwtService,
     private configService: ConfigService,
+    private readonly mfaService: MfaService,
   ) {
     this.logger.log('Auth service initialized');
   }
@@ -91,7 +93,7 @@ export class AuthService {
       // Use anon key client for login
       const response = await /* TODO: use AuthService */ this.db.signIn(dto.email, dto.password);
 
-      // Check if MFA is required
+      // Check if MFA is required (legacy stub — now handled below via mfaService)
       if ((response as any).mfa_required) {
         return {
           mfa_required: true,
@@ -124,6 +126,28 @@ export class AuthService {
 
       // Store the database access token for this request
       const authToken = session.token || session.access_token;
+
+      // ====== MFA CHECK ======
+      // If the user has TOTP MFA enabled, return a temporary JWT with mfaPending flag.
+      // The frontend must then call POST /auth/mfa/verify to get the real token.
+      const hasMfa = await this.mfaService.isMfaActive(user.id);
+      if (hasMfa) {
+        const mfaToken = this.jwtService.sign(
+          {
+            sub: user.id,
+            email: user.email,
+            mfaPending: true,
+          },
+          { expiresIn: '5m' }, // Short-lived — only valid long enough to submit the TOTP
+        );
+
+        return {
+          mfa_required: true,
+          accessToken: mfaToken,
+          message: 'MFA verification required. Submit your TOTP token to POST /auth/mfa/verify',
+        };
+      }
+      // ====== END MFA CHECK ======
 
       // Generate our own JWT token for the backend to validate
       // This is needed because our JwtAuthGuard validates with our secret, not database's
