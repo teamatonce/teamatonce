@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../database/database.service';
+import { ReviewsService } from '../reviews/reviews.service';
 import {
   PerformanceMetricsDto,
   DeveloperReviewDto,
@@ -13,7 +14,10 @@ import {
 
 @Injectable()
 export class DeveloperService {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(
+    private readonly db: DatabaseService,
+    private readonly reviewsService: ReviewsService,
+  ) {}
 
   /**
    * Get dashboard stats (aggregated data for developer dashboard)
@@ -719,6 +723,7 @@ export class DeveloperService {
       hourlyRate: parseFloat(memberData?.hourly_rate) || 0,
       availability: memberData?.availability_status || memberData?.availability || 'available',
       memberSince: memberData?.created_at || user?.created_at || new Date().toISOString(),
+      reputationScore: await this.reviewsService.getReputationScore(userId),
     };
   }
 

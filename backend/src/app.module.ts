@@ -47,6 +47,8 @@ import { NotesModule } from './modules/teamatonce/notes/notes.module';
 import { DeveloperModule } from './modules/teamatonce/developer/developer.module';
 import { PublicModule } from './modules/public/public.module';
 import { HireRequestModule } from './modules/teamatonce/hire-request/hire-request.module';
+import { ReviewsModule } from './modules/teamatonce/reviews/reviews.module';
+import { PortfolioModule } from './modules/portfolio/portfolio.module';
 import { SchedulerModule } from './modules/scheduler/scheduler.module';
 import { DataEngineModule } from './modules/data-engine/data-engine.module';
 import { QdrantModule } from './modules/qdrant/qdrant.module';
@@ -104,6 +106,8 @@ import { QueueModule } from './modules/queue/queue.module';
     DeveloperModule,
     PublicModule,
     HireRequestModule,
+    ReviewsModule,
+    PortfolioModule,
     SchedulerModule,
     DataEngineModule,
 

@@ -138,6 +138,8 @@ export class DeveloperProfileDto {
 
   @ApiProperty({ description: 'Member since date' })
   memberSince: string;
+  @ApiPropertyOptional({ description: 'Reputation score with trust badge' })
+  reputationScore?: any;
 }
 
 /**

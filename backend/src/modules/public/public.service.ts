@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
+import { ReviewsService } from '../teamatonce/reviews/reviews.service';
 
 /**
  * Public Service
@@ -8,7 +9,10 @@ import { DatabaseService } from '../database/database.service';
  */
 @Injectable()
 export class PublicService {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(
+    private readonly db: DatabaseService,
+    private readonly reviewsService: ReviewsService,
+  ) {}
 
   /**
    * Get featured categories for the landing page
@@ -304,6 +308,7 @@ export class PublicService {
       topRated: company.profile_top_rated || false,
       joinedDate: company.created_at,
       reviews: reviews, // Include actual reviews
+      reputationScore: await this.reviewsService.getReputationScore(primaryMember.user_id),
     };
   }
 
